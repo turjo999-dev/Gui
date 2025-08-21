@@ -1,0 +1,189 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            EasyShopGUI Configuration                         ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# Plugin Settings
+plugin:
+  # Check for updates on startup
+  check-updates: true
+  # Send usage statistics (anonymous)
+  metrics: true
+  # Debug mode for troubleshooting
+  debug: false
+  # Language file to use
+  language: "en_US"
+
+# Database Configuration
+database:
+  # Database type: SQLITE, MYSQL
+  type: "SQLITE"
+  # MySQL settings (only used if type is MYSQL)
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "easyshopgui"
+    username: "root"
+    password: "password"
+    # Connection pool settings
+    pool:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+# Economy Settings
+economy:
+  # Default currency symbol
+  currency-symbol: "$"
+  # Decimal places for prices
+  decimal-places: 2
+  # Use vault for economy
+  use-vault: true
+  # Support for multiple currencies
+  multiple-currencies:
+    enabled: false
+    currencies:
+      - name: "Coins"
+        symbol: "⚜"
+        vault-name: "coins"
+      - name: "Gems"
+        symbol: "💎"
+        vault-name: "gems"
+
+# Shop Settings
+shops:
+  # Default shop settings
+  default:
+    # Shop title
+    title: "§6§lEasy Shop"
+    # Shop size (9, 18, 27, 36, 45, 54)
+    size: 54
+    # Fill empty slots
+    fill-empty-slots: true
+    # Fill item
+    fill-item:
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+      lore: []
+  
+  # GUI Settings
+  gui:
+    # Click sound
+    click-sound: "UI_BUTTON_CLICK"
+    # Success sound
+    success-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    # Error sound
+    error-sound: "ENTITY_VILLAGER_NO"
+    # Close GUI after purchase
+    close-after-purchase: false
+    # Confirm purchases
+    confirm-purchases: true
+
+# Transaction Settings
+transactions:
+  # Log all transactions
+  log-transactions: true
+  # Transaction history limit per player
+  history-limit: 100
+  # Export format for transaction logs
+  export-format: "CSV"
+
+# Dynamic Pricing Settings
+dynamic-pricing:
+  # Enable dynamic pricing
+  enabled: false
+  # Price change percentage per transaction
+  price-change-percentage: 5.0
+  # Maximum price multiplier
+  max-price-multiplier: 3.0
+  # Minimum price multiplier
+  min-price-multiplier: 0.5
+  # Reset interval in hours
+  reset-interval: 24
+
+# Limited Stock Settings
+limited-stock:
+  # Enable limited stock
+  enabled: true
+  # Default stock amount
+  default-stock: 64
+  # Restock interval in minutes
+  restock-interval: 60
+  # Announce restocks
+  announce-restocks: true
+
+# Cron Scheduler Settings
+scheduler:
+  # Enable cron schedulers
+  enabled: true
+  # Thread pool size
+  thread-pool-size: 2
+  # Default schedules
+  schedules:
+    # Daily restock at midnight
+    daily-restock: "0 0 0 * * ?"
+    # Weekly reset on Sunday
+    weekly-reset: "0 0 0 ? * SUN"
+
+# Hook Settings
+hooks:
+  # PlaceholderAPI settings
+  placeholderapi:
+    enabled: true
+    # Custom placeholders
+    custom-placeholders: true
+  
+  # DiscordSRV settings
+  discordsrv:
+    enabled: false
+    # Channel ID for transaction logs
+    channel-id: "123456789012345678"
+    # Embed color (hex)
+    embed-color: "#00FF00"
+  
+  # Citizens NPC settings
+  citizens:
+    enabled: false
+    # Default NPC skin
+    default-skin: "Turjo"
+
+# Performance Settings
+performance:
+  # Cache settings
+  cache:
+    # Cache size
+    size: 1000
+    # Cache expiry in minutes
+    expiry: 30
+  
+  # Async operations
+  async:
+    # Use async database operations
+    database: true
+    # Use async GUI updates
+    gui-updates: true
+
+# Security Settings
+security:
+  # Anti-exploit settings
+  anti-exploit:
+    # Maximum transactions per second
+    max-transactions-per-second: 10
+    # Block rapid clicking
+    block-rapid-clicking: true
+    # Cooldown between purchases in milliseconds
+    purchase-cooldown: 1000
+
+# Backup Settings
+backup:
+  # Enable automatic backups
+  enabled: true
+  # Backup interval in hours
+  interval: 24
+  # Maximum backup files to keep
+  max-backups: 7
+  # Backup location
+  location: "plugins/EasyShopGUI/backups/"

@@ -1,0 +1,74 @@
+name: EasyShopGUI
+version: '${project.version}'
+main: dev.turjo.easyshopgui.EasyShopGUI
+api-version: 1.13
+author: Turjo
+description: Premium Minecraft Shop Plugin with Advanced Features
+website: https://github.com/turjo/EasyShopGUI
+prefix: EasyShopGUI
+
+depend:
+  - Vault
+
+softdepend:
+  - PlaceholderAPI
+  - EcoEnchants
+  - AdvancedEnchantments
+  - ExcellentEnchants
+  - CrazyEnchantments
+  - EpicSpawners
+  - UpgradeableSpawners
+
+commands:
+  shop:
+    description: Open the main shop GUI
+    usage: /<command> [shop] [player]
+    aliases: [shops, store]
+    permission: easyshopgui.use
+    permission-message: §cYou don't have permission to use this command!
+  
+  eshop:
+    description: EasyShopGUI admin commands
+    usage: /<command> <subcommand>
+    aliases: [easyshop, shopgui]
+    permission: easyshopgui.admin
+    permission-message: §cYou don't have permission to use this command!
+
+permissions:
+  easyshopgui.*:
+    description: Gives access to all EasyShopGUI features
+    default: op
+    children:
+      easyshopgui.use: true
+      easyshopgui.admin: true
+      easyshopgui.bypass: true
+      easyshopgui.discount.*: true
+      easyshopgui.multiplier.*: true
+  
+  easyshopgui.use:
+    description: Allows players to use shops
+    default: true
+  
+  easyshopgui.admin:
+    description: Allows access to admin commands
+    default: op
+  
+  easyshopgui.bypass:
+    description: Bypass all shop restrictions
+    default: op
+  
+  easyshopgui.discount.*:
+    description: All discount permissions
+    default: false
+  
+  easyshopgui.multiplier.*:
+    description: All sell multiplier permissions
+    default: false
+  
+  easyshopgui.shop.*:
+    description: Access to all shops
+    default: true
+  
+  easyshopgui.item.*:
+    description: Access to all shop items
+    default: true

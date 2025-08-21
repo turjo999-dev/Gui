@@ -1,0 +1,156 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                          EasyShopGUI Messages                               ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# Prefix for all messages
+prefix: "&8[&6EasyShopGUI&8] &r"
+
+# General Messages
+general:
+  no-permission: "&cYou don't have permission to do that!"
+  player-only: "&cThis command can only be used by players!"
+  invalid-player: "&cPlayer '{player}' not found!"
+  reload-success: "&aConfiguration reloaded successfully!"
+  reload-error: "&cError occurred while reloading configuration!"
+  command-usage: "&cUsage: {usage}"
+  invalid-number: "&cInvalid number: {input}"
+  feature-disabled: "&cThis feature is currently disabled!"
+
+# Shop Messages
+shop:
+  opened: "&aOpened shop: &6{shop}"
+  not-found: "&cShop '{shop}' not found!"
+  no-access: "&cYou don't have access to this shop!"
+  empty: "&cThis shop is currently empty!"
+  
+  # Purchase Messages
+  purchase:
+    success: "&aSuccessfully purchased &6{amount}x {item} &afor &6{price}!"
+    insufficient-funds: "&cYou don't have enough money! Required: &6{price}&c, You have: &6{balance}"
+    insufficient-space: "&cYou don't have enough inventory space!"
+    out-of-stock: "&cThis item is currently out of stock!"
+    limit-reached: "&cYou have reached the purchase limit for this item!"
+    confirm: "&eClick again to confirm purchase of &6{amount}x {item} &efor &6{price}!"
+    
+  # Sell Messages
+  sell:
+    success: "&aSuccessfully sold &6{amount}x {item} &afor &6{price}!"
+    insufficient-items: "&cYou don't have enough items to sell!"
+    cannot-sell: "&cYou cannot sell this item!"
+    limit-reached: "&cYou have reached the sell limit for this item!"
+    confirm: "&eClick again to confirm selling &6{amount}x {item} &efor &6{price}!"
+
+# GUI Messages
+gui:
+  # Navigation
+  navigation:
+    previous-page: "&ePrevious Page"
+    next-page: "&eNext Page"
+    back: "&eBack"
+    close: "&cClose"
+    
+  # Shop Item Lore
+  item:
+    buy-price: "&aBuy Price: &6{price}"
+    sell-price: "&cSell Price: &6{price}"
+    stock: "&eStock: &6{stock}"
+    unlimited-stock: "&eStock: &6Unlimited"
+    left-click-buy: "&eLeft Click: &aBuy {amount}"
+    right-click-sell: "&eRight Click: &cSell {amount}"
+    shift-click-buy-stack: "&eShift + Left Click: &aBuy Stack"
+    shift-click-sell-all: "&eShift + Right Click: &cSell All"
+    no-permission: "&cYou don't have permission!"
+    
+  # Search GUI
+  search:
+    title: "&6Search Items"
+    placeholder: "&7Type item name..."
+    no-results: "&cNo items found matching '{query}'"
+    results-found: "&aFound {count} items matching '{query}'"
+
+# Transaction Messages
+transaction:
+  logged: "&7Transaction logged: {type} {amount}x {item} for {price}"
+  history-cleared: "&aTransaction history cleared!"
+  export-success: "&aTransaction data exported to: {file}"
+  export-error: "&cError exporting transaction data!"
+
+# Economy Messages
+economy:
+  balance: "&aYour balance: &6{balance}"
+  insufficient-funds: "&cInsufficient funds! Required: &6{amount}"
+  payment-received: "&aReceived &6{amount} &afrom selling items!"
+  payment-sent: "&cPaid &6{amount} &cfor purchasing items!"
+
+# Admin Messages
+admin:
+  shop-created: "&aShop '{shop}' created successfully!"
+  shop-deleted: "&aShop '{shop}' deleted successfully!"
+  shop-edited: "&aShop '{shop}' edited successfully!"
+  item-added: "&aItem added to shop '{shop}' successfully!"
+  item-removed: "&aItem removed from shop '{shop}' successfully!"
+  item-edited: "&aItem in shop '{shop}' edited successfully!"
+  
+  # Stock Management
+  stock-set: "&aStock for '{item}' set to {amount}!"
+  stock-added: "&aAdded {amount} stock to '{item}'!"
+  stock-removed: "&aRemoved {amount} stock from '{item}'!"
+  stock-restocked: "&aAll items restocked successfully!"
+
+# Error Messages
+error:
+  database-error: "&cDatabase error occurred! Please contact an administrator."
+  file-error: "&cFile error occurred! Please check console for details."
+  economy-error: "&cEconomy error occurred! Please contact an administrator."
+  unknown-error: "&cAn unknown error occurred! Please contact an administrator."
+  
+# Update Messages
+update:
+  available: "&aNew update available: &6v{version}"
+  download-url: "&eDownload: &b{url}"
+  up-to-date: "&aYou are running the latest version!"
+  check-failed: "&cFailed to check for updates!"
+
+# Hook Messages
+hooks:
+  placeholderapi-enabled: "&aPlaceholderAPI integration enabled!"
+  discordsrv-enabled: "&aDiscordSRV integration enabled!"
+  citizens-enabled: "&aCitizens integration enabled!"
+  vault-enabled: "&aVault integration enabled!"
+  
+# Seasonal Messages
+seasonal:
+  christmas: "&c🎄 &aChristmas Sale! &c🎄"
+  halloween: "&6🎃 &eHalloween Special! &6🎃"
+  easter: "&d🐰 &bEaster Event! &d🐰"
+  summer: "&e☀ &6Summer Sale! &e☀"
+
+# Dynamic Pricing Messages
+dynamic-pricing:
+  price-increased: "&cPrice increased to &6{price} &cdue to high demand!"
+  price-decreased: "&aPrice decreased to &6{price} &adue to low demand!"
+  price-reset: "&ePrice reset to &6{price} &efor '{item}'"
+
+# Limited Stock Messages
+limited-stock:
+  restocked: "&aShop restocked! All items are now available."
+  low-stock: "&eWarning: Only {amount} '{item}' remaining!"
+  out-of-stock: "&cOut of stock: '{item}' is no longer available!"
+
+# Permission Messages
+permissions:
+  item-no-permission: "&cYou don't have permission to buy/sell this item!"
+  shop-no-permission: "&cYou don't have permission to access this shop!"
+  discount-applied: "&aDiscount applied: &6{discount}% off!"
+  multiplier-applied: "&aSell multiplier applied: &6{multiplier}x!"
+
+# Time Formats
+time:
+  seconds: "{time} second(s)"
+  minutes: "{time} minute(s)"
+  hours: "{time} hour(s)"
+  days: "{time} day(s)"
+  weeks: "{time} week(s)"
+  months: "{time} month(s)"
