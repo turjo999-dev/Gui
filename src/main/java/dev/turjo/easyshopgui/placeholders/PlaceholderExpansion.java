@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 /**
  * PlaceholderAPI expansion for EasyShopGUI
  */
-public class PlaceholderExpansion extends PlaceholderExpansion {
+public class EasyShopPlaceholderExpansion extends PlaceholderExpansion {
     
     private final EasyShopGUI plugin;
     
-    public PlaceholderExpansion(EasyShopGUI plugin) {
+    public EasyShopPlaceholderExpansion(EasyShopGUI plugin) {
         this.plugin = plugin;
     }
     

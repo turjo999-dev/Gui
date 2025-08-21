@@ -10,7 +10,7 @@ import dev.turjo.easyshopgui.listeners.PlayerListener;
 import dev.turjo.easyshopgui.listeners.GuiListener;
 import dev.turjo.easyshopgui.managers.ShopManager;
 import dev.turjo.easyshopgui.managers.TransactionManager;
-import dev.turjo.easyshopgui.placeholders.PlaceholderExpansion;
+import dev.turjo.easyshopgui.placeholders.EasyShopPlaceholderExpansion;
 import dev.turjo.easyshopgui.schedulers.CronScheduler;
 import dev.turjo.easyshopgui.utils.Logger;
 import dev.turjo.easyshopgui.utils.UpdateChecker;
@@ -116,7 +116,7 @@ public final class EasyShopGUI extends JavaPlugin {
             
             // Register PlaceholderAPI expansion
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-                new PlaceholderExpansion(this).register();
+                new EasyShopPlaceholderExpansion(this).register();
                 Logger.info("PlaceholderAPI expansion registered!");
             }
             
