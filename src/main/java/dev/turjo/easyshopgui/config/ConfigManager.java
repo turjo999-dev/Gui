@@ -39,9 +39,9 @@ public class ConfigManager {
         // Load main configuration files
         loadConfig("config.yml");
         loadConfig("messages.yml");
-        loadConfig("shops.yml");
+        loadConfig("sections.yml");
         loadConfig("items.yml");
-        loadConfig("guis.yml");
+        loadConfig("gui.yml");
         
         // Load language files
         loadLanguageFiles();
@@ -139,10 +139,10 @@ public class ConfigManager {
     }
     
     /**
-     * Get shops configuration
+     * Get sections configuration
      */
-    public FileConfiguration getShops() {
-        return getConfig("shops.yml");
+    public FileConfiguration getSections() {
+        return getConfig("sections.yml");
     }
     
     /**
@@ -153,10 +153,10 @@ public class ConfigManager {
     }
     
     /**
-     * Get GUIs configuration
+     * Get GUI configuration
      */
-    public FileConfiguration getGuis() {
-        return getConfig("guis.yml");
+    public FileConfiguration getGui() {
+        return getConfig("gui.yml");
     }
     
     /**

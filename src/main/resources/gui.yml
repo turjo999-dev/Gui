@@ -1,0 +1,223 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            EasyShopGUI GUI Configuration                    ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# GUI Configuration
+# Customize all GUI elements, layouts, and appearances
+
+main-shop:
+  title: "&6&l✦ &e&lEASY SHOP GUI &6&l✦"
+  size: 54
+  fill-empty-slots: true
+  background-item:
+    material: "BLACK_STAINED_GLASS_PANE"
+    name: " "
+  border-item:
+    material: "YELLOW_STAINED_GLASS_PANE"
+    name: " "
+  
+  # Player info display
+  player-info:
+    enabled: true
+    slot: 4
+    material: "PLAYER_HEAD"
+    name: "&6&l👤 &e&l{player_name}"
+    lore:
+      - "&7▸ &fBalance: &a${balance}"
+      - "&7▸ &fPermissions: {permissions}"
+      - "&7▸ &fDiscount: &a{discount}%"
+      - "&7▸ &fSell Multiplier: &a{sell_multiplier}x"
+  
+  # Navigation items
+  search-item:
+    enabled: true
+    slot: 37
+    material: "COMPASS"
+    name: "&b&l🔍 &e&lSEARCH ITEMS"
+    lore:
+      - "&7▸ &fQuickly find items"
+      - "&7▸ &fSearch by name or category"
+      - ""
+      - "&a&l➤ &aClick to search!"
+  
+  history-item:
+    enabled: true
+    slot: 38
+    material: "BOOK"
+    name: "&3&l📋 &e&lTRANSACTION HISTORY"
+    lore:
+      - "&7▸ &fView purchase history"
+      - "&7▸ &fTrack your spending"
+      - ""
+      - "&a&l➤ &aClick to view!"
+  
+  settings-item:
+    enabled: true
+    slot: 39
+    material: "COMPARATOR"
+    name: "&7&l⚙ &e&lSHOP SETTINGS"
+    lore:
+      - "&7▸ &fConfirm purchases: &aON"
+      - "&7▸ &fSound effects: &aON"
+      - "&7▸ &fNotifications: &aON"
+      - ""
+      - "&a&l➤ &aClick to configure!"
+  
+  quick-sell-item:
+    enabled: true
+    slot: 40
+    material: "HOPPER"
+    name: "&c&l💸 &e&lQUICK SELL"
+    lore:
+      - "&7▸ &fSell inventory items"
+      - "&7▸ &fBulk selling available"
+      - ""
+      - "&a&l➤ &aClick to sell!"
+  
+  info-item:
+    enabled: true
+    slot: 41
+    material: "PAPER"
+    name: "&e&l📄 &e&lSHOP INFORMATION"
+    lore:
+      - "&7▸ &fTotal Items: &a{total_items}"
+      - "&7▸ &fCategories: &a{total_sections}"
+      - "&7▸ &fDynamic Pricing: &aENABLED"
+      - "&7▸ &fStock System: &aENABLED"
+  
+  close-item:
+    enabled: true
+    slot: 43
+    material: "BARRIER"
+    name: "&c&l✖ &e&lCLOSE SHOP"
+    lore:
+      - "&7▸ &fClose this menu"
+      - ""
+      - "&c&l➤ &cClick to close!"
+
+section-gui:
+  title: "&6&l✦ {section_name} &6&l✦"
+  size: 54
+  fill-empty-slots: true
+  background-item:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: " "
+  
+  # Navigation items
+  back-item:
+    enabled: true
+    slot: 0
+    material: "ARROW"
+    name: "&c&l← &e&lBACK TO SHOP"
+    lore:
+      - "&7▸ &fReturn to main shop"
+      - ""
+      - "&a&l➤ &aClick to go back!"
+  
+  previous-page-item:
+    material: "SPECTRAL_ARROW"
+    name: "&e&l← &e&lPREVIOUS PAGE"
+    lore:
+      - "&7▸ &fPage {current_page} of {total_pages}"
+      - ""
+      - "&a&l➤ &aClick to go back!"
+  
+  next-page-item:
+    material: "SPECTRAL_ARROW"
+    name: "&e&l→ &e&lNEXT PAGE"
+    lore:
+      - "&7▸ &fPage {next_page} of {total_pages}"
+      - ""
+      - "&a&l➤ &aClick to continue!"
+  
+  page-info-item:
+    material: "BOOK"
+    name: "&6&l📖 &e&lPAGE INFO"
+    lore:
+      - "&7▸ &fCurrent Page: &a{current_page}"
+      - "&7▸ &fTotal Pages: &a{total_pages}"
+      - "&7▸ &fTotal Items: &a{total_items}"
+      - "&7▸ &fItems on Page: &a{items_on_page}"
+  
+  # Player info in section
+  player-info:
+    enabled: true
+    slot: 4
+    material: "PLAYER_HEAD"
+    name: "&6&l👤 &e&l{player_name}"
+    lore:
+      - "&7▸ &fBalance: &a${balance}"
+      - "&7▸ &fSection: &e{section_name}"
+      - "&7▸ &fDiscount: &a{discount}%"
+      - "&7▸ &fSell Multiplier: &a{sell_multiplier}x"
+  
+  quick-actions-item:
+    enabled: true
+    slot: 8
+    material: "EMERALD"
+    name: "&a&l💎 &e&lQUICK ACTIONS"
+    lore:
+      - "&7▸ &fAvailable actions:"
+      - "&a  • &fBuy in bulk"
+      - "&a  • &fSell inventory"
+      - "&a  • &fPrice alerts"
+      - "&a  • &fWishlist items"
+      - ""
+      - "&a&l➤ &aClick for options!"
+
+item-detail-gui:
+  title: "&6&l✦ {item_name} &6&l✦"
+  size: 45
+  fill-empty-slots: true
+  background-item:
+    material: "BLACK_STAINED_GLASS_PANE"
+    name: " "
+  border-item:
+    material: "CYAN_STAINED_GLASS_PANE"
+    name: " "
+  
+  # Main item display
+  main-item-slot: 13
+  
+  # Quantity controls
+  decrease-5-slot: 10
+  decrease-1-slot: 11
+  current-quantity-slot: 12
+  increase-1-slot: 14
+  increase-5-slot: 15
+  
+  # Quick quantity sets
+  set-16-slot: 19
+  set-32-slot: 20
+  set-64-slot: 21
+  
+  # Action buttons
+  buy-button-slot: 30
+  sell-button-slot: 32
+  quick-actions-slot: 31
+  
+  # Navigation
+  back-button-slot: 36
+  close-button-slot: 44
+  
+  # Player info
+  player-info-slot: 4
+
+# Sound Effects
+sounds:
+  enabled: true
+  click-sound: "UI_BUTTON_CLICK"
+  success-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  error-sound: "ENTITY_VILLAGER_NO"
+  page-turn-sound: "ITEM_BOOK_PAGE_TURN"
+  purchase-sound: "ENTITY_PLAYER_LEVELUP"
+  sell-sound: "ENTITY_VILLAGER_YES"
+
+# Animation Settings
+animations:
+  enabled: true
+  glow-affordable-items: true
+  pulse-expensive-items: false
+  rainbow-rare-items: true

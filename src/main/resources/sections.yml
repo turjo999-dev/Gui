@@ -1,0 +1,134 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            EasyShopGUI Sections Configuration               ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# Section Configuration
+# Each section can be enabled/disabled and fully customized
+
+sections:
+  blocks:
+    enabled: true
+    name: "Blocks"
+    display-name: "&6&l⛏ &e&lBLOCKS SECTION"
+    icon: "STONE"
+    description: "All building blocks and materials"
+    permission: "easyshopgui.section.blocks"
+    slot: 10
+    
+  tools:
+    enabled: true
+    name: "Tools & Weapons"
+    display-name: "&c&l⚔ &e&lTOOLS & WEAPONS"
+    icon: "DIAMOND_SWORD"
+    description: "Swords, axes, pickaxes and more"
+    permission: "easyshopgui.section.tools"
+    slot: 11
+    
+  armor:
+    enabled: true
+    name: "Armor"
+    display-name: "&9&l🛡 &e&lARMOR SECTION"
+    icon: "DIAMOND_CHESTPLATE"
+    description: "All armor types and protection"
+    permission: "easyshopgui.section.armor"
+    slot: 12
+    
+  food:
+    enabled: true
+    name: "Food"
+    display-name: "&6&l🍎 &e&lFOOD SECTION"
+    icon: "GOLDEN_APPLE"
+    description: "All food items and consumables"
+    permission: "easyshopgui.section.food"
+    slot: 13
+    
+  redstone:
+    enabled: true
+    name: "Redstone"
+    display-name: "&4&l⚡ &e&lREDSTONE SECTION"
+    icon: "REDSTONE"
+    description: "Redstone components and automation"
+    permission: "easyshopgui.section.redstone"
+    slot: 14
+    
+  farming:
+    enabled: true
+    name: "Farming"
+    display-name: "&2&l🌾 &e&lFARMING SECTION"
+    icon: "WHEAT"
+    description: "Seeds, crops and farming tools"
+    permission: "easyshopgui.section.farming"
+    slot: 15
+    
+  decoration:
+    enabled: true
+    name: "Decoration"
+    display-name: "&d&l🌸 &e&lDECORATION"
+    icon: "FLOWER_POT"
+    description: "Flowers, banners and decorative items"
+    permission: "easyshopgui.section.decoration"
+    slot: 16
+    
+  spawners:
+    enabled: true
+    name: "Spawners"
+    display-name: "&5&l👹 &e&lSPAWNERS"
+    icon: "SPAWNER"
+    description: "All mob spawners and related items"
+    permission: "easyshopgui.section.spawners"
+    slot: 19
+    
+  enchanted_books:
+    enabled: true
+    name: "Enchanted Books"
+    display-name: "&3&l📚 &e&lENCHANTED BOOKS"
+    icon: "ENCHANTED_BOOK"
+    description: "All enchantments and magical books"
+    permission: "easyshopgui.section.enchanted_books"
+    slot: 20
+    
+  potions:
+    enabled: true
+    name: "Potions"
+    display-name: "&8&l🧪 &e&lPOTIONS & EFFECTS"
+    icon: "POTION"
+    description: "Potions, brewing and magical effects"
+    permission: "easyshopgui.section.potions"
+    slot: 21
+    
+  rare_items:
+    enabled: true
+    name: "Rare Items"
+    display-name: "&f&l⭐ &e&lRARE ITEMS"
+    icon: "NETHER_STAR"
+    description: "Ultra rare and exclusive items"
+    permission: "easyshopgui.section.rare_items"
+    slot: 22
+    
+  seasonal:
+    enabled: true
+    name: "Seasonal"
+    display-name: "&6&l🎃 &e&lSEASONAL ITEMS"
+    icon: "JACK_O_LANTERN"
+    description: "Holiday and seasonal items"
+    permission: "easyshopgui.section.seasonal"
+    slot: 23
+    
+  custom:
+    enabled: true
+    name: "Custom Items"
+    display-name: "&c&l⚙ &e&lCUSTOM ITEMS"
+    icon: "COMMAND_BLOCK"
+    description: "Server exclusive custom items"
+    permission: "easyshopgui.section.custom"
+    slot: 24
+
+# Pagination Settings
+pagination:
+  items-per-page: 28
+  show-page-info: true
+  page-info-slot: 49
+  previous-page-slot: 45
+  next-page-slot: 53

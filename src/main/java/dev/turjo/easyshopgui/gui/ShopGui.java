@@ -75,178 +75,50 @@ public class ShopGui {
      * Add all shop sections
      */
     private void addShopSections(Inventory gui) {
-        // Blocks Section
-        gui.setItem(10, new ItemBuilder(Material.STONE)
-                .setName("&6&l⛏ &e&lBLOCKS SECTION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll building blocks",
-                        "&7▸ &fStone, Wood, Ores",
-                        "&7▸ &fDecorative blocks",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
+        // Load sections from configuration
+        for (Map.Entry<String, ShopSection> entry : plugin.getGuiManager().getSections().entrySet()) {
+            ShopSection section = entry.getValue();
+            if (!section.isEnabled()) continue;
+            
+            // Get slot from configuration or use default
+            int slot = getSlotForSection(entry.getKey());
+            
+            gui.setItem(slot, new ItemBuilder(section.getIcon())
+                    .setName(MessageUtils.colorize(section.getDisplayName()))
+                    .setLore(Arrays.asList(
+                            "&7▸ &f" + section.getDescription(),
+                            "&7▸ &fItems: &a" + section.getItems().size(),
+                            "&7▸ &fCategory: &e" + section.getName(),
+                            "",
+                            "&a&l➤ &aClick to browse!"
+                    ))
+                    .addGlow()
+                    .build());
+        }
+    }
+    
+    /**
+     * Get slot for section from configuration
+     */
+    private int getSlotForSection(String sectionId) {
+        // Default slot mapping
+        Map<String, Integer> defaultSlots = Map.of(
+                "blocks", 10,
+                "tools", 11,
+                "armor", 12,
+                "food", 13,
+                "redstone", 14,
+                "farming", 15,
+                "decoration", 16,
+                "spawners", 19,
+                "enchanted_books", 20,
+                "potions", 21,
+                "rare_items", 22,
+                "seasonal", 23,
+                "custom", 24
+        );
         
-        // Tools & Weapons Section
-        gui.setItem(11, new ItemBuilder(Material.DIAMOND_SWORD)
-                .setName("&c&l⚔ &e&lTOOLS & WEAPONS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fSwords, Axes, Pickaxes",
-                        "&7▸ &fBows, Crossbows",
-                        "&7▸ &fEnchanted gear",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Armor Section
-        gui.setItem(12, new ItemBuilder(Material.DIAMOND_CHESTPLATE)
-                .setName("&9&l🛡 &e&lARMOR SECTION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll armor types",
-                        "&7▸ &fLeather to Netherite",
-                        "&7▸ &fEnchanted armor",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Food Section
-        gui.setItem(13, new ItemBuilder(Material.GOLDEN_APPLE)
-                .setName("&6&l🍎 &e&lFOOD SECTION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll food items",
-                        "&7▸ &fPotions & Brewing",
-                        "&7▸ &fSpecial foods",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Redstone Section
-        gui.setItem(14, new ItemBuilder(Material.REDSTONE)
-                .setName("&4&l⚡ &e&lREDSTONE SECTION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fRedstone components",
-                        "&7▸ &fPistons, Repeaters",
-                        "&7▸ &fAutomation items",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Farming Section
-        gui.setItem(15, new ItemBuilder(Material.WHEAT)
-                .setName("&2&l🌾 &e&lFARMING SECTION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fSeeds & Crops",
-                        "&7▸ &fFarming tools",
-                        "&7▸ &fAnimal items",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Decoration Section
-        gui.setItem(16, new ItemBuilder(Material.FLOWER_POT)
-                .setName("&d&l🌸 &e&lDECORATION")
-                .setLore(Arrays.asList(
-                        "&7▸ &fFlowers & Plants",
-                        "&7▸ &fDecorative blocks",
-                        "&7▸ &fBanners & Paintings",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Spawners Section (Premium)
-        gui.setItem(19, new ItemBuilder(Material.SPAWNER)
-                .setName("&5&l👹 &e&lSPAWNERS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll mob spawners",
-                        "&7▸ &fCustom spawners",
-                        "&7▸ &fUpgradeable spawners",
-                        "",
-                        "&5&l⭐ &dPREMIUM SECTION",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Enchanted Books Section
-        gui.setItem(20, new ItemBuilder(Material.ENCHANTED_BOOK)
-                .setName("&3&l📚 &e&lENCHANTED BOOKS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll enchantments",
-                        "&7▸ &fCustom enchants",
-                        "&7▸ &fRare enchantments",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Potions Section
-        gui.setItem(21, new ItemBuilder(Material.POTION)
-                .setName("&8&l🧪 &e&lPOTIONS & EFFECTS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fAll potion types",
-                        "&7▸ &fSplash potions",
-                        "&7▸ &fLingering potions",
-                        "",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Rare Items Section
-        gui.setItem(22, new ItemBuilder(Material.NETHER_STAR)
-                .setName("&f&l⭐ &e&lRARE ITEMS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fNether stars",
-                        "&7▸ &fDragon eggs",
-                        "&7▸ &fSpecial items",
-                        "",
-                        "&5&l⭐ &dEXCLUSIVE SECTION",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Seasonal Section
-        gui.setItem(23, new ItemBuilder(Material.JACK_O_LANTERN)
-                .setName("&6&l🎃 &e&lSEASONAL ITEMS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fHoliday items",
-                        "&7▸ &fSeasonal decorations",
-                        "&7▸ &fLimited time offers",
-                        "",
-                        "&6&l🎉 &eEVENT SECTION",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Custom Items Section
-        gui.setItem(24, new ItemBuilder(Material.COMMAND_BLOCK)
-                .setName("&c&l⚙ &e&lCUSTOM ITEMS")
-                .setLore(Arrays.asList(
-                        "&7▸ &fServer custom items",
-                        "&7▸ &fPlugin items",
-                        "&7▸ &fUnique gear",
-                        "",
-                        "&c&l⚡ &cSERVER EXCLUSIVE",
-                        "&a&l➤ &aClick to browse!"
-                ))
-                .addGlow()
-                .build());
+        return defaultSlots.getOrDefault(sectionId, 10);
     }
     
     /**

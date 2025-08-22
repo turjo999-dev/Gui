@@ -1,7 +1,7 @@
 package dev.turjo.easyshopgui.gui;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
-import dev.turjo.easyshopgui.data.ShopData;
+import dev.turjo.easyshopgui.data.ShopDataLoader;
 import dev.turjo.easyshopgui.models.ShopSection;
 import org.bukkit.entity.Player;
 
@@ -17,7 +17,22 @@ public class GuiManager {
     
     public GuiManager(EasyShopGUI plugin) {
         this.plugin = plugin;
-        this.sections = ShopData.createDefaultSections();
+        this.sections = loadSections();
+    }
+    
+    /**
+     * Load sections from configuration
+     */
+    private Map<String, ShopSection> loadSections() {
+        ShopDataLoader loader = new ShopDataLoader(plugin);
+        return loader.loadSections();
+    }
+    
+    /**
+     * Reload sections from configuration
+     */
+    public void reloadSections() {
+        this.sections = loadSections();
     }
     
     /**
