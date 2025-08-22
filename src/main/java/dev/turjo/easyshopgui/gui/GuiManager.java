@@ -5,6 +5,7 @@ import dev.turjo.easyshopgui.data.ShopDataLoader;
 import dev.turjo.easyshopgui.models.ShopSection;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -18,7 +18,6 @@ public class ShopSection {
     private String permission;
     private boolean enabled;
     private String description;
-    private String description;
     
     public ShopSection(String id, String name, String displayName, Material icon) {
         this.id = id;
