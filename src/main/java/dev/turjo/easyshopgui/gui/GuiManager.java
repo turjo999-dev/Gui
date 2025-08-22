@@ -13,7 +13,7 @@ import java.util.Map;
 public class GuiManager {
     
     private final EasyShopGUI plugin;
-    private final Map<String, ShopSection> sections;
+    private Map<String, ShopSection> sections;
     
     public GuiManager(EasyShopGUI plugin) {
         this.plugin = plugin;
@@ -32,7 +32,8 @@ public class GuiManager {
      * Reload sections from configuration
      */
     public void reloadSections() {
-        this.sections = loadSections();
+        this.sections.clear();
+        this.sections.putAll(loadSections());
     }
     
     /**

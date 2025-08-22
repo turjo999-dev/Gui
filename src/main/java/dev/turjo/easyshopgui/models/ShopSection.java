@@ -17,6 +17,7 @@ public class ShopSection {
     private List<ShopItem> items;
     private String permission;
     private boolean enabled;
+    private String description;
     
     public ShopSection(String id, String name, String displayName, Material icon) {
         this.id = id;
@@ -72,4 +73,7 @@ public class ShopSection {
     
     public boolean isEnabled() { return enabled; }
     public void setEnabled(boolean enabled) { this.enabled = enabled; }
+    
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }

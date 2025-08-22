@@ -12,7 +12,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Main shop GUI with all sections
@@ -76,7 +77,8 @@ public class ShopGui {
      */
     private void addShopSections(Inventory gui) {
         // Load sections from configuration
-        for (Map.Entry<String, ShopSection> entry : plugin.getGuiManager().getSections().entrySet()) {
+        Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        for (Map.Entry<String, ShopSection> entry : sections.entrySet()) {
             ShopSection section = entry.getValue();
             if (!section.isEnabled()) continue;
             
@@ -102,21 +104,14 @@ public class ShopGui {
      */
     private int getSlotForSection(String sectionId) {
         // Default slot mapping
-        Map<String, Integer> defaultSlots = Map.of(
-                "blocks", 10,
-                "tools", 11,
-                "armor", 12,
-                "food", 13,
-                "redstone", 14,
-                "farming", 15,
-                "decoration", 16,
-                "spawners", 19,
-                "enchanted_books", 20,
-                "potions", 21,
-                "rare_items", 22,
-                "seasonal", 23,
-                "custom", 24
-        );
+        Map<String, Integer> defaultSlots = new HashMap<>();
+        defaultSlots.put("blocks", 10);
+        defaultSlots.put("ores", 11);
+        defaultSlots.put("food", 12);
+        defaultSlots.put("redstone", 13);
+        defaultSlots.put("farming", 14);
+        defaultSlots.put("decoration", 15);
+        defaultSlots.put("potions", 16);
         
         return defaultSlots.getOrDefault(sectionId, 10);
     }
