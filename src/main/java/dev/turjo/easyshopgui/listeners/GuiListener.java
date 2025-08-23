@@ -63,10 +63,8 @@ public class GuiListener implements Listener {
         // Section navigation
         if (itemName.contains("BLOCKS SECTION")) {
             plugin.getGuiManager().openSection(player, "blocks");
-        } else if (itemName.contains("TOOLS & WEAPONS")) {
-            plugin.getGuiManager().openSection(player, "tools");
-        } else if (itemName.contains("ARMOR SECTION")) {
-            plugin.getGuiManager().openSection(player, "armor");
+        } else if (itemName.contains("ORES & MINERALS")) {
+            plugin.getGuiManager().openSection(player, "ores");
         } else if (itemName.contains("FOOD SECTION")) {
             plugin.getGuiManager().openSection(player, "food");
         } else if (itemName.contains("REDSTONE SECTION")) {
@@ -75,24 +73,22 @@ public class GuiListener implements Listener {
             plugin.getGuiManager().openSection(player, "farming");
         } else if (itemName.contains("DECORATION")) {
             plugin.getGuiManager().openSection(player, "decoration");
-        } else if (itemName.contains("SPAWNERS")) {
-            plugin.getGuiManager().openSection(player, "spawners");
-        } else if (itemName.contains("ENCHANTED BOOKS")) {
-            plugin.getGuiManager().openSection(player, "enchanted_books");
         } else if (itemName.contains("POTIONS & EFFECTS")) {
             plugin.getGuiManager().openSection(player, "potions");
-        } else if (itemName.contains("RARE ITEMS")) {
-            plugin.getGuiManager().openSection(player, "rare_items");
         }
         // Utility functions
         else if (itemName.contains("SEARCH ITEMS")) {
-            player.sendMessage("§e🔍 Search feature coming soon!");
+            // Open search GUI
+            new dev.turjo.easyshopgui.gui.SearchGui(plugin, player).open();
         } else if (itemName.contains("TRANSACTION HISTORY")) {
-            player.sendMessage("§3📋 Transaction history coming soon!");
+            // Open transaction history GUI
+            new dev.turjo.easyshopgui.gui.TransactionHistoryGui(plugin, player).open();
         } else if (itemName.contains("SHOP SETTINGS")) {
-            player.sendMessage("§7⚙ Shop settings coming soon!");
+            // Open shop settings GUI
+            new dev.turjo.easyshopgui.gui.ShopSettingsGui(plugin, player).open();
         } else if (itemName.contains("QUICK SELL")) {
-            player.sendMessage("§c💸 Quick sell feature coming soon!");
+            // Open quick sell GUI
+            new dev.turjo.easyshopgui.gui.QuickSellGui(plugin, player).open();
         } else if (itemName.contains("CLOSE SHOP")) {
             player.closeInventory();
         }

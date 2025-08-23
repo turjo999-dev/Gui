@@ -1,0 +1,350 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            Blocks Section Configuration                      ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "blocks"
+  name: "Blocks"
+  display-name: "&6&l⛏ &e&lBLOCKS SECTION"
+  icon: "STONE"
+  description: "All building blocks and construction materials"
+  permission: "easyshopgui.section.blocks"
+  enabled: true
+
+items:
+  # Basic Building Blocks
+  stone:
+    material: "STONE"
+    name: "&7Stone"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Basic building stone"
+    
+  cobblestone:
+    material: "COBBLESTONE"
+    name: "&7Cobblestone"
+    buy-price: 0.8
+    sell-price: 0.4
+    stock: -1
+    description: "Rough stone block"
+    
+  dirt:
+    material: "DIRT"
+    name: "&6Dirt"
+    buy-price: 0.5
+    sell-price: 0.2
+    stock: -1
+    description: "Basic earth block"
+    
+  grass_block:
+    material: "GRASS_BLOCK"
+    name: "&aGrass Block"
+    buy-price: 1.2
+    sell-price: 0.6
+    stock: -1
+    description: "Natural grass block"
+    
+  sand:
+    material: "SAND"
+    name: "&eSand"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Fine sand particles"
+    
+  gravel:
+    material: "GRAVEL"
+    name: "&7Gravel"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Loose stone particles"
+    
+  # Wood Types
+  oak_log:
+    material: "OAK_LOG"
+    name: "&6Oak Log"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Sturdy oak wood"
+    
+  birch_log:
+    material: "BIRCH_LOG"
+    name: "&fBirch Log"
+    buy-price: 2.2
+    sell-price: 1.1
+    stock: -1
+    description: "Light birch wood"
+    
+  spruce_log:
+    material: "SPRUCE_LOG"
+    name: "&2Spruce Log"
+    buy-price: 2.1
+    sell-price: 1.05
+    stock: -1
+    description: "Dark spruce wood"
+    
+  jungle_log:
+    material: "JUNGLE_LOG"
+    name: "&aJungle Log"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Exotic jungle wood"
+    
+  acacia_log:
+    material: "ACACIA_LOG"
+    name: "&6Acacia Log"
+    buy-price: 2.3
+    sell-price: 1.15
+    stock: -1
+    description: "Orange acacia wood"
+    
+  dark_oak_log:
+    material: "DARK_OAK_LOG"
+    name: "&8Dark Oak Log"
+    buy-price: 2.4
+    sell-price: 1.2
+    stock: -1
+    description: "Dark oak wood"
+    
+  # Planks
+  oak_planks:
+    material: "OAK_PLANKS"
+    name: "&6Oak Planks"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Processed oak planks"
+    
+  birch_planks:
+    material: "BIRCH_PLANKS"
+    name: "&fBirch Planks"
+    buy-price: 1.6
+    sell-price: 0.8
+    stock: -1
+    description: "Processed birch planks"
+    
+  spruce_planks:
+    material: "SPRUCE_PLANKS"
+    name: "&2Spruce Planks"
+    buy-price: 1.55
+    sell-price: 0.775
+    stock: -1
+    description: "Processed spruce planks"
+    
+  jungle_planks:
+    material: "JUNGLE_PLANKS"
+    name: "&aJungle Planks"
+    buy-price: 1.8
+    sell-price: 0.9
+    stock: -1
+    description: "Processed jungle planks"
+    
+  acacia_planks:
+    material: "ACACIA_PLANKS"
+    name: "&6Acacia Planks"
+    buy-price: 1.7
+    sell-price: 0.85
+    stock: -1
+    description: "Processed acacia planks"
+    
+  dark_oak_planks:
+    material: "DARK_OAK_PLANKS"
+    name: "&8Dark Oak Planks"
+    buy-price: 1.75
+    sell-price: 0.875
+    stock: -1
+    description: "Processed dark oak planks"
+    
+  # Glass and Decorative
+  glass:
+    material: "GLASS"
+    name: "&fGlass"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Transparent glass block"
+    
+  sandstone:
+    material: "SANDSTONE"
+    name: "&eSandstone"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Compressed sand block"
+    
+  # Wool Colors
+  white_wool:
+    material: "WHITE_WOOL"
+    name: "&fWhite Wool"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Soft white wool"
+    
+  red_wool:
+    material: "RED_WOOL"
+    name: "&cRed Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant red wool"
+    
+  blue_wool:
+    material: "BLUE_WOOL"
+    name: "&9Blue Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Deep blue wool"
+    
+  green_wool:
+    material: "GREEN_WOOL"
+    name: "&2Green Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Natural green wool"
+    
+  yellow_wool:
+    material: "YELLOW_WOOL"
+    name: "&eYellow Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright yellow wool"
+    
+  orange_wool:
+    material: "ORANGE_WOOL"
+    name: "&6Orange Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant orange wool"
+    
+  purple_wool:
+    material: "PURPLE_WOOL"
+    name: "&5Purple Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Royal purple wool"
+    
+  pink_wool:
+    material: "PINK_WOOL"
+    name: "&dPink Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Soft pink wool"
+    
+  black_wool:
+    material: "BLACK_WOOL"
+    name: "&8Black Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Dark black wool"
+    
+  gray_wool:
+    material: "GRAY_WOOL"
+    name: "&7Gray Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Neutral gray wool"
+    
+  light_gray_wool:
+    material: "LIGHT_GRAY_WOOL"
+    name: "&7Light Gray Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Light gray wool"
+    
+  cyan_wool:
+    material: "CYAN_WOOL"
+    name: "&3Cyan Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright cyan wool"
+    
+  magenta_wool:
+    material: "MAGENTA_WOOL"
+    name: "&dMagenta Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant magenta wool"
+    
+  lime_wool:
+    material: "LIME_WOOL"
+    name: "&aLime Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright lime wool"
+    
+  brown_wool:
+    material: "BROWN_WOOL"
+    name: "&6Brown Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Natural brown wool"
+    
+  # Concrete
+  white_concrete:
+    material: "WHITE_CONCRETE"
+    name: "&fWhite Concrete"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Solid white concrete"
+    
+  red_concrete:
+    material: "RED_CONCRETE"
+    name: "&cRed Concrete"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Solid red concrete"
+    
+  blue_concrete:
+    material: "BLUE_CONCRETE"
+    name: "&9Blue Concrete"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Solid blue concrete"
+    
+  green_concrete:
+    material: "GREEN_CONCRETE"
+    name: "&2Green Concrete"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Solid green concrete"
+    
+  # Terracotta
+  terracotta:
+    material: "TERRACOTTA"
+    name: "&6Terracotta"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Hardened clay block"
+    
+  white_terracotta:
+    material: "WHITE_TERRACOTTA"
+    name: "&fWhite Terracotta"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "White glazed terracotta"

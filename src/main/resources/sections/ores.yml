@@ -1,0 +1,343 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            Ores Section Configuration                       ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "ores"
+  name: "Ores & Minerals"
+  display-name: "&7&l💎 &e&lORES & MINERALS"
+  icon: "DIAMOND_ORE"
+  description: "Raw ores, refined materials and precious gems"
+  permission: "easyshopgui.section.ores"
+  enabled: true
+
+items:
+  # Raw Ores
+  coal_ore:
+    material: "COAL_ORE"
+    name: "&8Coal Ore"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Coal-bearing stone"
+    
+  iron_ore:
+    material: "IRON_ORE"
+    name: "&7Iron Ore"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Iron-bearing stone"
+    
+  gold_ore:
+    material: "GOLD_ORE"
+    name: "&6Gold Ore"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Gold-bearing stone"
+    
+  diamond_ore:
+    material: "DIAMOND_ORE"
+    name: "&bDiamond Ore"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Precious diamond ore"
+    
+  emerald_ore:
+    material: "EMERALD_ORE"
+    name: "&aEmerald Ore"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Rare emerald ore"
+    
+  lapis_ore:
+    material: "LAPIS_ORE"
+    name: "&9Lapis Ore"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Blue lapis lazuli ore"
+    
+  redstone_ore:
+    material: "REDSTONE_ORE"
+    name: "&cRedstone Ore"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Redstone-bearing ore"
+    
+  copper_ore:
+    material: "COPPER_ORE"
+    name: "&6Copper Ore"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Copper-bearing ore"
+    
+  # Deepslate Ores
+  deepslate_coal_ore:
+    material: "DEEPSLATE_COAL_ORE"
+    name: "&8Deepslate Coal Ore"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Deep coal ore"
+    
+  deepslate_iron_ore:
+    material: "DEEPSLATE_IRON_ORE"
+    name: "&7Deepslate Iron Ore"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Deep iron ore"
+    
+  deepslate_gold_ore:
+    material: "DEEPSLATE_GOLD_ORE"
+    name: "&6Deepslate Gold Ore"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Deep gold ore"
+    
+  deepslate_diamond_ore:
+    material: "DEEPSLATE_DIAMOND_ORE"
+    name: "&bDeepslate Diamond Ore"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: -1
+    description: "Deep diamond ore"
+    
+  deepslate_emerald_ore:
+    material: "DEEPSLATE_EMERALD_ORE"
+    name: "&aDeepslate Emerald Ore"
+    buy-price: 180.0
+    sell-price: 90.0
+    stock: -1
+    description: "Deep emerald ore"
+    
+  # Processed Materials
+  coal:
+    material: "COAL"
+    name: "&8Coal"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Fuel and crafting material"
+    
+  iron_ingot:
+    material: "IRON_INGOT"
+    name: "&7Iron Ingot"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Refined iron"
+    
+  gold_ingot:
+    material: "GOLD_INGOT"
+    name: "&6Gold Ingot"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Refined gold"
+    
+  diamond:
+    material: "DIAMOND"
+    name: "&bDiamond"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Precious gemstone"
+    
+  emerald:
+    material: "EMERALD"
+    name: "&aEmerald"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: -1
+    description: "Rare green gem"
+    
+  lapis_lazuli:
+    material: "LAPIS_LAZULI"
+    name: "&9Lapis Lazuli"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Blue dye material"
+    
+  redstone:
+    material: "REDSTONE"
+    name: "&cRedstone"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Redstone dust"
+    
+  copper_ingot:
+    material: "COPPER_INGOT"
+    name: "&6Copper Ingot"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Refined copper"
+    
+  # Nether Materials
+  netherite_scrap:
+    material: "NETHERITE_SCRAP"
+    name: "&8Netherite Scrap"
+    buy-price: 200.0
+    sell-price: 100.0
+    stock: -1
+    description: "Ancient debris fragment"
+    
+  netherite_ingot:
+    material: "NETHERITE_INGOT"
+    name: "&8Netherite Ingot"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Ultimate material"
+    
+  ancient_debris:
+    material: "ANCIENT_DEBRIS"
+    name: "&8Ancient Debris"
+    buy-price: 250.0
+    sell-price: 125.0
+    stock: -1
+    description: "Rare nether ore"
+    
+  # Mineral Blocks
+  coal_block:
+    material: "COAL_BLOCK"
+    name: "&8Coal Block"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Compressed coal block"
+    
+  iron_block:
+    material: "IRON_BLOCK"
+    name: "&7Iron Block"
+    buy-price: 108.0
+    sell-price: 54.0
+    stock: -1
+    description: "Solid iron block"
+    
+  gold_block:
+    material: "GOLD_BLOCK"
+    name: "&6Gold Block"
+    buy-price: 180.0
+    sell-price: 90.0
+    stock: -1
+    description: "Solid gold block"
+    
+  diamond_block:
+    material: "DIAMOND_BLOCK"
+    name: "&bDiamond Block"
+    buy-price: 720.0
+    sell-price: 360.0
+    stock: -1
+    description: "Solid diamond block"
+    
+  emerald_block:
+    material: "EMERALD_BLOCK"
+    name: "&aEmerald Block"
+    buy-price: 1080.0
+    sell-price: 540.0
+    stock: -1
+    description: "Solid emerald block"
+    
+  lapis_block:
+    material: "LAPIS_BLOCK"
+    name: "&9Lapis Block"
+    buy-price: 72.0
+    sell-price: 36.0
+    stock: -1
+    description: "Solid lapis block"
+    
+  redstone_block:
+    material: "REDSTONE_BLOCK"
+    name: "&cRedstone Block"
+    buy-price: 54.0
+    sell-price: 27.0
+    stock: -1
+    description: "Solid redstone block"
+    
+  copper_block:
+    material: "COPPER_BLOCK"
+    name: "&6Copper Block"
+    buy-price: 72.0
+    sell-price: 36.0
+    stock: -1
+    description: "Solid copper block"
+    
+  netherite_block:
+    material: "NETHERITE_BLOCK"
+    name: "&8Netherite Block"
+    buy-price: 9000.0
+    sell-price: 4500.0
+    stock: -1
+    description: "Ultimate storage block"
+    
+  # Raw Materials
+  raw_iron:
+    material: "RAW_IRON"
+    name: "&7Raw Iron"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Unprocessed iron"
+    
+  raw_gold:
+    material: "RAW_GOLD"
+    name: "&6Raw Gold"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Unprocessed gold"
+    
+  raw_copper:
+    material: "RAW_COPPER"
+    name: "&6Raw Copper"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Unprocessed copper"
+    
+  # Quartz
+  quartz:
+    material: "QUARTZ"
+    name: "&fQuartz"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Nether quartz crystal"
+    
+  quartz_block:
+    material: "QUARTZ_BLOCK"
+    name: "&fQuartz Block"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Polished quartz block"
+    
+  # Amethyst
+  amethyst_shard:
+    material: "AMETHYST_SHARD"
+    name: "&5Amethyst Shard"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Purple crystal shard"
+    
+  amethyst_block:
+    material: "AMETHYST_BLOCK"
+    name: "&5Amethyst Block"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Solid amethyst block"

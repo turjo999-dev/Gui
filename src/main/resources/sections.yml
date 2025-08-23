@@ -4,77 +4,26 @@
 # ║                              Developer: Turjo                               ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
-# Section Configuration
-# Each section can be enabled/disabled and fully customized
+# NOTE: Individual sections are now stored in separate files in the sections/ directory
+# This file is kept for backward compatibility and global section settings
 
-sections:
-  blocks:
-    enabled: true
-    name: "Blocks"
-    display-name: "&6&l⛏ &e&lBLOCKS SECTION"
-    icon: "STONE"
-    description: "All building blocks and materials"
-    permission: "easyshopgui.section.blocks"
-    slot: 10
-    
-  ores:
-    enabled: true
-    name: "Ores & Minerals"
-    display-name: "&7&l💎 &e&lORES & MINERALS"
-    icon: "DIAMOND_ORE"
-    description: "Raw ores and refined materials"
-    permission: "easyshopgui.section.ores"
-    slot: 11
-    
-  food:
-    enabled: true
-    name: "Food"
-    display-name: "&6&l🍎 &e&lFOOD SECTION"
-    icon: "GOLDEN_APPLE"
-    description: "All food items and consumables"
-    permission: "easyshopgui.section.food"
-    slot: 12
-    
-  redstone:
-    enabled: true
-    name: "Redstone"
-    display-name: "&4&l⚡ &e&lREDSTONE SECTION"
-    icon: "REDSTONE"
-    description: "Redstone components and automation"
-    permission: "easyshopgui.section.redstone"
-    slot: 13
-    
-  farming:
-    enabled: true
-    name: "Farming"
-    display-name: "&2&l🌾 &e&lFARMING SECTION"
-    icon: "WHEAT"
-    description: "Seeds, crops and farming tools"
-    permission: "easyshopgui.section.farming"
-    slot: 14
-    
-  decoration:
-    enabled: true
-    name: "Decoration"
-    display-name: "&d&l🌸 &e&lDECORATION"
-    icon: "FLOWER_POT"
-    description: "Flowers, banners and decorative items"
-    permission: "easyshopgui.section.decoration"
-    slot: 15
-    
-  potions:
-    enabled: true
-    name: "Potions"
-    display-name: "&8&l🧪 &e&lPOTIONS & EFFECTS"
-    icon: "POTION"
-    description: "Potions, brewing and magical effects"
-    permission: "easyshopgui.section.potions"
-    slot: 16
-
-# Pagination Settings
-pagination:
+# Global Section Settings
+global:
+  # Default items per page in section GUIs
   items-per-page: 28
+  # Show page information
   show-page-info: true
+  # GUI slot positions
   page-info-slot: 49
   previous-page-slot: 45
   next-page-slot: 53
+  
+# Section Order (determines display order in main shop)
+section-order:
+  - "blocks"
+  - "ores"
+  - "food"
+  - "redstone"
+  - "farming"
+  - "decoration"
+  - "potions"

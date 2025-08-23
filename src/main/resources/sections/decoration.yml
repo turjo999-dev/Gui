@@ -1,0 +1,416 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                        Decoration Section Configuration                     ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "decoration"
+  name: "Decoration"
+  display-name: "&d&l🌸 &e&lDECORATION"
+  icon: "FLOWER_POT"
+  description: "Flowers, banners, carpets, lighting and decorative items"
+  permission: "easyshopgui.section.decoration"
+  enabled: true
+
+items:
+  # Flowers
+  dandelion:
+    material: "DANDELION"
+    name: "&eDandelion"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Bright yellow flower"
+    
+  poppy:
+    material: "POPPY"
+    name: "&cPoppy"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Beautiful red flower"
+    
+  blue_orchid:
+    material: "BLUE_ORCHID"
+    name: "&9Blue Orchid"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Exotic blue flower"
+    
+  allium:
+    material: "ALLIUM"
+    name: "&5Allium"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Purple sphere flower"
+    
+  azure_bluet:
+    material: "AZURE_BLUET"
+    name: "&fAzure Bluet"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Small white flower"
+    
+  red_tulip:
+    material: "RED_TULIP"
+    name: "&cRed Tulip"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Classic red tulip"
+    
+  orange_tulip:
+    material: "ORANGE_TULIP"
+    name: "&6Orange Tulip"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Vibrant orange tulip"
+    
+  white_tulip:
+    material: "WHITE_TULIP"
+    name: "&fWhite Tulip"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Pure white tulip"
+    
+  pink_tulip:
+    material: "PINK_TULIP"
+    name: "&dPink Tulip"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Soft pink tulip"
+    
+  oxeye_daisy:
+    material: "OXEYE_DAISY"
+    name: "&fOxeye Daisy"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "White daisy flower"
+    
+  sunflower:
+    material: "SUNFLOWER"
+    name: "&eSunflower"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Tall yellow sunflower"
+    
+  lilac:
+    material: "LILAC"
+    name: "&dLilac"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Tall purple flower"
+    
+  rose_bush:
+    material: "ROSE_BUSH"
+    name: "&cRose Bush"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Tall red roses"
+    
+  peony:
+    material: "PEONY"
+    name: "&dPeony"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Tall pink flower"
+    
+  # Flower Pot
+  flower_pot:
+    material: "FLOWER_POT"
+    name: "&6Flower Pot"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Decorative plant container"
+    
+  # Carpets
+  white_carpet:
+    material: "WHITE_CARPET"
+    name: "&fWhite Carpet"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Soft white carpet"
+    
+  red_carpet:
+    material: "RED_CARPET"
+    name: "&cRed Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Vibrant red carpet"
+    
+  blue_carpet:
+    material: "BLUE_CARPET"
+    name: "&9Blue Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Deep blue carpet"
+    
+  green_carpet:
+    material: "GREEN_CARPET"
+    name: "&2Green Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Natural green carpet"
+    
+  yellow_carpet:
+    material: "YELLOW_CARPET"
+    name: "&eYellow Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Bright yellow carpet"
+    
+  # Banners
+  white_banner:
+    material: "WHITE_BANNER"
+    name: "&fWhite Banner"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Customizable white banner"
+    
+  red_banner:
+    material: "RED_BANNER"
+    name: "&cRed Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable red banner"
+    
+  blue_banner:
+    material: "BLUE_BANNER"
+    name: "&9Blue Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable blue banner"
+    
+  # Lighting
+  torch:
+    material: "TORCH"
+    name: "&eTorch"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Basic light source"
+    
+  lantern:
+    material: "LANTERN"
+    name: "&eLantern"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Hanging light source"
+    
+  soul_lantern:
+    material: "SOUL_LANTERN"
+    name: "&bSoul Lantern"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Blue soul light"
+    
+  soul_torch:
+    material: "SOUL_TORCH"
+    name: "&bSoul Torch"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Blue soul flame"
+    
+  glowstone:
+    material: "GLOWSTONE"
+    name: "&eGlowstone"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Bright nether light"
+    
+  sea_lantern:
+    material: "SEA_LANTERN"
+    name: "&bSea Lantern"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Ocean light source"
+    
+  # Beds
+  white_bed:
+    material: "WHITE_BED"
+    name: "&fWhite Bed"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Comfortable white bed"
+    
+  red_bed:
+    material: "RED_BED"
+    name: "&cRed Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable red bed"
+    
+  blue_bed:
+    material: "BLUE_BED"
+    name: "&9Blue Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable blue bed"
+    
+  # Signs
+  oak_sign:
+    material: "OAK_SIGN"
+    name: "&6Oak Sign"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Wooden information sign"
+    
+  birch_sign:
+    material: "BIRCH_SIGN"
+    name: "&fBirch Sign"
+    buy-price: 8.8
+    sell-price: 4.4
+    stock: -1
+    description: "Light wooden sign"
+    
+  # Item Frames
+  item_frame:
+    material: "ITEM_FRAME"
+    name: "&6Item Frame"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Display items on walls"
+    
+  glow_item_frame:
+    material: "GLOW_ITEM_FRAME"
+    name: "&eGlow Item Frame"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Glowing item display"
+    
+  # Paintings
+  painting:
+    material: "PAINTING"
+    name: "&6Painting"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Decorative wall art"
+    
+  # Armor Stands
+  armor_stand:
+    material: "ARMOR_STAND"
+    name: "&7Armor Stand"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Display armor and items"
+    
+  # Candles
+  candle:
+    material: "CANDLE"
+    name: "&eCandle"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Decorative light source"
+    
+  white_candle:
+    material: "WHITE_CANDLE"
+    name: "&fWhite Candle"
+    buy-price: 9.0
+    sell-price: 4.5
+    stock: -1
+    description: "White decorative candle"
+    
+  red_candle:
+    material: "RED_CANDLE"
+    name: "&cRed Candle"
+    buy-price: 10.125
+    sell-price: 5.0625
+    stock: -1
+    description: "Red decorative candle"
+    
+  # Heads
+  skeleton_skull:
+    material: "SKELETON_SKULL"
+    name: "&7Skeleton Skull"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Spooky decoration"
+    
+  zombie_head:
+    material: "ZOMBIE_HEAD"
+    name: "&2Zombie Head"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Undead decoration"
+    
+  # Bells
+  bell:
+    material: "BELL"
+    name: "&6Bell"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Village bell decoration"
+    
+  # End Rod
+  end_rod:
+    material: "END_ROD"
+    name: "&fEnd Rod"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "End dimension light"
+    
+  # Chains
+  chain:
+    material: "CHAIN"
+    name: "&7Chain"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Decorative metal chain"
+    
+  # Lectern
+  lectern:
+    material: "LECTERN"
+    name: "&6Lectern"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Book display stand"
+    
+  # Bookshelf
+  bookshelf:
+    material: "BOOKSHELF"
+    name: "&6Bookshelf"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Decorative book storage"

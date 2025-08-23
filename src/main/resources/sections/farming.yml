@@ -1,0 +1,343 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                          Farming Section Configuration                      ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "farming"
+  name: "Farming"
+  display-name: "&2&l🌾 &e&lFARMING SECTION"
+  icon: "WHEAT"
+  description: "Seeds, crops, farming tools and animal products"
+  permission: "easyshopgui.section.farming"
+  enabled: true
+
+items:
+  # Seeds
+  wheat_seeds:
+    material: "WHEAT_SEEDS"
+    name: "&eWheat Seeds"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Basic crop seeds"
+    
+  carrot:
+    material: "CARROT"
+    name: "&6Carrot"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Orange vegetable and seed"
+    
+  potato:
+    material: "POTATO"
+    name: "&6Potato"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Starchy tuber and seed"
+    
+  beetroot_seeds:
+    material: "BEETROOT_SEEDS"
+    name: "&cBeetroot Seeds"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Red vegetable seeds"
+    
+  pumpkin_seeds:
+    material: "PUMPKIN_SEEDS"
+    name: "&6Pumpkin Seeds"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Large orange fruit seeds"
+    
+  melon_seeds:
+    material: "MELON_SEEDS"
+    name: "&aMemlon Seeds"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Green fruit seeds"
+    
+  # Crops
+  wheat:
+    material: "WHEAT"
+    name: "&eWheat"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Basic grain crop"
+    
+  beetroot:
+    material: "BEETROOT"
+    name: "&cBeetroot"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Red root vegetable"
+    
+  pumpkin:
+    material: "PUMPKIN"
+    name: "&6Pumpkin"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Large orange fruit"
+    
+  melon:
+    material: "MELON"
+    name: "&aMemlon"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Green fruit block"
+    
+  # Farming Tools
+  wooden_hoe:
+    material: "WOODEN_HOE"
+    name: "&6Wooden Hoe"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Basic farming tool"
+    
+  stone_hoe:
+    material: "STONE_HOE"
+    name: "&7Stone Hoe"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Improved farming tool"
+    
+  iron_hoe:
+    material: "IRON_HOE"
+    name: "&7Iron Hoe"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Efficient farming tool"
+    
+  diamond_hoe:
+    material: "DIAMOND_HOE"
+    name: "&bDiamond Hoe"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Premium farming tool"
+    
+  netherite_hoe:
+    material: "NETHERITE_HOE"
+    name: "&8Netherite Hoe"
+    buy-price: 400.0
+    sell-price: 200.0
+    stock: -1
+    description: "Ultimate farming tool"
+    
+  # Animal Products
+  leather:
+    material: "LEATHER"
+    name: "&6Leather"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Animal hide"
+    
+  feather:
+    material: "FEATHER"
+    name: "&fFeather"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Bird feather"
+    
+  egg:
+    material: "EGG"
+    name: "&fEgg"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Chicken egg"
+    
+  milk_bucket:
+    material: "MILK_BUCKET"
+    name: "&fMilk Bucket"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Fresh cow milk"
+    
+  # Wool
+  white_wool:
+    material: "WHITE_WOOL"
+    name: "&fWhite Wool"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sheep wool"
+    
+  # Animal Feed
+  hay_block:
+    material: "HAY_BLOCK"
+    name: "&eHay Block"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Animal feed block"
+    
+  # Bone Meal
+  bone_meal:
+    material: "BONE_MEAL"
+    name: "&fBone Meal"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Crop fertilizer"
+    
+  bone:
+    material: "BONE"
+    name: "&fBone"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Skeleton bone"
+    
+  # Flowers and Dyes
+  dandelion:
+    material: "DANDELION"
+    name: "&eD andelion"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Yellow flower"
+    
+  poppy:
+    material: "POPPY"
+    name: "&cPoppy"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Red flower"
+    
+  # Saplings
+  oak_sapling:
+    material: "OAK_SAPLING"
+    name: "&2Oak Sapling"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Oak tree sapling"
+    
+  birch_sapling:
+    material: "BIRCH_SAPLING"
+    name: "&fBirch Sapling"
+    buy-price: 5.5
+    sell-price: 2.75
+    stock: -1
+    description: "Birch tree sapling"
+    
+  spruce_sapling:
+    material: "SPRUCE_SAPLING"
+    name: "&2Spruce Sapling"
+    buy-price: 5.25
+    sell-price: 2.625
+    stock: -1
+    description: "Spruce tree sapling"
+    
+  jungle_sapling:
+    material: "JUNGLE_SAPLING"
+    name: "&aJungle Sapling"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Jungle tree sapling"
+    
+  acacia_sapling:
+    material: "ACACIA_SAPLING"
+    name: "&6Acacia Sapling"
+    buy-price: 5.75
+    sell-price: 2.875
+    stock: -1
+    description: "Acacia tree sapling"
+    
+  dark_oak_sapling:
+    material: "DARK_OAK_SAPLING"
+    name: "&8Dark Oak Sapling"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Dark oak tree sapling"
+    
+  # Buckets
+  bucket:
+    material: "BUCKET"
+    name: "&7Bucket"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Empty bucket"
+    
+  water_bucket:
+    material: "WATER_BUCKET"
+    name: "&9Water Bucket"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Water-filled bucket"
+    
+  # Fishing
+  fishing_rod:
+    material: "FISHING_ROD"
+    name: "&3Fishing Rod"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Catch fish and items"
+    
+  # Shears
+  shears:
+    material: "SHEARS"
+    name: "&7Shears"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Cut wool and leaves"
+    
+  # Lead
+  lead:
+    material: "LEAD"
+    name: "&6Lead"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Animal leash"
+    
+  # Name Tag
+  name_tag:
+    material: "NAME_TAG"
+    name: "&eName Tag"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Name animals and mobs"
+    
+  # Saddle
+  saddle:
+    material: "SADDLE"
+    name: "&6Saddle"
+    buy-price: 75.0
+    sell-price: 37.5
+    stock: -1
+    description: "Ride horses and pigs"
+    
+  # Composter
+  composter:
+    material: "COMPOSTER"
+    name: "&6Composter"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Convert organic matter to bone meal"

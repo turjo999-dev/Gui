@@ -7,7 +7,9 @@ import dev.turjo.easyshopgui.utils.Logger;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,52 +30,30 @@ public class ShopDataLoader {
     public Map<String, ShopSection> loadSections() {
         Map<String, ShopSection> sections = new HashMap<>();
         
-        FileConfiguration sectionsConfig = plugin.getConfigManager().getSections();
-        FileConfiguration itemsConfig = plugin.getConfigManager().getItems();
-        
-        if (sectionsConfig == null || itemsConfig == null) {
-            Logger.error("Configuration files not found! Using default data.");
+        // Load sections from separate files
+        File sectionsDir = new File(plugin.getDataFolder(), "sections");
+        if (!sectionsDir.exists()) {
+            Logger.error("Sections directory not found! Creating default sections...");
             return ShopData.createDefaultSections();
         }
         
-        ConfigurationSection sectionsSection = sectionsConfig.getConfigurationSection("sections");
-        if (sectionsSection == null) {
-            Logger.error("No sections found in configuration!");
+        File[] sectionFiles = sectionsDir.listFiles((dir, name) -> name.endsWith(".yml"));
+        if (sectionFiles == null || sectionFiles.length == 0) {
+            Logger.error("No section files found! Creating default sections...");
             return ShopData.createDefaultSections();
         }
         
-        for (String sectionId : sectionsSection.getKeys(false)) {
-            ConfigurationSection sectionConfig = sectionsSection.getConfigurationSection(sectionId);
-            if (sectionConfig == null) continue;
-            
-            // Check if section is enabled
-            if (!sectionConfig.getBoolean("enabled", true)) {
-                Logger.debug("Section " + sectionId + " is disabled, skipping...");
-                continue;
-            }
-            
-            // Create section
-            String name = sectionConfig.getString("name", sectionId);
-            String displayName = sectionConfig.getString("display-name", name);
-            String iconName = sectionConfig.getString("icon", "STONE");
-            
-            Material icon;
+        for (File sectionFile : sectionFiles) {
             try {
-                icon = Material.valueOf(iconName.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                Logger.warn("Invalid material for section " + sectionId + ": " + iconName);
-                icon = Material.STONE;
+                FileConfiguration sectionConfig = YamlConfiguration.loadConfiguration(sectionFile);
+                ShopSection section = loadSectionFromFile(sectionConfig);
+                if (section != null) {
+                    sections.put(section.getId(), section);
+                    Logger.debug("Loaded section: " + section.getId() + " with " + section.getItems().size() + " items");
+                }
+            } catch (Exception e) {
+                Logger.error("Failed to load section file: " + sectionFile.getName() + " - " + e.getMessage());
             }
-            
-            ShopSection section = new ShopSection(sectionId, name, displayName, icon);
-            section.setDescription(sectionConfig.getString("description", ""));
-            section.setPermission(sectionConfig.getString("permission", ""));
-            
-            // Load items for this section
-            loadItemsForSection(section, itemsConfig);
-            
-            sections.put(sectionId, section);
-            Logger.debug("Loaded section: " + sectionId + " with " + section.getItems().size() + " items");
         }
         
         Logger.info("Loaded " + sections.size() + " shop sections from configuration");
@@ -81,17 +61,54 @@ public class ShopDataLoader {
     }
     
     /**
-     * Load items for a specific section
+     * Load section from individual file
      */
-    private void loadItemsForSection(ShopSection section, FileConfiguration itemsConfig) {
-        ConfigurationSection sectionItems = itemsConfig.getConfigurationSection(section.getId());
-        if (sectionItems == null) {
-            Logger.warn("No items found for section: " + section.getId());
-            return;
+    private ShopSection loadSectionFromFile(FileConfiguration config) {
+        ConfigurationSection sectionConfig = config.getConfigurationSection("section");
+        if (sectionConfig == null) {
+            Logger.error("Invalid section file format - missing 'section' configuration");
+            return null;
         }
         
-        for (String itemId : sectionItems.getKeys(false)) {
-            ConfigurationSection itemConfig = sectionItems.getConfigurationSection(itemId);
+        // Check if section is enabled
+        if (!sectionConfig.getBoolean("enabled", true)) {
+            Logger.debug("Section is disabled, skipping...");
+            return null;
+        }
+        
+        // Create section
+        String id = sectionConfig.getString("id", "unknown");
+        String name = sectionConfig.getString("name", id);
+        String displayName = sectionConfig.getString("display-name", name);
+        String iconName = sectionConfig.getString("icon", "STONE");
+        
+        Material icon;
+        try {
+            icon = Material.valueOf(iconName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            Logger.warn("Invalid material for section " + id + ": " + iconName);
+            icon = Material.STONE;
+        }
+        
+        ShopSection section = new ShopSection(id, name, displayName, icon);
+        section.setDescription(sectionConfig.getString("description", ""));
+        section.setPermission(sectionConfig.getString("permission", ""));
+        
+        // Load items
+        ConfigurationSection itemsConfig = config.getConfigurationSection("items");
+        if (itemsConfig != null) {
+            loadItemsForSection(section, itemsConfig);
+        }
+        
+        return section;
+    }
+    
+    /**
+     * Load items for a specific section
+     */
+    private void loadItemsForSection(ShopSection section, ConfigurationSection itemsConfig) {
+        for (String itemId : itemsConfig.getKeys(false)) {
+            ConfigurationSection itemConfig = itemsConfig.getConfigurationSection(itemId);
             if (itemConfig == null) continue;
             
             try {

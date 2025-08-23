@@ -104,7 +104,7 @@ public class ShopGui {
      */
     private int getSlotForSection(String sectionId) {
         // Default slot mapping
-        java.util.Map<String, Integer> defaultSlots = new HashMap<>();
+        Map<String, Integer> defaultSlots = new HashMap<>();
         defaultSlots.put("blocks", 10);
         defaultSlots.put("ores", 11);
         defaultSlots.put("food", 12);

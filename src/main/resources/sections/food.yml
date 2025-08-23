@@ -1,0 +1,330 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            Food Section Configuration                       ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "food"
+  name: "Food"
+  display-name: "&6&l🍎 &e&lFOOD SECTION"
+  icon: "GOLDEN_APPLE"
+  description: "All food items, consumables and cooking ingredients"
+  permission: "easyshopgui.section.food"
+  enabled: true
+
+items:
+  # Basic Foods
+  apple:
+    material: "APPLE"
+    name: "&cApple"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Crisp red apple"
+    
+  bread:
+    material: "BREAD"
+    name: "&6Bread"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Fresh baked bread"
+    
+  cooked_beef:
+    material: "COOKED_BEEF"
+    name: "&6Cooked Beef"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Juicy steak"
+    
+  cooked_porkchop:
+    material: "COOKED_PORKCHOP"
+    name: "&dCooked Porkchop"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Tender pork"
+    
+  cooked_chicken:
+    material: "COOKED_CHICKEN"
+    name: "&fCooked Chicken"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Roasted chicken"
+    
+  cooked_mutton:
+    material: "COOKED_MUTTON"
+    name: "&7Cooked Mutton"
+    buy-price: 7.0
+    sell-price: 3.5
+    stock: -1
+    description: "Cooked sheep meat"
+    
+  cooked_rabbit:
+    material: "COOKED_RABBIT"
+    name: "&6Cooked Rabbit"
+    buy-price: 6.5
+    sell-price: 3.25
+    stock: -1
+    description: "Cooked rabbit meat"
+    
+  # Premium Foods
+  golden_apple:
+    material: "GOLDEN_APPLE"
+    name: "&6Golden Apple"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Magical golden apple"
+    
+  enchanted_golden_apple:
+    material: "ENCHANTED_GOLDEN_APPLE"
+    name: "&6&lEnchanted Golden Apple"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Legendary healing fruit"
+    
+  golden_carrot:
+    material: "GOLDEN_CARROT"
+    name: "&6Golden Carrot"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Nutritious golden carrot"
+    
+  # Raw Materials
+  wheat:
+    material: "WHEAT"
+    name: "&eWheat"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Basic grain"
+    
+  carrot:
+    material: "CARROT"
+    name: "&6Carrot"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Orange vegetable"
+    
+  potato:
+    material: "POTATO"
+    name: "&6Potato"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Starchy tuber"
+    
+  beetroot:
+    material: "BEETROOT"
+    name: "&cBeetroot"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Red root vegetable"
+    
+  # Fish
+  cooked_cod:
+    material: "COOKED_COD"
+    name: "&fCooked Cod"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Flaky white fish"
+    
+  cooked_salmon:
+    material: "COOKED_SALMON"
+    name: "&cCooked Salmon"
+    buy-price: 7.0
+    sell-price: 3.5
+    stock: -1
+    description: "Pink salmon fillet"
+    
+  tropical_fish:
+    material: "TROPICAL_FISH"
+    name: "&eTropical Fish"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Exotic colorful fish"
+    
+  pufferfish:
+    material: "PUFFERFISH"
+    name: "&ePufferfish"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Dangerous spiky fish"
+    
+  # Sweet Treats
+  cake:
+    material: "CAKE"
+    name: "&fCake"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Delicious birthday cake"
+    
+  cookie:
+    material: "COOKIE"
+    name: "&6Cookie"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet chocolate chip cookie"
+    
+  pumpkin_pie:
+    material: "PUMPKIN_PIE"
+    name: "&6Pumpkin Pie"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Seasonal pumpkin pie"
+    
+  # Beverages
+  milk_bucket:
+    material: "MILK_BUCKET"
+    name: "&fMilk Bucket"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Fresh cow milk"
+    
+  honey_bottle:
+    material: "HONEY_BOTTLE"
+    name: "&6Honey Bottle"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Sweet bee honey"
+    
+  # Fruits
+  melon_slice:
+    material: "MELON_SLICE"
+    name: "&aMemlon Slice"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Refreshing melon"
+    
+  sweet_berries:
+    material: "SWEET_BERRIES"
+    name: "&cSweet Berries"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet forest berries"
+    
+  glow_berries:
+    material: "GLOW_BERRIES"
+    name: "&eGlow Berries"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Glowing cave berries"
+    
+  # Raw Meats
+  beef:
+    material: "BEEF"
+    name: "&cRaw Beef"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Raw beef meat"
+    
+  porkchop:
+    material: "PORKCHOP"
+    name: "&dRaw Porkchop"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Raw pork meat"
+    
+  chicken:
+    material: "CHICKEN"
+    name: "&fRaw Chicken"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Raw chicken meat"
+    
+  mutton:
+    material: "MUTTON"
+    name: "&7Raw Mutton"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Raw sheep meat"
+    
+  rabbit:
+    material: "RABBIT"
+    name: "&6Raw Rabbit"
+    buy-price: 3.25
+    sell-price: 1.625
+    stock: -1
+    description: "Raw rabbit meat"
+    
+  # Raw Fish
+  cod:
+    material: "COD"
+    name: "&fRaw Cod"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Fresh cod fish"
+    
+  salmon:
+    material: "SALMON"
+    name: "&cRaw Salmon"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Fresh salmon fish"
+    
+  # Cooking Ingredients
+  sugar:
+    material: "SUGAR"
+    name: "&fSugar"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Sweet cooking ingredient"
+    
+  egg:
+    material: "EGG"
+    name: "&fEgg"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Fresh chicken egg"
+    
+  # Mushrooms
+  brown_mushroom:
+    material: "BROWN_MUSHROOM"
+    name: "&6Brown Mushroom"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Earthy brown mushroom"
+    
+  red_mushroom:
+    material: "RED_MUSHROOM"
+    name: "&cRed Mushroom"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Bright red mushroom"
+    
+  mushroom_stew:
+    material: "MUSHROOM_STEW"
+    name: "&6Mushroom Stew"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Hearty mushroom soup"
