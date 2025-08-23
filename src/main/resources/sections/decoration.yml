@@ -414,3 +414,351 @@ items:
     sell-price: 22.5
     stock: -1
     description: "Decorative book storage"
+    
+  # More Flowers
+  cornflower:
+    material: "CORNFLOWER"
+    name: "&9Cornflower"
+    buy-price: 3.5
+    sell-price: 1.75
+    stock: -1
+    description: "Blue wildflower"
+    
+  lily_of_the_valley:
+    material: "LILY_OF_THE_VALLEY"
+    name: "&fLily of the Valley"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Delicate white flower"
+    
+  wither_rose:
+    material: "WITHER_ROSE"
+    name: "&8Wither Rose"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Dangerous dark flower"
+    
+  # Tall Grass and Ferns
+  grass:
+    material: "GRASS"
+    name: "&2Grass"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Wild grass"
+    
+  tall_grass:
+    material: "TALL_GRASS"
+    name: "&2Tall Grass"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "High wild grass"
+    
+  fern:
+    material: "FERN"
+    name: "&2Fern"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Forest fern"
+    
+  large_fern:
+    material: "LARGE_FERN"
+    name: "&2Large Fern"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Tall forest fern"
+    
+  # Dead Bush
+  dead_bush:
+    material: "DEAD_BUSH"
+    name: "&6Dead Bush"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Dried desert plant"
+    
+  # Vines
+  vine:
+    material: "VINE"
+    name: "&2Vine"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Climbing plant"
+    
+  # Lily Pad
+  lily_pad:
+    material: "LILY_PAD"
+    name: "&2Lily Pad"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Water surface plant"
+    
+  # Cactus
+  cactus:
+    material: "CACTUS"
+    name: "&2Cactus"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Desert plant"
+    
+  # Sugar Cane
+  sugar_cane:
+    material: "SUGAR_CANE"
+    name: "&2Sugar Cane"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Sweet marsh plant"
+    
+  # More Carpets
+  orange_carpet:
+    material: "ORANGE_CARPET"
+    name: "&6Orange Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Vibrant orange carpet"
+    
+  purple_carpet:
+    material: "PURPLE_CARPET"
+    name: "&5Purple Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Royal purple carpet"
+    
+  pink_carpet:
+    material: "PINK_CARPET"
+    name: "&dPink Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Soft pink carpet"
+    
+  black_carpet:
+    material: "BLACK_CARPET"
+    name: "&8Black Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Dark black carpet"
+    
+  gray_carpet:
+    material: "GRAY_CARPET"
+    name: "&7Gray Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Neutral gray carpet"
+    
+  light_gray_carpet:
+    material: "LIGHT_GRAY_CARPET"
+    name: "&7Light Gray Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Light gray carpet"
+    
+  cyan_carpet:
+    material: "CYAN_CARPET"
+    name: "&3Cyan Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Bright cyan carpet"
+    
+  magenta_carpet:
+    material: "MAGENTA_CARPET"
+    name: "&dMagenta Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Vibrant magenta carpet"
+    
+  lime_carpet:
+    material: "LIME_CARPET"
+    name: "&aLime Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Bright lime carpet"
+    
+  brown_carpet:
+    material: "BROWN_CARPET"
+    name: "&6Brown Carpet"
+    buy-price: 2.25
+    sell-price: 1.125
+    stock: -1
+    description: "Natural brown carpet"
+    
+  # More Banners
+  green_banner:
+    material: "GREEN_BANNER"
+    name: "&2Green Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable green banner"
+    
+  yellow_banner:
+    material: "YELLOW_BANNER"
+    name: "&eYellow Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable yellow banner"
+    
+  orange_banner:
+    material: "ORANGE_BANNER"
+    name: "&6Orange Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable orange banner"
+    
+  purple_banner:
+    material: "PURPLE_BANNER"
+    name: "&5Purple Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable purple banner"
+    
+  pink_banner:
+    material: "PINK_BANNER"
+    name: "&dPink Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable pink banner"
+    
+  black_banner:
+    material: "BLACK_BANNER"
+    name: "&8Black Banner"
+    buy-price: 22.5
+    sell-price: 11.25
+    stock: -1
+    description: "Customizable black banner"
+    
+  # More Beds
+  green_bed:
+    material: "GREEN_BED"
+    name: "&2Green Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable green bed"
+    
+  yellow_bed:
+    material: "YELLOW_BED"
+    name: "&eYellow Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable yellow bed"
+    
+  orange_bed:
+    material: "ORANGE_BED"
+    name: "&6Orange Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable orange bed"
+    
+  purple_bed:
+    material: "PURPLE_BED"
+    name: "&5Purple Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable purple bed"
+    
+  pink_bed:
+    material: "PINK_BED"
+    name: "&dPink Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable pink bed"
+    
+  black_bed:
+    material: "BLACK_BED"
+    name: "&8Black Bed"
+    buy-price: 33.75
+    sell-price: 16.875
+    stock: -1
+    description: "Comfortable black bed"
+    
+  # More Candles
+  blue_candle:
+    material: "BLUE_CANDLE"
+    name: "&9Blue Candle"
+    buy-price: 10.125
+    sell-price: 5.0625
+    stock: -1
+    description: "Blue decorative candle"
+    
+  green_candle:
+    material: "GREEN_CANDLE"
+    name: "&2Green Candle"
+    buy-price: 10.125
+    sell-price: 5.0625
+    stock: -1
+    description: "Green decorative candle"
+    
+  yellow_candle:
+    material: "YELLOW_CANDLE"
+    name: "&eYellow Candle"
+    buy-price: 10.125
+    sell-price: 5.0625
+    stock: -1
+    description: "Yellow decorative candle"
+    
+  # Coral Blocks
+  tube_coral_block:
+    material: "TUBE_CORAL_BLOCK"
+    name: "&9Tube Coral Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean coral decoration"
+    
+  brain_coral_block:
+    material: "BRAIN_CORAL_BLOCK"
+    name: "&dBrain Coral Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean coral decoration"
+    
+  bubble_coral_block:
+    material: "BUBBLE_CORAL_BLOCK"
+    name: "&5Bubble Coral Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean coral decoration"
+    
+  fire_coral_block:
+    material: "FIRE_CORAL_BLOCK"
+    name: "&cFire Coral Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean coral decoration"
+    
+  horn_coral_block:
+    material: "HORN_CORAL_BLOCK"
+    name: "&eHorn Coral Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean coral decoration"

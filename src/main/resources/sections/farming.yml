@@ -341,3 +341,220 @@ items:
     sell-price: 20.0
     stock: -1
     description: "Convert organic matter to bone meal"
+    
+  # More Seeds
+  cocoa_beans:
+    material: "COCOA_BEANS"
+    name: "&6Cocoa Beans"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Chocolate ingredient"
+    
+  # Nether Farming
+  nether_wart:
+    material: "NETHER_WART"
+    name: "&cNether Wart"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Nether crop"
+    
+  warped_fungus:
+    material: "WARPED_FUNGUS"
+    name: "&3Warped Fungus"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Blue nether fungus"
+    
+  crimson_fungus:
+    material: "CRIMSON_FUNGUS"
+    name: "&cCrimson Fungus"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Red nether fungus"
+    
+  # Kelp Farming
+  kelp:
+    material: "KELP"
+    name: "&2Kelp"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Ocean plant"
+    
+  dried_kelp:
+    material: "DRIED_KELP"
+    name: "&2Dried Kelp"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Processed kelp"
+    
+  # Bamboo Farming
+  bamboo:
+    material: "BAMBOO"
+    name: "&2Bamboo"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Fast-growing plant"
+    
+  # Berry Farming
+  sweet_berries:
+    material: "SWEET_BERRIES"
+    name: "&cSweet Berries"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Forest berries"
+    
+  glow_berries:
+    material: "GLOW_BERRIES"
+    name: "&eGlow Berries"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Cave berries"
+    
+  # Chorus Farming
+  chorus_fruit:
+    material: "CHORUS_FRUIT"
+    name: "&5Chorus Fruit"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "End dimension fruit"
+    
+  chorus_flower:
+    material: "CHORUS_FLOWER"
+    name: "&5Chorus Flower"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "End plant flower"
+    
+  # Mushroom Blocks
+  brown_mushroom_block:
+    material: "BROWN_MUSHROOM_BLOCK"
+    name: "&6Brown Mushroom Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Large mushroom block"
+    
+  red_mushroom_block:
+    material: "RED_MUSHROOM_BLOCK"
+    name: "&cRed Mushroom Block"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Large mushroom block"
+    
+  mushroom_stem:
+    material: "MUSHROOM_STEM"
+    name: "&fMushroom Stem"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Mushroom support"
+    
+  # Mycelium
+  mycelium:
+    material: "MYCELIUM"
+    name: "&5Mycelium"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Mushroom growing soil"
+    
+  # Podzol
+  podzol:
+    material: "PODZOL"
+    name: "&6Podzol"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Forest soil"
+    
+  # Farmland
+  farmland:
+    material: "FARMLAND"
+    name: "&6Farmland"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Tilled soil"
+    
+  # Beehive and Bee Nest
+  beehive:
+    material: "BEEHIVE"
+    name: "&6Beehive"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Artificial bee home"
+    
+  bee_nest:
+    material: "BEE_NEST"
+    name: "&6Bee Nest"
+    buy-price: 75.0
+    sell-price: 37.5
+    stock: -1
+    description: "Natural bee home"
+    
+  # Honeycomb
+  honeycomb:
+    material: "HONEYCOMB"
+    name: "&6Honeycomb"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Bee wax product"
+    
+  # Honeycomb Block
+  honeycomb_block:
+    material: "HONEYCOMB_BLOCK"
+    name: "&6Honeycomb Block"
+    buy-price: 32.0
+    sell-price: 16.0
+    stock: -1
+    description: "Decorative wax block"
+    
+  # Honey Block
+  honey_block:
+    material: "HONEY_BLOCK"
+    name: "&6Honey Block"
+    buy-price: 48.0
+    sell-price: 24.0
+    stock: -1
+    description: "Sticky honey block"
+    
+  # Sea Pickle
+  sea_pickle:
+    material: "SEA_PICKLE"
+    name: "&eSea Pickle"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Ocean light source"
+    
+  # Turtle Egg
+  turtle_egg:
+    material: "TURTLE_EGG"
+    name: "&eT urtle Egg"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Sea turtle egg"
+    
+  # Scute
+  scute:
+    material: "SCUTE"
+    name: "&2Scute"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Turtle shell piece"

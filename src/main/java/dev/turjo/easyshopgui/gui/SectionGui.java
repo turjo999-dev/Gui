@@ -31,6 +31,13 @@ public class SectionGui {
     }
     
     /**
+     * Set current page
+     */
+    public void setCurrentPage(int page) {
+        this.currentPage = page;
+    }
+    
+    /**
      * Open the section GUI
      */
     public void open() {
@@ -148,7 +155,7 @@ public class SectionGui {
             gui.setItem(45, new ItemBuilder(Material.SPECTRAL_ARROW)
                     .setName("&e&l← &e&lPREVIOUS PAGE")
                     .setLore(Arrays.asList(
-                            "&7▸ &fPage " + currentPage + " of " + getTotalPages(),
+                            "&7▸ &fPage " + (currentPage) + " of " + getTotalPages(),
                             "",
                             "&a&l➤ &aClick to go back!"
                     ))
@@ -215,76 +222,10 @@ public class SectionGui {
     }
     
     /**
-     * Handle section GUI clicks
-     */
-    private void handleSectionClick(Player player, String itemName, org.bukkit.event.inventory.ClickType clickType) {
-        // Navigation
-        if (itemName.contains("BACK TO SHOP")) {
-            plugin.getGuiManager().openShop(player, "main");
-            return;
-        } else if (itemName.contains("PREVIOUS PAGE")) {
-            // Find the current SectionGui instance and go to previous page
-            // This would need to be implemented with a GUI state manager
-            player.sendMessage("§e← Going to previous page...");
-            return;
-        } else if (itemName.contains("NEXT PAGE")) {
-            // Find the current SectionGui instance and go to next page
-            player.sendMessage("§e→ Going to next page...");
-            return;
-        } else if (itemName.contains("QUICK ACTIONS")) {
-            openQuickActions(player);
-            return;
-        }
-        
-        // Handle item clicks
-        handleItemClick(player, itemName, clickType);
-    }
-    
-    /**
-     * Handle item clicks in section
-     */
-    private void handleItemClick(Player player, String itemName, org.bukkit.event.inventory.ClickType clickType) {
-        // Find the item in current section
-        // This is a simplified version - you'd need to track which section is open
-        player.sendMessage("§aClicked item: " + itemName);
-        player.sendMessage("§7Click type: " + clickType.name());
-        
-        // Different actions based on click type
-        switch (clickType) {
-            case LEFT:
-                player.sendMessage("§aBuying 1x " + itemName);
-                break;
-            case RIGHT:
-                player.sendMessage("§cSelling 1x " + itemName);
-                break;
-            case SHIFT_LEFT:
-                player.sendMessage("§aBuying 64x " + itemName);
-                break;
-            case SHIFT_RIGHT:
-                player.sendMessage("§cSelling all " + itemName);
-                break;
-            case MIDDLE:
-                // Open item detail GUI
-                player.sendMessage("§eOpening item details for " + itemName);
-                break;
-            default:
-                break;
-        }
-    }
-    
-    /**
-     * Open quick actions menu
-     */
-    private void openQuickActions(Player player) {
-        player.sendMessage("§d⚡ Quick actions menu opened!");
-        // Implement quick actions GUI
-    }
-    
-    /**
      * Helper methods
      */
     private int getTotalPages() {
-        return (int) Math.ceil((double) section.getItems().size() / 28);
+        return Math.max(1, (int) Math.ceil((double) section.getItems().size() / 28));
     }
     
     private boolean hasNextPage() {
@@ -294,7 +235,7 @@ public class SectionGui {
     private int getItemsOnCurrentPage() {
         int startIndex = currentPage * 28;
         int endIndex = Math.min(startIndex + 28, section.getItems().size());
-        return endIndex - startIndex;
+        return Math.max(0, endIndex - startIndex);
     }
     
     private int getPlayerDiscount() {

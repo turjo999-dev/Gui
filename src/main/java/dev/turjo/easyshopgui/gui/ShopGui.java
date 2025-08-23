@@ -78,25 +78,33 @@ public class ShopGui {
     private void addShopSections(Inventory gui) {
         // Load sections from configuration
         Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
-        for (Map.Entry<String, ShopSection> entry : sections.entrySet()) {
-            ShopSection section = entry.getValue();
-            if (!section.isEnabled()) continue;
-            
-            // Get slot from configuration or use default
-            int slot = getSlotForSection(entry.getKey());
-            
-            gui.setItem(slot, new ItemBuilder(section.getIcon())
-                    .setName(MessageUtils.colorize(section.getDisplayName()))
-                    .setLore(Arrays.asList(
-                            "&7▸ &f" + section.getDescription(),
-                            "&7▸ &fItems: &a" + section.getItems().size(),
-                            "&7▸ &fCategory: &e" + section.getName(),
-                            "",
-                            "&a&l➤ &aClick to browse!"
-                    ))
-                    .addGlow()
-                    .build());
-        }
+        
+        // Manually add sections in specific order (excluding potions)
+        addSectionItem(gui, sections.get("blocks"), 10);
+        addSectionItem(gui, sections.get("ores"), 11);
+        addSectionItem(gui, sections.get("food"), 12);
+        addSectionItem(gui, sections.get("redstone"), 13);
+        addSectionItem(gui, sections.get("farming"), 14);
+        addSectionItem(gui, sections.get("decoration"), 15);
+    }
+    
+    /**
+     * Add individual section item
+     */
+    private void addSectionItem(Inventory gui, ShopSection section, int slot) {
+        if (section == null || !section.isEnabled()) return;
+        
+        gui.setItem(slot, new ItemBuilder(section.getIcon())
+                .setName(MessageUtils.colorize(section.getDisplayName()))
+                .setLore(Arrays.asList(
+                        "&7▸ &f" + section.getDescription(),
+                        "&7▸ &fItems: &a" + section.getItems().size(),
+                        "&7▸ &fCategory: &e" + section.getName(),
+                        "",
+                        "&a&l➤ &aClick to browse!"
+                ))
+                .addGlow()
+                .build());
     }
     
     /**

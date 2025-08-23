@@ -303,3 +303,190 @@ items:
     sell-price: 20.0
     stock: -1
     description: "Redstone-triggering chest"
+    
+  # Furnace Minecart
+  furnace_minecart:
+    material: "FURNACE_MINECART"
+    name: "&7Furnace Minecart"
+    buy-price: 125.0
+    sell-price: 62.5
+    stock: -1
+    description: "Self-powered minecart"
+    
+  # TNT Minecart
+  tnt_minecart:
+    material: "TNT_MINECART"
+    name: "&cTNT Minecart"
+    buy-price: 130.0
+    sell-price: 65.0
+    stock: -1
+    description: "Explosive transportation"
+    
+  # Command Block (if enabled)
+  command_block:
+    material: "COMMAND_BLOCK"
+    name: "&5Command Block"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Execute commands"
+    
+  # Structure Block
+  structure_block:
+    material: "STRUCTURE_BLOCK"
+    name: "&5Structure Block"
+    buy-price: 800.0
+    sell-price: 400.0
+    stock: -1
+    description: "Save and load structures"
+    
+  # Barrier Block
+  barrier:
+    material: "BARRIER"
+    name: "&cBarrier"
+    buy-price: 500.0
+    sell-price: 250.0
+    stock: -1
+    description: "Invisible barrier block"
+    
+  # Light Block
+  light:
+    material: "LIGHT"
+    name: "&eLight Block"
+    buy-price: 300.0
+    sell-price: 150.0
+    stock: -1
+    description: "Invisible light source"
+    
+  # Slime Block
+  slime_block:
+    material: "SLIME_BLOCK"
+    name: "&aSlime Block"
+    buy-price: 90.0
+    sell-price: 45.0
+    stock: -1
+    description: "Bouncy block for contraptions"
+    
+  # Honey Block
+  honey_block:
+    material: "HONEY_BLOCK"
+    name: "&6Honey Block"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Sticky block for redstone"
+    
+  # Magma Block
+  magma_block:
+    material: "MAGMA_BLOCK"
+    name: "&6Magma Block"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Damaging hot block"
+    
+  # Soul Sand
+  soul_sand:
+    material: "SOUL_SAND"
+    name: "&6Soul Sand"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Slowing nether block"
+    
+  # Soul Soil
+  soul_soil:
+    material: "SOUL_SOIL"
+    name: "&6Soul Soil"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Soul fire base block"
+    
+  # Ice Blocks
+  ice:
+    material: "ICE"
+    name: "&bIce"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Slippery frozen water"
+    
+  packed_ice:
+    material: "PACKED_ICE"
+    name: "&bPacked Ice"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Dense ice block"
+    
+  blue_ice:
+    material: "BLUE_ICE"
+    name: "&9Blue Ice"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Super slippery ice"
+    
+  # Scaffolding
+  scaffolding:
+    material: "SCAFFOLDING"
+    name: "&6Scaffolding"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Climbable building block"
+    
+  # Lectern (redstone component)
+  lectern:
+    material: "LECTERN"
+    name: "&6Lectern"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Book display with redstone"
+    
+  # Composter (redstone component)
+  composter:
+    material: "COMPOSTER"
+    name: "&6Composter"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Organic matter processor"
+    
+  # Lightning Rod
+  lightning_rod:
+    material: "LIGHTNING_ROD"
+    name: "&eL ightning Rod"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Lightning attractor"
+    
+  # Copper Bulb
+  copper_bulb:
+    material: "COPPER_BULB"
+    name: "&6Copper Bulb"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Redstone-powered light"
+    
+  # Calibrated Sculk Sensor
+  calibrated_sculk_sensor:
+    material: "CALIBRATED_SCULK_SENSOR"
+    name: "&8Calibrated Sculk Sensor"
+    buy-price: 200.0
+    sell-price: 100.0
+    stock: -1
+    description: "Tunable vibration detector"
+    
+  # Sculk Sensor
+  sculk_sensor:
+    material: "SCULK_SENSOR"
+    name: "&8Sculk Sensor"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Vibration detector"
