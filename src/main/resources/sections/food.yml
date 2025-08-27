@@ -14,7 +14,7 @@ section:
   enabled: true
 
 items:
-  # Basic Foods
+  # ===== BASIC FOODS =====
   apple:
     material: "APPLE"
     name: "&cApple"
@@ -31,6 +31,31 @@ items:
     stock: -1
     description: "Fresh baked bread"
     
+  cookie:
+    material: "COOKIE"
+    name: "&6Cookie"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet chocolate chip cookie"
+    
+  cake:
+    material: "CAKE"
+    name: "&fCake"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Delicious birthday cake"
+    
+  pumpkin_pie:
+    material: "PUMPKIN_PIE"
+    name: "&6Pumpkin Pie"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Seasonal pumpkin pie"
+    
+  # ===== COOKED MEATS =====
   cooked_beef:
     material: "COOKED_BEEF"
     name: "&6Cooked Beef"
@@ -71,165 +96,7 @@ items:
     stock: -1
     description: "Cooked rabbit meat"
     
-  # Premium Foods
-  golden_apple:
-    material: "GOLDEN_APPLE"
-    name: "&6Golden Apple"
-    buy-price: 100.0
-    sell-price: 50.0
-    stock: -1
-    description: "Magical golden apple"
-    
-  enchanted_golden_apple:
-    material: "ENCHANTED_GOLDEN_APPLE"
-    name: "&6&lEnchanted Golden Apple"
-    buy-price: 1000.0
-    sell-price: 500.0
-    stock: -1
-    description: "Legendary healing fruit"
-    
-  golden_carrot:
-    material: "GOLDEN_CARROT"
-    name: "&6Golden Carrot"
-    buy-price: 25.0
-    sell-price: 12.5
-    stock: -1
-    description: "Nutritious golden carrot"
-    
-  # Raw Materials
-  wheat:
-    material: "WHEAT"
-    name: "&eWheat"
-    buy-price: 2.0
-    sell-price: 1.0
-    stock: -1
-    description: "Basic grain"
-    
-  carrot:
-    material: "CARROT"
-    name: "&6Carrot"
-    buy-price: 2.5
-    sell-price: 1.25
-    stock: -1
-    description: "Orange vegetable"
-    
-  potato:
-    material: "POTATO"
-    name: "&6Potato"
-    buy-price: 2.5
-    sell-price: 1.25
-    stock: -1
-    description: "Starchy tuber"
-    
-  beetroot:
-    material: "BEETROOT"
-    name: "&cBeetroot"
-    buy-price: 3.0
-    sell-price: 1.5
-    stock: -1
-    description: "Red root vegetable"
-    
-  # Fish
-  cooked_cod:
-    material: "COOKED_COD"
-    name: "&fCooked Cod"
-    buy-price: 6.0
-    sell-price: 3.0
-    stock: -1
-    description: "Flaky white fish"
-    
-  cooked_salmon:
-    material: "COOKED_SALMON"
-    name: "&cCooked Salmon"
-    buy-price: 7.0
-    sell-price: 3.5
-    stock: -1
-    description: "Pink salmon fillet"
-    
-  tropical_fish:
-    material: "TROPICAL_FISH"
-    name: "&eTropical Fish"
-    buy-price: 10.0
-    sell-price: 5.0
-    stock: -1
-    description: "Exotic colorful fish"
-    
-  pufferfish:
-    material: "PUFFERFISH"
-    name: "&ePufferfish"
-    buy-price: 15.0
-    sell-price: 7.5
-    stock: -1
-    description: "Dangerous spiky fish"
-    
-  # Sweet Treats
-  cake:
-    material: "CAKE"
-    name: "&fCake"
-    buy-price: 20.0
-    sell-price: 10.0
-    stock: -1
-    description: "Delicious birthday cake"
-    
-  cookie:
-    material: "COOKIE"
-    name: "&6Cookie"
-    buy-price: 4.0
-    sell-price: 2.0
-    stock: -1
-    description: "Sweet chocolate chip cookie"
-    
-  pumpkin_pie:
-    material: "PUMPKIN_PIE"
-    name: "&6Pumpkin Pie"
-    buy-price: 8.0
-    sell-price: 4.0
-    stock: -1
-    description: "Seasonal pumpkin pie"
-    
-  # Beverages
-  milk_bucket:
-    material: "MILK_BUCKET"
-    name: "&fMilk Bucket"
-    buy-price: 15.0
-    sell-price: 7.5
-    stock: -1
-    description: "Fresh cow milk"
-    
-  honey_bottle:
-    material: "HONEY_BOTTLE"
-    name: "&6Honey Bottle"
-    buy-price: 12.0
-    sell-price: 6.0
-    stock: -1
-    description: "Sweet bee honey"
-    
-  # Fruits
-  melon_slice:
-    material: "MELON_SLICE"
-    name: "&aMemlon Slice"
-    buy-price: 3.0
-    sell-price: 1.5
-    stock: -1
-    description: "Refreshing melon"
-    
-  sweet_berries:
-    material: "SWEET_BERRIES"
-    name: "&cSweet Berries"
-    buy-price: 4.0
-    sell-price: 2.0
-    stock: -1
-    description: "Sweet forest berries"
-    
-  glow_berries:
-    material: "GLOW_BERRIES"
-    name: "&eGlow Berries"
-    buy-price: 8.0
-    sell-price: 4.0
-    stock: -1
-    description: "Glowing cave berries"
-    
-  # Raw Meats
+  # ===== RAW MEATS =====
   beef:
     material: "BEEF"
     name: "&cRaw Beef"
@@ -270,7 +137,15 @@ items:
     stock: -1
     description: "Raw rabbit meat"
     
-  # Raw Fish
+  rotten_flesh:
+    material: "ROTTEN_FLESH"
+    name: "&2Rotten Flesh"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Decaying zombie meat"
+    
+  # ===== FISH =====
   cod:
     material: "COD"
     name: "&fRaw Cod"
@@ -287,49 +162,63 @@ items:
     stock: -1
     description: "Fresh salmon fish"
     
-  # Cooking Ingredients
-  sugar:
-    material: "SUGAR"
-    name: "&fSugar"
-    buy-price: 3.0
-    sell-price: 1.5
+  tropical_fish:
+    material: "TROPICAL_FISH"
+    name: "&eTropical Fish"
+    buy-price: 10.0
+    sell-price: 5.0
     stock: -1
-    description: "Sweet cooking ingredient"
+    description: "Exotic colorful fish"
     
-  egg:
-    material: "EGG"
-    name: "&fEgg"
+  pufferfish:
+    material: "PUFFERFISH"
+    name: "&ePufferfish"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Dangerous spiky fish"
+    
+  cooked_cod:
+    material: "COOKED_COD"
+    name: "&fCooked Cod"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Flaky white fish"
+    
+  cooked_salmon:
+    material: "COOKED_SALMON"
+    name: "&cCooked Salmon"
+    buy-price: 7.0
+    sell-price: 3.5
+    stock: -1
+    description: "Pink salmon fillet"
+    
+  # ===== CROPS AND VEGETABLES =====
+  wheat:
+    material: "WHEAT"
+    name: "&eWheat"
     buy-price: 2.0
     sell-price: 1.0
     stock: -1
-    description: "Fresh chicken egg"
+    description: "Basic grain crop"
     
-  # Mushrooms
-  brown_mushroom:
-    material: "BROWN_MUSHROOM"
-    name: "&6Brown Mushroom"
-    buy-price: 5.0
-    sell-price: 2.5
+  carrot:
+    material: "CARROT"
+    name: "&6Carrot"
+    buy-price: 2.5
+    sell-price: 1.25
     stock: -1
-    description: "Earthy brown mushroom"
+    description: "Orange vegetable"
     
-  red_mushroom:
-    material: "RED_MUSHROOM"
-    name: "&cRed Mushroom"
-    buy-price: 5.0
-    sell-price: 2.5
+  potato:
+    material: "POTATO"
+    name: "&6Potato"
+    buy-price: 2.5
+    sell-price: 1.25
     stock: -1
-    description: "Bright red mushroom"
+    description: "Starchy tuber"
     
-  mushroom_stew:
-    material: "MUSHROOM_STEW"
-    name: "&6Mushroom Stew"
-    buy-price: 12.0
-    sell-price: 6.0
-    stock: -1
-    description: "Hearty mushroom soup"
-    
-  # More Cooked Foods
   baked_potato:
     material: "BAKED_POTATO"
     name: "&6Baked Potato"
@@ -338,7 +227,89 @@ items:
     stock: -1
     description: "Cooked potato"
     
-  # Stews and Soups
+  poisonous_potato:
+    material: "POISONOUS_POTATO"
+    name: "&2Poisonous Potato"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Dangerous green potato"
+    
+  beetroot:
+    material: "BEETROOT"
+    name: "&cBeetroot"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Red root vegetable"
+    
+  # ===== FRUITS =====
+  melon_slice:
+    material: "MELON_SLICE"
+    name: "&aMemlon Slice"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Refreshing melon"
+    
+  sweet_berries:
+    material: "SWEET_BERRIES"
+    name: "&cSweet Berries"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet forest berries"
+    
+  glow_berries:
+    material: "GLOW_BERRIES"
+    name: "&eGlow Berries"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Luminous cave berries"
+    
+  chorus_fruit:
+    material: "CHORUS_FRUIT"
+    name: "&5Chorus Fruit"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Teleporting end fruit"
+    
+  # ===== PREMIUM FOODS =====
+  golden_apple:
+    material: "GOLDEN_APPLE"
+    name: "&6Golden Apple"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Magical golden apple"
+    
+  enchanted_golden_apple:
+    material: "ENCHANTED_GOLDEN_APPLE"
+    name: "&6&lEnchanted Golden Apple"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Legendary healing fruit"
+    
+  golden_carrot:
+    material: "GOLDEN_CARROT"
+    name: "&6Golden Carrot"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Nutritious golden carrot"
+    
+  # ===== STEWS AND SOUPS =====
+  mushroom_stew:
+    material: "MUSHROOM_STEW"
+    name: "&6Mushroom Stew"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Hearty mushroom soup"
+    
   beetroot_soup:
     material: "BEETROOT_SOUP"
     name: "&cBeetroot Soup"
@@ -363,106 +334,74 @@ items:
     stock: -1
     description: "Mysterious flower stew"
     
-  # Dried Kelp
-  dried_kelp:
-    material: "DRIED_KELP"
-    name: "&2Dried Kelp"
-    buy-price: 2.0
-    sell-price: 1.0
+  # ===== BEVERAGES =====
+  milk_bucket:
+    material: "MILK_BUCKET"
+    name: "&fMilk Bucket"
+    buy-price: 15.0
+    sell-price: 7.5
     stock: -1
-    description: "Ocean vegetable snack"
+    description: "Fresh cow milk"
     
-  # Chorus Fruit
-  chorus_fruit:
-    material: "CHORUS_FRUIT"
-    name: "&5Chorus Fruit"
+  honey_bottle:
+    material: "HONEY_BOTTLE"
+    name: "&6Honey Bottle"
     buy-price: 12.0
     sell-price: 6.0
     stock: -1
-    description: "Teleporting end fruit"
+    description: "Sweet bee honey"
     
-  # Poisonous Potato
-  poisonous_potato:
-    material: "POISONOUS_POTATO"
-    name: "&2Poisonous Potato"
-    buy-price: 1.0
-    sell-price: 0.5
-    stock: -1
-    description: "Dangerous green potato"
-    
-  # Spider Eye (food item)
-  spider_eye:
-    material: "SPIDER_EYE"
-    name: "&8Spider Eye"
-    buy-price: 8.0
-    sell-price: 4.0
-    stock: -1
-    description: "Creepy arachnid eye"
-    
-  # Rotten Flesh
-  rotten_flesh:
-    material: "ROTTEN_FLESH"
-    name: "&2Rotten Flesh"
-    buy-price: 1.0
-    sell-price: 0.5
-    stock: -1
-    description: "Decaying zombie meat"
-    
-  # More Fruits
-  apple:
-    material: "APPLE"
-    name: "&cApple"
+  # ===== COOKING INGREDIENTS =====
+  sugar:
+    material: "SUGAR"
+    name: "&fSugar"
     buy-price: 3.0
     sell-price: 1.5
     stock: -1
-    description: "Crisp red apple"
+    description: "Sweet cooking ingredient"
     
-  # Kelp
-  kelp:
-    material: "KELP"
-    name: "&2Kelp"
-    buy-price: 1.5
-    sell-price: 0.75
-    stock: -1
-    description: "Fresh ocean plant"
-    
-  # Sea Pickle (technically edible)
-  sea_pickle:
-    material: "SEA_PICKLE"
-    name: "&eS ea Pickle"
-    buy-price: 6.0
-    sell-price: 3.0
-    stock: -1
-    description: "Glowing sea creature"
-    
-  # Bamboo (pandas eat it)
-  bamboo:
-    material: "BAMBOO"
-    name: "&2Bamboo"
+  egg:
+    material: "EGG"
+    name: "&fEgg"
     buy-price: 2.0
     sell-price: 1.0
     stock: -1
-    description: "Fast-growing plant"
+    description: "Fresh chicken egg"
     
-  # More Berries
-  glow_berries:
-    material: "GLOW_BERRIES"
-    name: "&eGlow Berries"
-    buy-price: 8.0
-    sell-price: 4.0
+  cocoa_beans:
+    material: "COCOA_BEANS"
+    name: "&6Cocoa Beans"
+    buy-price: 4.0
+    sell-price: 2.0
     stock: -1
-    description: "Luminous cave berries"
+    description: "Chocolate ingredient"
     
-  # Nether Wart (brewing ingredient but also food-related)
+  # ===== MUSHROOMS =====
+  brown_mushroom:
+    material: "BROWN_MUSHROOM"
+    name: "&6Brown Mushroom"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Earthy brown mushroom"
+    
+  red_mushroom:
+    material: "RED_MUSHROOM"
+    name: "&cRed Mushroom"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Bright red mushroom"
+    
+  # ===== NETHER FOODS =====
   nether_wart:
     material: "NETHER_WART"
     name: "&cNether Wart"
     buy-price: 10.0
     sell-price: 5.0
     stock: -1
-    description: "Hellish fungus"
+    description: "Nether brewing ingredient"
     
-  # Warped/Crimson Fungus
   warped_fungus:
     material: "WARPED_FUNGUS"
     name: "&3Warped Fungus"
@@ -478,3 +417,317 @@ items:
     sell-price: 4.0
     stock: -1
     description: "Red nether fungus"
+    
+  # ===== OCEAN FOODS =====
+  kelp:
+    material: "KELP"
+    name: "&2Kelp"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Fresh ocean plant"
+    
+  dried_kelp:
+    material: "DRIED_KELP"
+    name: "&2Dried Kelp"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Processed kelp snack"
+    
+  sea_pickle:
+    material: "SEA_PICKLE"
+    name: "&eSea Pickle"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Glowing sea creature"
+    
+  # ===== BAMBOO =====
+  bamboo:
+    material: "BAMBOO"
+    name: "&2Bamboo"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Fast-growing plant"
+    
+  # ===== SEEDS =====
+  wheat_seeds:
+    material: "WHEAT_SEEDS"
+    name: "&eWheat Seeds"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Basic crop seeds"
+    
+  beetroot_seeds:
+    material: "BEETROOT_SEEDS"
+    name: "&cBeetroot Seeds"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Red vegetable seeds"
+    
+  pumpkin_seeds:
+    material: "PUMPKIN_SEEDS"
+    name: "&6Pumpkin Seeds"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Large orange fruit seeds"
+    
+  melon_seeds:
+    material: "MELON_SEEDS"
+    name: "&aMemlon Seeds"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Green fruit seeds"
+    
+  # ===== SPECIAL FOODS =====
+  spider_eye:
+    material: "SPIDER_EYE"
+    name: "&8Spider Eye"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Creepy arachnid eye"
+    
+  fermented_spider_eye:
+    material: "FERMENTED_SPIDER_EYE"
+    name: "&8Fermented Spider Eye"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Corrupted spider eye"
+    
+  # ===== ANIMAL PRODUCTS =====
+  leather:
+    material: "LEATHER"
+    name: "&6Leather"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Animal hide"
+    
+  feather:
+    material: "FEATHER"
+    name: "&fFeather"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Bird feather"
+    
+  rabbit_hide:
+    material: "RABBIT_HIDE"
+    name: "&6Rabbit Hide"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Small animal hide"
+    
+  rabbit_foot:
+    material: "RABBIT_FOOT"
+    name: "&6Rabbit's Foot"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Lucky rabbit's foot"
+    
+  # ===== TURTLE ITEMS =====
+  turtle_egg:
+    material: "TURTLE_EGG"
+    name: "&eT urtle Egg"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Sea turtle egg"
+    
+  scute:
+    material: "SCUTE"
+    name: "&2Scute"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Turtle shell piece"
+    
+  # ===== BEE PRODUCTS =====
+  honeycomb:
+    material: "HONEYCOMB"
+    name: "&6Honeycomb"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Bee wax product"
+    
+  # ===== PHANTOM MEMBRANE =====
+  phantom_membrane:
+    material: "PHANTOM_MEMBRANE"
+    name: "&7Phantom Membrane"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Phantom wing membrane"
+    
+  # ===== SLIME MATERIALS =====
+  slime_ball:
+    material: "SLIME_BALL"
+    name: "&aSlimeball"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Sticky slime material"
+    
+  magma_cream:
+    material: "MAGMA_CREAM"
+    name: "&6Magma Cream"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Fire resistance ingredient"
+    
+  # ===== GHAST MATERIALS =====
+  ghast_tear:
+    material: "GHAST_TEAR"
+    name: "&fGhast Tear"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Regeneration ingredient"
+    
+  # ===== BLAZE MATERIALS =====
+  blaze_powder:
+    material: "BLAZE_POWDER"
+    name: "&6Blaze Powder"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Strength potion ingredient"
+    
+  # ===== GLISTERING FOODS =====
+  glistering_melon_slice:
+    material: "GLISTERING_MELON_SLICE"
+    name: "&6Glistering Melon Slice"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Healing potion ingredient"
+    
+  # ===== PUFFERFISH BUCKET =====
+  pufferfish_bucket:
+    material: "PUFFERFISH_BUCKET"
+    name: "&ePufferfish Bucket"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Live pufferfish in bucket"
+    
+  cod_bucket:
+    material: "COD_BUCKET"
+    name: "&fCod Bucket"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Live cod in bucket"
+    
+  salmon_bucket:
+    material: "SALMON_BUCKET"
+    name: "&cSalmon Bucket"
+    buy-price: 22.0
+    sell-price: 11.0
+    stock: -1
+    description: "Live salmon in bucket"
+    
+  tropical_fish_bucket:
+    material: "TROPICAL_FISH_BUCKET"
+    name: "&eTropical Fish Bucket"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Live tropical fish in bucket"
+    
+  axolotl_bucket:
+    material: "AXOLOTL_BUCKET"
+    name: "&dAxolotl Bucket"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Live axolotl in bucket"
+    
+  tadpole_bucket:
+    material: "TADPOLE_BUCKET"
+    name: "&2Tadpole Bucket"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Live tadpole in bucket"
+    
+  # ===== ADDITIONAL CROPS =====
+  pumpkin:
+    material: "PUMPKIN"
+    name: "&6Pumpkin"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Large orange fruit"
+    
+  melon:
+    material: "MELON"
+    name: "&aMemlon"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Green fruit block"
+    
+  # ===== BONE MEAL =====
+  bone_meal:
+    material: "BONE_MEAL"
+    name: "&fBone Meal"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Plant fertilizer"
+    
+  bone:
+    material: "BONE"
+    name: "&fBone"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Skeleton bone"
+    
+  # ===== INK SACS =====
+  ink_sac:
+    material: "INK_SAC"
+    name: "&8Ink Sac"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Black dye source"
+    
+  glow_ink_sac:
+    material: "GLOW_INK_SAC"
+    name: "&eGlow Ink Sac"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Glowing ink sac"
+    
+  # ===== STRING =====
+  string:
+    material: "STRING"
+    name: "&fString"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Spider web material"
+    
+  # ===== GUNPOWDER =====
+  gunpowder:
+    material: "GUNPOWDER"
+    name: "&8Gunpowder"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Explosive powder"

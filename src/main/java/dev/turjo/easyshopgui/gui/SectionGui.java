@@ -101,7 +101,7 @@ public class SectionGui {
         boolean canAfford = balance >= item.getBuyPrice();
         
         return new ItemBuilder(item.getMaterial())
-                .setName("&6&l" + item.getDisplayName())
+                .setName(item.getDisplayName())
                 .setLore(Arrays.asList(
                         "&7▸ &fDescription:",
                         "&7  " + item.getDescription(),
