@@ -3,6 +3,7 @@ package dev.turjo.easyshopgui.gui;
 import dev.turjo.easyshopgui.EasyShopGUI;
 import dev.turjo.easyshopgui.data.ShopDataLoader;
 import dev.turjo.easyshopgui.models.ShopSection;
+import dev.turjo.easyshopgui.utils.Logger;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

@@ -5,6 +5,7 @@ import dev.turjo.easyshopgui.models.ShopItem;
 import dev.turjo.easyshopgui.models.ShopSection;
 import dev.turjo.easyshopgui.utils.ItemBuilder;
 import dev.turjo.easyshopgui.utils.MessageUtils;
+import dev.turjo.easyshopgui.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
