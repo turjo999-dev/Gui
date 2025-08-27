@@ -63,6 +63,11 @@ public class SectionGui {
      * Fill background
      */
     private void fillBackground(Inventory gui) {
+        // Clear inventory first
+        gui.clear();
+        
+        Logger.debug("Filling background for section: " + section.getId());
+        
         ItemStack background = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
                 .setName(" ")
                 .build();
@@ -78,6 +83,8 @@ public class SectionGui {
      */
     private void addSectionItems(Inventory gui) {
         List<ShopItem> items = section.getItems();
+        Logger.debug("Adding " + items.size() + " items to section GUI for: " + section.getId());
+        
         int startIndex = currentPage * 28; // 28 items per page (7x4 grid)
         
         int[] itemSlots = {
@@ -89,6 +96,8 @@ public class SectionGui {
         
         for (int i = 0; i < itemSlots.length && (startIndex + i) < items.size(); i++) {
             ShopItem item = items.get(startIndex + i);
+            Logger.debug("Adding item to slot " + itemSlots[i] + ": " + item.getDisplayName());
+            
             gui.setItem(itemSlots[i], createShopItemStack(item));
         }
     }
@@ -99,6 +108,8 @@ public class SectionGui {
     private ItemStack createShopItemStack(ShopItem item) {
         double balance = plugin.getEconomyManager().getEconomy().getBalance(player);
         boolean canAfford = balance >= item.getBuyPrice();
+        
+        Logger.debug("Creating item stack for: " + item.getDisplayName() + " (Material: " + item.getMaterial() + ")");
         
         return new ItemBuilder(item.getMaterial())
                 .setName(item.getDisplayName())

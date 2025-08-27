@@ -76,8 +76,8 @@ public class ShopGui {
      * Add all shop sections
      */
     private void addShopSections(Inventory gui) {
-        // Load sections from configuration
         Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        Logger.debug("Adding " + sections.size() + " sections to main shop GUI");
         
         // Manually add sections in specific order (excluding potions)
         addSectionItem(gui, sections.get("blocks"), 10);
@@ -86,6 +86,7 @@ public class ShopGui {
         addSectionItem(gui, sections.get("redstone"), 13);
         addSectionItem(gui, sections.get("farming"), 14);
         addSectionItem(gui, sections.get("decoration"), 15);
+        addSectionItem(gui, sections.get("potions"), 16);
     }
     
     /**
@@ -93,6 +94,9 @@ public class ShopGui {
      */
     private void addSectionItem(Inventory gui, ShopSection section, int slot) {
         if (section == null || !section.isEnabled()) return;
+        
+        Logger.debug("Adding section to slot " + slot + ": " + section.getId() + 
+                    " (" + section.getDisplayName() + ") with " + section.getItems().size() + " items");
         
         gui.setItem(slot, new ItemBuilder(section.getIcon())
                 .setName(MessageUtils.colorize(section.getDisplayName()))

@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,13 +32,17 @@ public class ShopDataLoader {
     public Map<String, ShopSection> loadSections() {
         Map<String, ShopSection> sections = new HashMap<>();
         
-        // Load sections from separate files
+        // Create sections directory if it doesn't exist
         File sectionsDir = new File(plugin.getDataFolder(), "sections");
         if (!sectionsDir.exists()) {
-            Logger.error("Sections directory not found! Creating default sections...");
-            return ShopData.createDefaultSections();
+            sectionsDir.mkdirs();
+            Logger.info("Created sections directory");
         }
         
+        // Create default section files if they don't exist
+        createDefaultSectionFiles(sectionsDir);
+        
+        // Load sections from files
         File[] sectionFiles = sectionsDir.listFiles((dir, name) -> name.endsWith(".yml"));
         if (sectionFiles == null || sectionFiles.length == 0) {
             Logger.error("No section files found! Creating default sections...");
@@ -46,13 +52,14 @@ public class ShopDataLoader {
         for (File sectionFile : sectionFiles) {
             try {
                 FileConfiguration sectionConfig = YamlConfiguration.loadConfiguration(sectionFile);
-                ShopSection section = loadSectionFromFile(sectionConfig);
+                ShopSection section = loadSectionFromFile(sectionConfig, sectionFile.getName());
                 if (section != null) {
                     sections.put(section.getId(), section);
-                    Logger.debug("Loaded section: " + section.getId() + " with " + section.getItems().size() + " items");
+                    Logger.info("Loaded section: " + section.getId() + " with " + section.getItems().size() + " items");
                 }
             } catch (Exception e) {
                 Logger.error("Failed to load section file: " + sectionFile.getName() + " - " + e.getMessage());
+                e.printStackTrace();
             }
         }
         
@@ -61,18 +68,45 @@ public class ShopDataLoader {
     }
     
     /**
+     * Create default section files if they don't exist
+     */
+    private void createDefaultSectionFiles(File sectionsDir) {
+        String[] sectionFiles = {
+            "blocks.yml", "ores.yml", "food.yml", "redstone.yml", 
+            "farming.yml", "decoration.yml", "potions.yml"
+        };
+        
+        for (String fileName : sectionFiles) {
+            File sectionFile = new File(sectionsDir, fileName);
+            if (!sectionFile.exists()) {
+                try {
+                    InputStream inputStream = plugin.getResource("sections/" + fileName);
+                    if (inputStream != null) {
+                        Files.copy(inputStream, sectionFile.toPath());
+                        Logger.info("Created default section file: " + fileName);
+                    } else {
+                        Logger.warn("Resource not found for section: " + fileName);
+                    }
+                } catch (Exception e) {
+                    Logger.error("Failed to create section file: " + fileName + " - " + e.getMessage());
+                }
+            }
+        }
+    }
+    
+    /**
      * Load section from individual file
      */
-    private ShopSection loadSectionFromFile(FileConfiguration config) {
+    private ShopSection loadSectionFromFile(FileConfiguration config, String fileName) {
         ConfigurationSection sectionConfig = config.getConfigurationSection("section");
         if (sectionConfig == null) {
-            Logger.error("Invalid section file format - missing 'section' configuration");
+            Logger.error("Invalid section file format - missing 'section' configuration in " + fileName);
             return null;
         }
         
         // Check if section is enabled
         if (!sectionConfig.getBoolean("enabled", true)) {
-            Logger.debug("Section is disabled, skipping...");
+            Logger.debug("Section is disabled, skipping: " + fileName);
             return null;
         }
         
@@ -86,7 +120,7 @@ public class ShopDataLoader {
         try {
             icon = Material.valueOf(iconName.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Logger.warn("Invalid material for section " + id + ": " + iconName);
+            Logger.warn("Invalid material for section " + id + ": " + iconName + ", using STONE");
             icon = Material.STONE;
         }
         
@@ -97,7 +131,10 @@ public class ShopDataLoader {
         // Load items
         ConfigurationSection itemsConfig = config.getConfigurationSection("items");
         if (itemsConfig != null) {
-            loadItemsForSection(section, itemsConfig);
+            int itemCount = loadItemsForSection(section, itemsConfig);
+            Logger.debug("Loaded " + itemCount + " items for section " + id);
+        } else {
+            Logger.warn("No items section found in " + fileName);
         }
         
         return section;
@@ -106,22 +143,36 @@ public class ShopDataLoader {
     /**
      * Load items for a specific section
      */
-    private void loadItemsForSection(ShopSection section, ConfigurationSection itemsConfig) {
+    private int loadItemsForSection(ShopSection section, ConfigurationSection itemsConfig) {
+        int itemCount = 0;
+        
         for (String itemId : itemsConfig.getKeys(false)) {
             ConfigurationSection itemConfig = itemsConfig.getConfigurationSection(itemId);
-            if (itemConfig == null) continue;
+            if (itemConfig == null) {
+                Logger.warn("Invalid item configuration for: " + itemId);
+                continue;
+            }
             
             try {
                 // Get material
                 String materialName = itemConfig.getString("material", "STONE");
-                Material material = Material.valueOf(materialName.toUpperCase());
+                Material material;
+                try {
+                    material = Material.valueOf(materialName.toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    Logger.warn("Invalid material for item " + itemId + ": " + materialName + ", skipping");
+                    continue;
+                }
                 
                 // Get prices
                 double buyPrice = itemConfig.getDouble("buy-price", 1.0);
                 double sellPrice = itemConfig.getDouble("sell-price", 0.5);
                 
+                // Get display name
+                String displayName = itemConfig.getString("name", itemId);
+                
                 // Create item
-                ShopItem item = new ShopItem(itemId, itemConfig.getString("name", itemId), material, buyPrice, sellPrice);
+                ShopItem item = new ShopItem(itemId, displayName, material, buyPrice, sellPrice);
                 
                 // Set additional properties
                 item.setDescription(itemConfig.getString("description", ""));
@@ -131,10 +182,13 @@ public class ShopDataLoader {
                 
                 // Add to section
                 section.addItem(item);
+                itemCount++;
                 
             } catch (Exception e) {
                 Logger.error("Failed to load item " + itemId + " in section " + section.getId() + ": " + e.getMessage());
             }
         }
+        
+        return itemCount;
     }
 }

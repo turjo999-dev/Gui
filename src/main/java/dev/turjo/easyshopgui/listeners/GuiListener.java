@@ -60,6 +60,8 @@ public class GuiListener implements Listener {
             String itemName = MessageUtils.stripColor(meta.getDisplayName());
             
             // Handle main shop GUI clicks
+            Logger.debug("GUI click detected - Title: " + title + ", Item: " + itemName + ", Material: " + clickedItem.getType());
+            
             if (title.contains("EASY SHOP GUI")) {
                 handleMainShopClick(player, itemName, clickedItem.getType());
             }
@@ -75,35 +77,42 @@ public class GuiListener implements Listener {
      */
     private void handleMainShopClick(Player player, String itemName, Material material) {
         // Section navigation
-        if (itemName.contains("BLOCKS SECTION") || material == Material.STONE) {
+        Logger.debug("Handling main shop click - Item: " + itemName + ", Material: " + material);
+        
+        if (itemName.contains("BLOCKS") || material == Material.STONE) {
             playerCurrentSection.put(player, "blocks");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "blocks");
             playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("ORES") || material == Material.DIAMOND_ORE) {
+        } else if (itemName.contains("ORES") || itemName.contains("MINERALS") || material == Material.DIAMOND_ORE) {
             playerCurrentSection.put(player, "ores");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "ores");
             playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("FOOD") || material == Material.GOLDEN_APPLE) {
+        } else if (itemName.contains("FOOD") || material == Material.GOLDEN_APPLE || material == Material.APPLE) {
             playerCurrentSection.put(player, "food");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "food");
             playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("REDSTONE") || material == Material.REDSTONE) {
+        } else if (itemName.contains("REDSTONE") || material == Material.REDSTONE || material == Material.REPEATER) {
             playerCurrentSection.put(player, "redstone");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "redstone");
             playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("FARMING") || material == Material.WHEAT) {
+        } else if (itemName.contains("FARMING") || material == Material.WHEAT || material == Material.WHEAT_SEEDS) {
             playerCurrentSection.put(player, "farming");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "farming");
             playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("DECORATION") || material == Material.FLOWER_POT) {
+        } else if (itemName.contains("DECORATION") || material == Material.FLOWER_POT || material == Material.POPPY) {
             playerCurrentSection.put(player, "decoration");
             playerCurrentPage.put(player, 0);
             plugin.getGuiManager().openSection(player, "decoration");
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (itemName.contains("POTIONS") || material == Material.POTION || material == Material.BREWING_STAND) {
+            playerCurrentSection.put(player, "potions");
+            playerCurrentPage.put(player, 0);
+            plugin.getGuiManager().openSection(player, "potions");
             playSound(player, Sound.UI_BUTTON_CLICK);
         }
         // Utility functions

@@ -19,6 +19,7 @@ public class GuiManager {
     public GuiManager(EasyShopGUI plugin) {
         this.plugin = plugin;
         this.sections = new HashMap<>();
+        Logger.debug("GuiManager initialized");
         loadSections();
     }
     
@@ -28,6 +29,8 @@ public class GuiManager {
     private void loadSections() {
         ShopDataLoader loader = new ShopDataLoader(plugin);
         this.sections = loader.loadSections();
+        Logger.info("GuiManager loaded " + sections.size() + " sections");
+        sections.keySet().forEach(key -> Logger.debug("Available section: " + key));
     }
     
     /**
@@ -35,6 +38,7 @@ public class GuiManager {
      */
     public void reloadSections() {
         loadSections();
+        Logger.info("Sections reloaded");
     }
     
     /**
@@ -42,6 +46,7 @@ public class GuiManager {
      */
     public void openShop(Player player, String shopName) {
         ShopGui shopGui = new ShopGui(plugin, player, shopName);
+        Logger.debug("Opening shop for player: " + player.getName());
         shopGui.open();
     }
     
@@ -50,11 +55,14 @@ public class GuiManager {
      */
     public void openSection(Player player, String sectionId) {
         ShopSection section = sections.get(sectionId);
+        Logger.debug("Attempting to open section: " + sectionId + " for player: " + player.getName());
+        
         if (section != null) {
+            Logger.debug("Section found with " + section.getItems().size() + " items");
             SectionGui sectionGui = new SectionGui(plugin, player, section);
             sectionGui.open();
         } else {
-            player.sendMessage("§cSection not found: " + sectionId);
+            player.sendMessage("§cSection not found: " + sectionId + ". Available sections: " + String.join(", ", sections.keySet()));
         }
     }
     
