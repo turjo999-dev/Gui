@@ -227,7 +227,8 @@ public class ShopGui {
      * Helper methods
      */
     private int getTotalItemCount() {
-        return plugin.getGuiManager().getSections().values().stream()
+        Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        return sections.values().stream()
                 .mapToInt(section -> section.getItems().size())
                 .sum();
     }

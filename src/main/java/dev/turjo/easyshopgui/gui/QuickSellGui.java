@@ -21,7 +21,7 @@ public class QuickSellGui {
     
     private final EasyShopGUI plugin;
     private final Player player;
-    private Map<Material, SellableItem> sellableItems = new HashMap<>();
+    public Map<Material, SellableItem> sellableItems = new HashMap<>();
     private double totalValue = 0.0;
     
     public QuickSellGui(EasyShopGUI plugin, Player player) {
