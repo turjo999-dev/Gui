@@ -9,7 +9,7 @@ section:
   name: "Ores & Minerals"
   display-name: "&7&l💎 &e&lORES & MINERALS"
   icon: "DIAMOND_ORE"
-  description: "Raw ores, refined materials and precious gems"
+  description: "Raw ores and refined materials"
   permission: "easyshopgui.section.ores"
   enabled: true
 
@@ -258,251 +258,6 @@ items:
     stock: -1
     description: "Ultimate material"
     
-  # ===== RAW MATERIALS =====
-  raw_iron:
-    material: "RAW_IRON"
-    name: "&7Raw Iron"
-    buy-price: 10.0
-    sell-price: 5.0
-    stock: -1
-    description: "Unprocessed iron"
-    
-  raw_gold:
-    material: "RAW_GOLD"
-    name: "&6Raw Gold"
-    buy-price: 18.0
-    sell-price: 9.0
-    stock: -1
-    description: "Unprocessed gold"
-    
-  raw_copper:
-    material: "RAW_COPPER"
-    name: "&6Raw Copper"
-    buy-price: 6.0
-    sell-price: 3.0
-    stock: -1
-    description: "Unprocessed copper"
-    
-  # ===== MINERAL BLOCKS =====
-  coal_block:
-    material: "COAL_BLOCK"
-    name: "&8Coal Block"
-    buy-price: 45.0
-    sell-price: 22.5
-    stock: -1
-    description: "Compressed coal block"
-    
-  iron_block:
-    material: "IRON_BLOCK"
-    name: "&7Iron Block"
-    buy-price: 108.0
-    sell-price: 54.0
-    stock: -1
-    description: "Solid iron block"
-    
-  gold_block:
-    material: "GOLD_BLOCK"
-    name: "&6Gold Block"
-    buy-price: 180.0
-    sell-price: 90.0
-    stock: -1
-    description: "Solid gold block"
-    
-  diamond_block:
-    material: "DIAMOND_BLOCK"
-    name: "&bDiamond Block"
-    buy-price: 720.0
-    sell-price: 360.0
-    stock: -1
-    description: "Solid diamond block"
-    
-  emerald_block:
-    material: "EMERALD_BLOCK"
-    name: "&aEmerald Block"
-    buy-price: 1080.0
-    sell-price: 540.0
-    stock: -1
-    description: "Solid emerald block"
-    
-  lapis_block:
-    material: "LAPIS_BLOCK"
-    name: "&9Lapis Block"
-    buy-price: 72.0
-    sell-price: 36.0
-    stock: -1
-    description: "Solid lapis block"
-    
-  redstone_block:
-    material: "REDSTONE_BLOCK"
-    name: "&cRedstone Block"
-    buy-price: 54.0
-    sell-price: 27.0
-    stock: -1
-    description: "Solid redstone block"
-    
-  copper_block:
-    material: "COPPER_BLOCK"
-    name: "&6Copper Block"
-    buy-price: 72.0
-    sell-price: 36.0
-    stock: -1
-    description: "Solid copper block"
-    
-  netherite_block:
-    material: "NETHERITE_BLOCK"
-    name: "&8Netherite Block"
-    buy-price: 18000.0
-    sell-price: 9000.0
-    stock: -1
-    description: "Ultimate storage block"
-    
-  # ===== RAW ORE BLOCKS =====
-  raw_iron_block:
-    material: "RAW_IRON_BLOCK"
-    name: "&7Raw Iron Block"
-    buy-price: 90.0
-    sell-price: 45.0
-    stock: -1
-    description: "Compressed raw iron"
-    
-  raw_gold_block:
-    material: "RAW_GOLD_BLOCK"
-    name: "&6Raw Gold Block"
-    buy-price: 162.0
-    sell-price: 81.0
-    stock: -1
-    description: "Compressed raw gold"
-    
-  raw_copper_block:
-    material: "RAW_COPPER_BLOCK"
-    name: "&6Raw Copper Block"
-    buy-price: 54.0
-    sell-price: 27.0
-    stock: -1
-    description: "Compressed raw copper"
-    
-  # ===== COPPER VARIANTS =====
-  exposed_copper:
-    material: "EXPOSED_COPPER"
-    name: "&6Exposed Copper"
-    buy-price: 75.0
-    sell-price: 37.5
-    stock: -1
-    description: "Weathered copper block"
-    
-  weathered_copper:
-    material: "WEATHERED_COPPER"
-    name: "&2Weathered Copper"
-    buy-price: 78.0
-    sell-price: 39.0
-    stock: -1
-    description: "Aged copper block"
-    
-  oxidized_copper:
-    material: "OXIDIZED_COPPER"
-    name: "&2Oxidized Copper"
-    buy-price: 80.0
-    sell-price: 40.0
-    stock: -1
-    description: "Fully oxidized copper"
-    
-  cut_copper:
-    material: "CUT_COPPER"
-    name: "&6Cut Copper"
-    buy-price: 76.0
-    sell-price: 38.0
-    stock: -1
-    description: "Refined copper block"
-    
-  exposed_cut_copper:
-    material: "EXPOSED_CUT_COPPER"
-    name: "&6Exposed Cut Copper"
-    buy-price: 78.0
-    sell-price: 39.0
-    stock: -1
-    description: "Weathered cut copper"
-    
-  weathered_cut_copper:
-    material: "WEATHERED_CUT_COPPER"
-    name: "&2Weathered Cut Copper"
-    buy-price: 80.0
-    sell-price: 40.0
-    stock: -1
-    description: "Aged cut copper"
-    
-  oxidized_cut_copper:
-    material: "OXIDIZED_CUT_COPPER"
-    name: "&2Oxidized Cut Copper"
-    buy-price: 82.0
-    sell-price: 41.0
-    stock: -1
-    description: "Fully oxidized cut copper"
-    
-  # ===== WAXED COPPER VARIANTS =====
-  waxed_copper_block:
-    material: "WAXED_COPPER_BLOCK"
-    name: "&6Waxed Copper Block"
-    buy-price: 80.0
-    sell-price: 40.0
-    stock: -1
-    description: "Protected copper block"
-    
-  waxed_exposed_copper:
-    material: "WAXED_EXPOSED_COPPER"
-    name: "&6Waxed Exposed Copper"
-    buy-price: 82.0
-    sell-price: 41.0
-    stock: -1
-    description: "Protected weathered copper"
-    
-  waxed_weathered_copper:
-    material: "WAXED_WEATHERED_COPPER"
-    name: "&2Waxed Weathered Copper"
-    buy-price: 85.0
-    sell-price: 42.5
-    stock: -1
-    description: "Protected aged copper"
-    
-  waxed_oxidized_copper:
-    material: "WAXED_OXIDIZED_COPPER"
-    name: "&2Waxed Oxidized Copper"
-    buy-price: 88.0
-    sell-price: 44.0
-    stock: -1
-    description: "Protected oxidized copper"
-    
-  waxed_cut_copper:
-    material: "WAXED_CUT_COPPER"
-    name: "&6Waxed Cut Copper"
-    buy-price: 84.0
-    sell-price: 42.0
-    stock: -1
-    description: "Protected cut copper"
-    
-  waxed_exposed_cut_copper:
-    material: "WAXED_EXPOSED_CUT_COPPER"
-    name: "&6Waxed Exposed Cut Copper"
-    buy-price: 86.0
-    sell-price: 43.0
-    stock: -1
-    description: "Protected weathered cut copper"
-    
-  waxed_weathered_cut_copper:
-    material: "WAXED_WEATHERED_CUT_COPPER"
-    name: "&2Waxed Weathered Cut Copper"
-    buy-price: 88.0
-    sell-price: 44.0
-    stock: -1
-    description: "Protected aged cut copper"
-    
-  waxed_oxidized_cut_copper:
-    material: "WAXED_OXIDIZED_CUT_COPPER"
-    name: "&2Waxed Oxidized Cut Copper"
-    buy-price: 90.0
-    sell-price: 45.0
-    stock: -1
-    description: "Protected oxidized cut copper"
-    
   # ===== QUARTZ =====
   quartz:
     material: "QUARTZ"
@@ -547,14 +302,6 @@ items:
     stock: -1
     description: "Luminous nether dust"
     
-  glowstone:
-    material: "GLOWSTONE"
-    name: "&eGlowstone"
-    buy-price: 32.0
-    sell-price: 16.0
-    stock: -1
-    description: "Bright nether light"
-    
   # ===== BLAZE MATERIALS =====
   blaze_rod:
     material: "BLAZE_ROD"
@@ -598,23 +345,6 @@ items:
     stock: -1
     description: "Wither boss drop"
     
-  # ===== DRAGON MATERIALS =====
-  dragon_egg:
-    material: "DRAGON_EGG"
-    name: "&5Dragon Egg"
-    buy-price: 10000.0
-    sell-price: 5000.0
-    stock: -1
-    description: "Legendary dragon egg"
-    
-  dragon_breath:
-    material: "DRAGON_BREATH"
-    name: "&5Dragon's Breath"
-    buy-price: 500.0
-    sell-price: 250.0
-    stock: -1
-    description: "Bottled dragon breath"
-    
   # ===== ECHO SHARD =====
   echo_shard:
     material: "ECHO_SHARD"
@@ -640,16 +370,7 @@ items:
     buy-price: 150.0
     sell-price: 75.0
     stock: -1
-    description: "Ocean conduit material"
-    
-  # ===== HEART OF THE SEA =====
-  heart_of_the_sea:
-    material: "HEART_OF_THE_SEA"
-    name: "&bHeart of the Sea"
-    buy-price: 1000.0
-    sell-price: 500.0
-    stock: -1
-    description: "Ocean treasure core"
+    description: "Ocean treasure"
     
   # ===== SCUTE =====
   scute:
@@ -678,24 +399,6 @@ items:
     stock: -1
     description: "End dimension shell"
     
-  # ===== TOTEM OF UNDYING =====
-  totem_of_undying:
-    material: "TOTEM_OF_UNDYING"
-    name: "&6Totem of Undying"
-    buy-price: 2000.0
-    sell-price: 1000.0
-    stock: -1
-    description: "Life-saving totem"
-    
-  # ===== RECOVERY COMPASS =====
-  recovery_compass:
-    material: "RECOVERY_COMPASS"
-    name: "&8Recovery Compass"
-    buy-price: 800.0
-    sell-price: 400.0
-    stock: -1
-    description: "Death location finder"
-    
   # ===== GHAST TEAR =====
   ghast_tear:
     material: "GHAST_TEAR"
@@ -703,7 +406,7 @@ items:
     buy-price: 200.0
     sell-price: 100.0
     stock: -1
-    description: "Regeneration potion ingredient"
+    description: "Regeneration ingredient"
     
   # ===== MAGMA CREAM =====
   magma_cream:
@@ -739,7 +442,7 @@ items:
     buy-price: 10.0
     sell-price: 5.0
     stock: -1
-    description: "Potion brewing ingredient"
+    description: "Potion ingredient"
     
   # ===== FERMENTED SPIDER EYE =====
   fermented_spider_eye:
@@ -748,7 +451,7 @@ items:
     buy-price: 30.0
     sell-price: 15.0
     stock: -1
-    description: "Corruption potion ingredient"
+    description: "Corruption ingredient"
     
   # ===== RABBIT'S FOOT =====
   rabbit_foot:
@@ -766,7 +469,7 @@ items:
     buy-price: 35.0
     sell-price: 17.5
     stock: -1
-    description: "Healing potion ingredient"
+    description: "Healing ingredient"
     
   # ===== GOLDEN CARROT =====
   golden_carrot:

@@ -80,14 +80,14 @@ public class ShopGui {
         Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
         Logger.debug("Adding " + sections.size() + " sections to main shop GUI");
         
-        // Manually add sections in specific order (excluding potions)
-        addSectionItem(gui, sections.get("blocks"), 10);
-        addSectionItem(gui, sections.get("ores"), 11);
-        addSectionItem(gui, sections.get("food"), 12);
-        addSectionItem(gui, sections.get("redstone"), 13);
-        addSectionItem(gui, sections.get("farming"), 14);
-        addSectionItem(gui, sections.get("decoration"), 15);
-        addSectionItem(gui, sections.get("potions"), 16);
+        // Stunning diamond pattern layout
+        addSectionItem(gui, sections.get("blocks"), 20);      // Top left
+        addSectionItem(gui, sections.get("ores"), 22);        // Top center  
+        addSectionItem(gui, sections.get("food"), 24);        // Top right
+        addSectionItem(gui, sections.get("redstone"), 29);    // Middle left
+        addSectionItem(gui, sections.get("farming"), 31);     // Center
+        addSectionItem(gui, sections.get("decoration"), 33);  // Middle right
+        addSectionItem(gui, sections.get("potions"), 40);     // Bottom center
     }
     
     /**
@@ -133,77 +133,78 @@ public class ShopGui {
      * Add navigation and info items
      */
     private void addNavigationItems(Inventory gui) {
-        // Player balance
+        // Player info (top center)
         double balance = plugin.getEconomyManager().getEconomy().getBalance(player);
-        gui.setItem(4, new ItemBuilder(Material.GOLD_INGOT)
-                .setName("&6&l💰 &e&lYOUR BALANCE")
+        gui.setItem(4, new ItemBuilder(Material.PLAYER_HEAD)
+                .setName("&6&l👤 &e&l" + player.getName().toUpperCase())
                 .setLore(Arrays.asList(
-                        "&7▸ &fCurrent Balance:",
-                        "&a&l$" + String.format("%.2f", balance),
+                        "&7▸ &fBalance: &a$" + String.format("%.2f", balance),
+                        "&7▸ &fRank: " + (player.hasPermission("easyshopgui.vip") ? "&6VIP" : "&7Member"),
+                        "&7▸ &fDiscount: &a" + getPlayerDiscount(player) + "%",
+                        "&7▸ &fSell Bonus: &a" + getSellMultiplier(player) + "x",
                         "",
-                        "&7▸ &fEarn money by:",
-                        "&7  • &aSelling items",
-                        "&7  • &aCompleting jobs",
-                        "&7  • &aVoting for server"
+                        "&6&l⭐ &eWelcome to EasyShop!"
                 ))
+                .setSkullOwner(player.getName())
                 .addGlow()
                 .build());
         
-        // Search function
+        // Search function (bottom left)
         gui.setItem(37, new ItemBuilder(Material.COMPASS)
                 .setName("&b&l🔍 &e&lSEARCH ITEMS")
                 .setLore(Arrays.asList(
                         "&7▸ &fQuickly find items",
-                        "&7▸ &fSearch by name",
-                        "&7▸ &fFilter by category",
+                        "&7▸ &fPartial words work",
+                        "&7▸ &fTypo-friendly matching",
                         "",
                         "&a&l➤ &aClick to search!"
                 ))
                 .build());
         
-        // Transaction history
+        // Transaction history (bottom left-center)
         gui.setItem(38, new ItemBuilder(Material.BOOK)
                 .setName("&3&l📋 &e&lTRANSACTION HISTORY")
                 .setLore(Arrays.asList(
                         "&7▸ &fView purchase history",
                         "&7▸ &fTrack your spending",
-                        "&7▸ &fExport data",
+                        "&7▸ &fAnalyze patterns",
                         "",
                         "&a&l➤ &aClick to view!"
                 ))
                 .build());
         
-        // Shop settings
+        // Shop settings (bottom center-left)
         gui.setItem(39, new ItemBuilder(Material.COMPARATOR)
                 .setName("&7&l⚙ &e&lSHOP SETTINGS")
                 .setLore(Arrays.asList(
                         "&7▸ &fConfirm purchases: &aON",
                         "&7▸ &fSound effects: &aON",
                         "&7▸ &fNotifications: &aON",
+                        "&7▸ &fPrice alerts: &cOFF",
                         "",
                         "&a&l➤ &aClick to configure!"
                 ))
                 .build());
         
-        // Quick sell
-        gui.setItem(40, new ItemBuilder(Material.HOPPER)
+        // Quick sell (bottom center-right)
+        gui.setItem(41, new ItemBuilder(Material.HOPPER)
                 .setName("&c&l💸 &e&lQUICK SELL")
                 .setLore(Arrays.asList(
-                        "&7▸ &fSell inventory items",
-                        "&7▸ &fBulk selling",
-                        "&7▸ &fInstant money",
+                        "&7▸ &fAnalyze inventory",
+                        "&7▸ &fBulk selling options",
+                        "&7▸ &fInstant transactions",
                         "",
                         "&a&l➤ &aClick to sell!"
                 ))
                 .build());
         
-        // Shop info
-        gui.setItem(41, new ItemBuilder(Material.PAPER)
+        // Shop info (bottom right-center)
+        gui.setItem(42, new ItemBuilder(Material.PAPER)
                 .setName("&e&l📄 &e&lSHOP INFORMATION")
                 .setLore(Arrays.asList(
                         "&7▸ &fShop Name: &a" + shopName,
-                        "&7▸ &fTotal Items: &a2,847",
-                        "&7▸ &fCategories: &a13",
+                        "&7▸ &fTotal Items: &a" + getTotalItemCount(),
+                        "&7▸ &fCategories: &a" + sections.size(),
                         "&7▸ &fLast Updated: &aToday",
                         "",
                         "&7▸ &fDynamic Pricing: &aENABLED",
@@ -211,7 +212,7 @@ public class ShopGui {
                 ))
                 .build());
         
-        // Close button
+        // Close button (bottom right)
         gui.setItem(43, new ItemBuilder(Material.BARRIER)
                 .setName("&c&l✖ &e&lCLOSE SHOP")
                 .setLore(Arrays.asList(
@@ -220,5 +221,28 @@ public class ShopGui {
                         "&c&l➤ &cClick to close!"
                 ))
                 .build());
+    }
+    
+    /**
+     * Helper methods
+     */
+    private int getTotalItemCount() {
+        return plugin.getGuiManager().getSections().values().stream()
+                .mapToInt(section -> section.getItems().size())
+                .sum();
+    }
+    
+    private int getPlayerDiscount(Player player) {
+        if (player.hasPermission("easyshopgui.discount.vip")) return 15;
+        if (player.hasPermission("easyshopgui.discount.premium")) return 10;
+        if (player.hasPermission("easyshopgui.discount.member")) return 5;
+        return 0;
+    }
+    
+    private double getSellMultiplier(Player player) {
+        if (player.hasPermission("easyshopgui.multiplier.vip")) return 1.5;
+        if (player.hasPermission("easyshopgui.multiplier.premium")) return 1.3;
+        if (player.hasPermission("easyshopgui.multiplier.member")) return 1.1;
+        return 1.0;
     }
 }
