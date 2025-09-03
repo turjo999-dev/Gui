@@ -204,7 +204,7 @@ public class ShopGui {
                 .setLore(Arrays.asList(
                         "&7▸ &fShop Name: &a" + shopName,
                         "&7▸ &fTotal Items: &a" + getTotalItemCount(),
-                        "&7▸ &fCategories: &a" + sections.size(),
+                        "&7▸ &fCategories: &a" + plugin.getGuiManager().getSections().size(),
                         "&7▸ &fLast Updated: &aToday",
                         "",
                         "&7▸ &fDynamic Pricing: &aENABLED",
