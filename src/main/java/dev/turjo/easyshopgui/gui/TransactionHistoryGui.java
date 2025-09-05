@@ -238,29 +238,6 @@ public class TransactionHistoryGui {
                         "&b&l➤ &bClick to filter!"
                 ))
                 .build());
-                .build());
-        
-        // Export data
-        gui.setItem(52, new ItemBuilder(Material.WRITABLE_BOOK)
-                .setName("&6&l📄 &e&lEXPORT DATA")
-                .setLore(Arrays.asList(
-                        "&7▸ &fExport transaction history",
-                        "&7▸ &fGenerate detailed report",
-                        "",
-                        "&6&l➤ &6Click to export!"
-                ))
-                .build());
-        
-        // Refresh
-        gui.setItem(53, new ItemBuilder(Material.COMPASS)
-                .setName("&a&l🔄 &e&lREFRESH")
-                .setLore(Arrays.asList(
-                        "&7▸ &fReload transaction data",
-                        "&7▸ &fUpdate statistics",
-                        "",
-                        "&a&l➤ &aClick to refresh!"
-                ))
-                .build());
     }
     
     /**
