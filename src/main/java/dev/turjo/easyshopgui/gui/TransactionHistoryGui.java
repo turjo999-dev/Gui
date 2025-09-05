@@ -238,6 +238,7 @@ public class TransactionHistoryGui {
                         "&b&l➤ &bClick to filter!"
                 ))
                 .build());
+                .build());
         
         // Export data
         gui.setItem(52, new ItemBuilder(Material.WRITABLE_BOOK)
