@@ -35,6 +35,8 @@ public class GuiListener implements Listener {
     private final Map<Player, Boolean> waitingForSearch = new HashMap<>();
     private final Map<Player, SearchGui> activeSearchGuis = new HashMap<>();
     private final Map<Player, QuickSellGui> activeQuickSellGuis = new HashMap<>();
+    private final Map<Player, SellGui> activeSellGuis = new HashMap<>();
+    private final Map<Player, TransactionHistoryGui> activeTransactionGuis = new HashMap<>();
     
     public GuiListener(EasyShopGUI plugin) {
         this.plugin = plugin;
@@ -393,6 +395,39 @@ public class GuiListener implements Listener {
             player.closeInventory();
             player.sendMessage("§b🔍 Type your search query in chat! (Type 'cancel' to cancel)");
             playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (itemName.contains("POPULAR: DIAMONDS")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("diamond");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: IRON")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("iron");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: FOOD")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("food");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: REDSTONE")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("redstone");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
+            // Handle search result item clicks
+            if (searchGui != null && !searchGui.getSearchResults().isEmpty()) {
+                // Find the clicked item in search results
+                ShopItem foundItem = searchGui.getSearchResults().stream()
+                        .filter(item -> item.getMaterial() == clickedItem.getType())
+                        .findFirst()
+                        .orElse(null);
+                
+                if (foundItem != null) {
+                    handleItemTransaction(player, foundItem, clickType);
+                }
+            }
         }
     }
     
@@ -413,6 +448,31 @@ public class GuiListener implements Listener {
         } else if (itemName.contains("REFRESH INVENTORY")) {
             openQuickSell(player);
             playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
+            // Handle sellable item clicks
+            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
+            if (quickSellGui != null) {
+                Material material = clickedItem.getType();
+                QuickSellGui.SellableItem sellableItem = quickSellGui.sellableItems.get(material);
+                
+                if (sellableItem != null) {
+                    switch (clickType) {
+                        case LEFT:
+                            quickSellGui.sellItem(material, 1);
+                            break;
+                        case RIGHT:
+                            quickSellGui.sellItem(material, 10);
+                            break;
+                        case SHIFT_LEFT:
+                            quickSellGui.sellItem(material, sellableItem.count / 2);
+                            break;
+                        case SHIFT_RIGHT:
+                            quickSellGui.sellItem(material, sellableItem.count);
+                            break;
+                    }
+                    playSound(player, Sound.ENTITY_VILLAGER_YES);
+                }
+            }
         }
     }
     
@@ -618,6 +678,10 @@ public class GuiListener implements Listener {
             }
         } else if (title.contains("QUICK SELL")) {
             activeQuickSellGuis.remove(player);
+        } else if (title.contains("SELL ITEMS")) {
+            handleSellGuiClick(player, itemName, event.getClick(), clickedItem, event.getSlot());
+        } else if (title.contains("TRANSACTION HISTORY")) {
+            handleTransactionHistoryClick(player, itemName, event.getClick());
         }
         
         if (isShopGUI(title)) {
