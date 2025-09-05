@@ -679,6 +679,10 @@ public class GuiListener implements Listener {
         } else if (title.contains("QUICK SELL")) {
             activeQuickSellGuis.remove(player);
         } else if (title.contains("SELL ITEMS")) {
+            activeSellGuis.remove(player);
+        } else if (title.contains("TRANSACTION HISTORY")) {
+            activeTransactionGuis.remove(player);
+        } else if (title.contains("SELL ITEMS")) {
             handleSellGuiClick(player, itemName, event.getClick(), clickedItem, event.getSlot());
         } else if (title.contains("TRANSACTION HISTORY")) {
             handleTransactionHistoryClick(player, itemName, event.getClick());

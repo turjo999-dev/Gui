@@ -144,6 +144,7 @@ public final class EasyShopGUI extends JavaPlugin {
     private void registerCommands() {
         getCommand("shop").setExecutor(new ShopCommand(this));
         getCommand("eshop").setExecutor(new ShopCommand(this));
+        getCommand("sellgui").setExecutor(new SellGuiCommand(this));
     }
 
     /**
