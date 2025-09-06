@@ -1,6 +1,7 @@
 package dev.turjo.easyshopgui;
 
 import dev.turjo.easyshopgui.commands.ShopCommand;
+import dev.turjo.easyshopgui.commands.SellGuiCommand;
 import dev.turjo.easyshopgui.config.ConfigManager;
 import dev.turjo.easyshopgui.database.DatabaseManager;
 import dev.turjo.easyshopgui.economy.EconomyManager;

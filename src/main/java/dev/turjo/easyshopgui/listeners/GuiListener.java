@@ -3,6 +3,8 @@ package dev.turjo.easyshopgui.listeners;
 import dev.turjo.easyshopgui.EasyShopGUI;
 import dev.turjo.easyshopgui.gui.SearchGui;
 import dev.turjo.easyshopgui.gui.QuickSellGui;
+import dev.turjo.easyshopgui.gui.SellGui;
+import dev.turjo.easyshopgui.gui.TransactionHistoryGui;
 import dev.turjo.easyshopgui.models.ShopItem;
 import dev.turjo.easyshopgui.models.ShopSection;
 import dev.turjo.easyshopgui.utils.MessageUtils;
@@ -682,10 +684,6 @@ public class GuiListener implements Listener {
             activeSellGuis.remove(player);
         } else if (title.contains("TRANSACTION HISTORY")) {
             activeTransactionGuis.remove(player);
-        } else if (title.contains("SELL ITEMS")) {
-            handleSellGuiClick(player, itemName, event.getClick(), clickedItem, event.getSlot());
-        } else if (title.contains("TRANSACTION HISTORY")) {
-            handleTransactionHistoryClick(player, itemName, event.getClick());
         }
         
         if (isShopGUI(title)) {
