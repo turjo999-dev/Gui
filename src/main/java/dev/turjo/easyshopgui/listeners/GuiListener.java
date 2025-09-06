@@ -172,11 +172,31 @@ public class GuiListener implements Listener {
         
         if (slot == 45 || itemName.contains("PREVIOUS PAGE")) {
             handlePreviousPage(player);
+            playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
             return;
         }
         
         if (slot == 53 || itemName.contains("NEXT PAGE")) {
             handleNextPage(player);
+            playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
+            return;
+        }
+        
+        // Additional navigation slots for different GUI layouts
+        if (slot == 49 && (itemName.contains("PAGE INFO") || itemName.contains("INFO"))) {
+            // Page info item - no action needed
+            return;
+        }
+        
+        if (slot == 4 && (itemName.contains("PLAYER") || clickedItem.getType() == Material.PLAYER_HEAD)) {
+            // Player info item - no action needed
+            return;
+        }
+        
+        if (slot == 8 && itemName.contains("QUICK ACTIONS")) {
+            // Quick actions - could open a submenu in the future
+            player.sendMessage("§e⚡ Quick actions coming soon!");
+            playSound(player, Sound.UI_BUTTON_CLICK);
             return;
         }
         
@@ -211,7 +231,10 @@ public class GuiListener implements Listener {
      */
     private boolean isNavigationItem(String itemName, ItemStack item, int slot) {
         // Check by slot position (navigation slots)
-        if (slot == 0 || slot == 4 || slot == 8 || slot == 45 || slot == 49 || slot == 53) {
+        if (slot == 0 || slot == 4 || slot == 8 || slot == 9 || slot == 17 || slot == 18 || 
+            slot == 26 || slot == 27 || slot == 35 || slot == 36 || slot == 44 || 
+            slot == 45 || slot == 46 || slot == 47 || slot == 48 || slot == 49 || 
+            slot == 50 || slot == 51 || slot == 52 || slot == 53) {
             return true;
         }
         
@@ -222,10 +245,26 @@ public class GuiListener implements Listener {
             material == Material.BLUE_STAINED_GLASS_PANE ||
             material == Material.RED_STAINED_GLASS_PANE ||
             material == Material.YELLOW_STAINED_GLASS_PANE ||
+            material == Material.CYAN_STAINED_GLASS_PANE ||
+            material == Material.GREEN_STAINED_GLASS_PANE ||
+            material == Material.PURPLE_STAINED_GLASS_PANE ||
+            material == Material.PINK_STAINED_GLASS_PANE ||
+            material == Material.LIGHT_BLUE_STAINED_GLASS_PANE ||
+            material == Material.LIGHT_GRAY_STAINED_GLASS_PANE ||
+            material == Material.LIME_STAINED_GLASS_PANE ||
+            material == Material.MAGENTA_STAINED_GLASS_PANE ||
+            material == Material.ORANGE_STAINED_GLASS_PANE ||
+            material == Material.WHITE_STAINED_GLASS_PANE ||
             material == Material.SPECTRAL_ARROW ||
             material == Material.ARROW ||
             material == Material.BOOK ||
+            material == Material.KNOWLEDGE_BOOK ||
             material == Material.EMERALD ||
+            material == Material.COMPASS ||
+            material == Material.HOPPER ||
+            material == Material.COMPARATOR ||
+            material == Material.PAPER ||
+            material == Material.BARRIER ||
             material == Material.PLAYER_HEAD) {
             return true;
         }
@@ -233,7 +272,11 @@ public class GuiListener implements Listener {
         // Check by name content
         return itemName.contains("PAGE INFO") || itemName.contains("PLAYER") ||
                itemName.contains("QUICK ACTIONS") || itemName.contains("BACK") ||
-               itemName.contains("PREVIOUS") || itemName.contains("NEXT");
+               itemName.contains("PREVIOUS") || itemName.contains("NEXT") ||
+               itemName.contains("SEARCH") || itemName.contains("HISTORY") ||
+               itemName.contains("SETTINGS") || itemName.contains("SELL") ||
+               itemName.contains("INFORMATION") || itemName.contains("CLOSE") ||
+               itemName.contains("TIPS") || itemName.contains("STATISTICS");
     }
     
     /**
@@ -537,17 +580,26 @@ public class GuiListener implements Listener {
             String sectionId = playerCurrentSection.get(player);
             if (sectionId != null) {
                 openSectionWithPage(player, sectionId, currentPage - 1);
-                playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
+            } else {
+                Logger.warn("No section ID found for player " + player.getName() + " during previous page navigation");
             }
+        } else {
+            player.sendMessage("§c📖 You're already on the first page!");
         }
     }
     
     private void handleNextPage(Player player) {
         String sectionId = playerCurrentSection.get(player);
-        if (sectionId == null) return;
+        if (sectionId == null) {
+            Logger.warn("No section ID found for player " + player.getName() + " during next page navigation");
+            return;
+        }
         
         ShopSection section = plugin.getGuiManager().getSections().get(sectionId);
-        if (section == null) return;
+        if (section == null) {
+            Logger.warn("Section not found: " + sectionId + " for player " + player.getName());
+            return;
+        }
         
         int currentPage = playerCurrentPage.getOrDefault(player, 0);
         int totalPages = (int) Math.ceil((double) section.getItems().size() / 28);
@@ -557,7 +609,8 @@ public class GuiListener implements Listener {
         if (currentPage < totalPages - 1) {
             playerCurrentPage.put(player, currentPage + 1);
             openSectionWithPage(player, sectionId, currentPage + 1);
-            playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
+        } else {
+            player.sendMessage("§c📖 You're already on the last page!");
         }
     }
     
