@@ -25,6 +25,7 @@ public class TransactionHistoryGui {
     private final EasyShopGUI plugin;
     private final Player player;
     private int currentPage = 0;
+    private final int TRANSACTIONS_PER_PAGE = 7;
     private List<Transaction> transactions = new ArrayList<>();
     
     public TransactionHistoryGui(EasyShopGUI plugin, Player player) {
@@ -100,7 +101,7 @@ public class TransactionHistoryGui {
         }
         
         // Display transactions (7 per page)
-        int startIndex = currentPage * 7;
+        int startIndex = currentPage * TRANSACTIONS_PER_PAGE;
         int[] transactionSlots = {19, 20, 21, 22, 23, 24, 25};
         
         for (int i = 0; i < transactionSlots.length && (startIndex + i) < transactions.size(); i++) {
@@ -258,7 +259,7 @@ public class TransactionHistoryGui {
     }
     
     private int getTotalPages() {
-        return Math.max(1, (int) Math.ceil((double) transactions.size() / 7));
+        return Math.max(1, (int) Math.ceil((double) transactions.size() / TRANSACTIONS_PER_PAGE));
     }
     
     private boolean hasNextPage() {

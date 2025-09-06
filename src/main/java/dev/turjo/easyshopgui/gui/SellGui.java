@@ -24,6 +24,13 @@ public class SellGui {
     private final Map<Integer, ItemStack> sellSlots = new HashMap<>();
     private double totalValue = 0.0;
     
+    // Define sell slots (where players can place items)
+    private final int[] SELL_SLOTS = {
+        10, 11, 12, 13, 14, 15, 16,
+        19, 20, 21, 22, 23, 24, 25,
+        28, 29, 30, 31, 32, 33, 34
+    };
+    
     public SellGui(EasyShopGUI plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
@@ -50,7 +57,7 @@ public class SellGui {
                 .setName(" ")
                 .build();
         
-        // Fill all slots
+        // Fill all slots first
         for (int i = 0; i < gui.getSize(); i++) {
             gui.setItem(i, background);
         }
@@ -60,31 +67,16 @@ public class SellGui {
      * Add sell slots where players can place items
      */
     private void addSellSlots(Inventory gui) {
-        // Create sell slots (3x7 grid)
-        int[] sellSlots = {
-            10, 11, 12, 13, 14, 15, 16,
-            19, 20, 21, 22, 23, 24, 25,
-            28, 29, 30, 31, 32, 33, 34
-        };
-        
-        for (int slot : sellSlots) {
-            gui.setItem(slot, new ItemBuilder(Material.LIGHT_GRAY_STAINED_GLASS_PANE)
-                    .setName("&7&l📦 &e&lSELL SLOT")
-                    .setLore(Arrays.asList(
-                            "&7▸ &fPlace items here to sell",
-                            "&7▸ &fOnly sellable items accepted",
-                            "&7▸ &fUnsellable items will be returned",
-                            "",
-                            "&a&l➤ &aDrop items here!"
-                    ))
-                    .build());
+        // Clear sell slots for item placement
+        for (int slot : SELL_SLOTS) {
+            gui.setItem(slot, null);
         }
         
         // Instructions
         gui.setItem(4, new ItemBuilder(Material.EMERALD)
                 .setName("&a&l💰 &e&lSELL INTERFACE")
                 .setLore(Arrays.asList(
-                        "&7▸ &fPlace items in the slots below",
+                        "&7▸ &fPlace items in the empty slots below",
                         "&7▸ &fSellable items will show their value",
                         "&7▸ &fUnsellable items will be returned",
                         "&7▸ &fClick 'Sell All' when ready",
@@ -143,7 +135,7 @@ public class SellGui {
     private void addNavigation(Inventory gui) {
         // Back button
         gui.setItem(45, new ItemBuilder(Material.ARROW)
-                .setName("&c&l← &e&lBACK")
+                .setName("&c&l← &e&lBACK TO SHOP")
                 .setLore(Arrays.asList(
                         "&7▸ &fReturn to main shop",
                         "",
@@ -153,9 +145,25 @@ public class SellGui {
     }
     
     /**
+     * Check if slot is a sell slot
+     */
+    public boolean isSellSlot(int slot) {
+        for (int sellSlot : SELL_SLOTS) {
+            if (sellSlot == slot) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * Handle item placement in sell slots
      */
     public void handleItemPlacement(int slot, ItemStack item) {
+        if (!isSellSlot(slot)) {
+            return;
+        }
+        
         if (item == null || item.getType() == Material.AIR) {
             sellSlots.remove(slot);
             recalculateValue();
@@ -165,7 +173,7 @@ public class SellGui {
         // Check if item is sellable
         ShopItem shopItem = findSellableItem(item.getType());
         if (shopItem != null && shopItem.getSellPrice() > 0) {
-            sellSlots.put(slot, item);
+            sellSlots.put(slot, item.clone());
             player.sendMessage("§a✓ Added " + item.getAmount() + "x " + shopItem.getDisplayName() + 
                              " §a(Value: §6$" + String.format("%.2f", shopItem.getSellPrice() * item.getAmount()) + "§a)");
         } else {
@@ -250,5 +258,19 @@ public class SellGui {
         totalValue = 0.0;
         player.sendMessage("§e📦 All items returned to inventory!");
         open(); // Refresh GUI
+    }
+    
+    /**
+     * Get sell slots for external access
+     */
+    public int[] getSellSlots() {
+        return SELL_SLOTS;
+    }
+    
+    /**
+     * Get current sell items
+     */
+    public Map<Integer, ItemStack> getCurrentSellItems() {
+        return new HashMap<>(sellSlots);
     }
 }
