@@ -550,11 +550,3 @@ items:
     stock: -1
     description: "Sea turtle egg"
     
-  # Scute
-  scute:
-    material: "SCUTE"
-    name: "&2Scute"
-    buy-price: 30.0
-    sell-price: 15.0
-    stock: -1
-    description: "Turtle shell piece"

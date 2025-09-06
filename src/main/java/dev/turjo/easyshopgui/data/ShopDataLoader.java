@@ -149,7 +149,7 @@ public class ShopDataLoader {
         for (String itemId : itemsConfig.getKeys(false)) {
             ConfigurationSection itemConfig = itemsConfig.getConfigurationSection(itemId);
             if (itemConfig == null) {
-                Logger.warn("Invalid item configuration for: " + itemId);
+                Logger.warn("Invalid material for item " + itemId + ": " + materialName + " in section " + section.getId() + ", skipping");
                 continue;
             }
             

@@ -33,6 +33,13 @@ commands:
     aliases: [easyshop, shopgui]
     permission: easyshopgui.admin
     permission-message: §cYou don't have permission to use this command!
+  
+  sellgui:
+    description: Open the sell GUI
+    usage: /<command>
+    aliases: [sell, sellmenu]
+    permission: easyshopgui.sellgui
+    permission-message: §cYou don't have permission to use this command!
 
 permissions:
   easyshopgui.*:
@@ -57,6 +64,10 @@ permissions:
     description: Bypass all shop restrictions
     default: op
   
+  easyshopgui.sellgui:
+    description: Access to the sell GUI
+    default: true
+  
   easyshopgui.discount.*:
     description: All discount permissions
     default: false
@@ -71,8 +82,4 @@ permissions:
   
   easyshopgui.item.*:
     description: Access to all shop items
-    default: true
-  
-  easyshopgui.sellgui:
-    description: Access to the sell GUI
     default: true

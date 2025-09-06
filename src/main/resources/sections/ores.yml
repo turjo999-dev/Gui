@@ -373,13 +373,6 @@ items:
     description: "Ocean treasure"
     
   # ===== SCUTE =====
-  scute:
-    material: "SCUTE"
-    name: "&2Scute"
-    buy-price: 75.0
-    sell-price: 37.5
-    stock: -1
-    description: "Turtle shell piece"
     
   # ===== PHANTOM MEMBRANE =====
   phantom_membrane:

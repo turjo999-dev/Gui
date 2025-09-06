@@ -143,9 +143,34 @@ public final class EasyShopGUI extends JavaPlugin {
      * Register plugin commands
      */
     private void registerCommands() {
-        getCommand("shop").setExecutor(new ShopCommand(this));
-        getCommand("eshop").setExecutor(new ShopCommand(this));
-        getCommand("sellgui").setExecutor(new SellGuiCommand(this));
+        try {
+            ShopCommand shopCommand = new ShopCommand(this);
+            
+            if (getCommand("shop") != null) {
+                getCommand("shop").setExecutor(shopCommand);
+                getCommand("shop").setTabCompleter(shopCommand);
+            } else {
+                Logger.warn("Command 'shop' not found in plugin.yml");
+            }
+            
+            if (getCommand("eshop") != null) {
+                getCommand("eshop").setExecutor(shopCommand);
+                getCommand("eshop").setTabCompleter(shopCommand);
+            } else {
+                Logger.warn("Command 'eshop' not found in plugin.yml");
+            }
+            
+            if (getCommand("sellgui") != null) {
+                getCommand("sellgui").setExecutor(new SellGuiCommand(this));
+            } else {
+                Logger.warn("Command 'sellgui' not found in plugin.yml");
+            }
+            
+            Logger.info("Commands registered successfully!");
+        } catch (Exception e) {
+            Logger.error("Error registering commands: " + e.getMessage());
+            throw e;
+        }
     }
 
     /**

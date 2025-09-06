@@ -441,14 +441,6 @@ items:
     description: "Dangerous dark flower"
     
   # Tall Grass and Ferns
-  grass:
-    material: "GRASS"
-    name: "&2Grass"
-    buy-price: 1.0
-    sell-price: 0.5
-    stock: -1
-    description: "Wild grass"
-    
   tall_grass:
     material: "TALL_GRASS"
     name: "&2Tall Grass"
