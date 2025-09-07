@@ -1,9 +1,9 @@
 package dev.turjo.easyshopgui.listeners;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
+import dev.turjo.easyshopgui.gui.SellGui;
 import dev.turjo.easyshopgui.gui.SearchGui;
 import dev.turjo.easyshopgui.gui.QuickSellGui;
-import dev.turjo.easyshopgui.gui.SellGui;
 import dev.turjo.easyshopgui.gui.TransactionHistoryGui;
 import dev.turjo.easyshopgui.gui.SectionGui;
 import dev.turjo.easyshopgui.models.ShopItem;
@@ -65,7 +65,7 @@ public class GuiListener implements Listener {
         // Check if it's a shop GUI
         if (isShopGUI(title)) {
             // Handle SellGui differently - allow item placement in sell slots
-            if (title.contains("SELL ITEMS")) {
+            if (title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS")) {
                 handleSellGuiClick(event, player);
                 return;
             }
@@ -141,17 +141,29 @@ public class GuiListener implements Listener {
      */
     private void handleSellGuiClick(InventoryClickEvent event, Player player) {
         SellGui sellGui = activeSellGuis.get(player);
-        if (sellGui == null) return;
+        if (sellGui == null) {
+            Logger.debug("No active SellGui found for player: " + player.getName());
+            return;
+        }
         
         int slot = event.getSlot();
         ItemStack clickedItem = event.getCurrentItem();
         String itemName = clickedItem != null && clickedItem.getItemMeta() != null ? 
                          MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName()) : "";
         
+        Logger.debug("SellGui click - Slot: " + slot + ", Item: " + itemName + ", Click: " + event.getClick());
+        
         // Handle action buttons
         if (itemName.contains("SELL ALL ITEMS") && slot == 49) {
             event.setCancelled(true);
             sellGui.sellAll();
+            playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
+            return;
+        }
+        
+        if (itemName.contains("SELL VALUABLE ONLY") && slot == 50) {
+            event.setCancelled(true);
+            sellGui.sellValuableOnly();
             playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
             return;
         }
@@ -170,6 +182,13 @@ public class GuiListener implements Listener {
             return;
         }
         
+        if (itemName.contains("QUICK FILL") && slot == 48) {
+            event.setCancelled(true);
+            sellGui.quickFill();
+            playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
+            return;
+        }
+        
         if (itemName.contains("BACK TO SHOP") && slot == 45) {
             event.setCancelled(true);
             activeSellGuis.remove(player);
@@ -180,16 +199,25 @@ public class GuiListener implements Listener {
         
         // Handle sell slot interactions
         if (sellGui.isSellSlot(slot)) {
-            // Allow item placement/removal in sell slots
-            if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
+            if (event.getClick() == ClickType.RIGHT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                // Handle item removal
+                event.setCancelled(true);
+                boolean removeAll = event.getClick() == ClickType.SHIFT_RIGHT;
+                sellGui.handleItemRemoval(slot, removeAll);
+            } else if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.SHIFT_LEFT) {
                 // Let the event proceed for item placement
+                Logger.debug("Allowing item placement in sell slot: " + slot);
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     ItemStack newItem = event.getView().getTopInventory().getItem(slot);
+                    Logger.debug("Processing placed item: " + (newItem != null ? newItem.getType() : "null"));
                     sellGui.handleItemPlacement(slot, newItem);
                 }, 1L);
             }
         } else {
             // Cancel clicks on non-sell slots (GUI elements)
+            if (clickedItem != null && clickedItem.getType() != Material.AIR) {
+                Logger.debug("Cancelled click on GUI element: " + itemName);
+            }
             event.setCancelled(true);
         }
     }
@@ -203,7 +231,7 @@ public class GuiListener implements Listener {
                title.contains("BLOCKS") || title.contains("ORES") || title.contains("FOOD") ||
                title.contains("REDSTONE") || title.contains("FARMING") || title.contains("DECORATION") ||
                title.contains("TRANSACTION HISTORY") || title.contains("SHOP SETTINGS") ||
-               title.contains("SELL ITEMS");
+               title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS");
     }
     
     /**
@@ -243,12 +271,17 @@ public class GuiListener implements Listener {
             case 41: // Quick Sell
                 openQuickSell(player);
                 break;
-            case 43: // Close
+            case 43: // Close or other actions
                 player.closeInventory();
                 playSound(player, Sound.UI_BUTTON_CLICK);
                 break;
             default:
                 // Check by material for fallback
+                if (itemName.contains("QUICK SELL") || material == Material.HOPPER) {
+                    openSellGUI(player);
+                    break;
+                }
+                
                 if (material == Material.STONE) {
                     openSection(player, "blocks");
                 } else if (material == Material.DIAMOND_ORE) {
@@ -692,11 +725,18 @@ public class GuiListener implements Listener {
     /**
      * Open sell GUI
      */
-    private void openSellGUI(Player player) {
+    public void openSellGUI(Player player) {
         SellGui sellGui = new SellGui(plugin, player);
         activeSellGuis.put(player, sellGui);
         sellGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
+    }
+    
+    /**
+     * Get active sell GUI for player
+     */
+    public SellGui getActiveSellGui(Player player) {
+        return activeSellGuis.get(player);
     }
     
     /**
@@ -883,7 +923,7 @@ public class GuiListener implements Listener {
             }
         } else if (title.contains("QUICK SELL")) {
             activeQuickSellGuis.remove(player);
-        } else if (title.contains("SELL ITEMS")) {
+        } else if (title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS")) {
             activeSellGuis.remove(player);
         } else if (title.contains("TRANSACTION HISTORY")) {
             activeTransactionGuis.remove(player);

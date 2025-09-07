@@ -128,7 +128,7 @@ public final class EasyShopGUI extends JavaPlugin {
             updateChecker.checkForUpdates();
             
             // Enable debug logging
-            Logger.setDebugMode(configManager.getMainConfig().getBoolean("plugin.debug", false));
+            Logger.setDebugMode(configManager.getMainConfig().getBoolean("plugin.debug", true));
             
             return true;
             

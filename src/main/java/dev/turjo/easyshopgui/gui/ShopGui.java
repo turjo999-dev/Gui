@@ -188,9 +188,9 @@ public class ShopGui {
         
         // Quick sell (bottom center-right)
         gui.setItem(41, new ItemBuilder(Material.HOPPER)
-                .setName("&c&l💸 &e&lQUICK SELL")
+                .setName("&c&l💸 &e&lSELL ITEMS")
                 .setLore(Arrays.asList(
-                        "&7▸ &fAnalyze inventory",
+                        "&7▸ &fInteractive sell interface",
                         "&7▸ &fBulk selling options",
                         "&7▸ &fInstant transactions",
                         "",
