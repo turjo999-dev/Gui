@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 /**
- * Perfect interactive sell GUI where players can place items to sell
+ * Perfect interactive sell GUI with proper event handling
  */
 public class SellGui {
     
@@ -32,6 +32,9 @@ public class SellGui {
         19, 20, 21, 22, 23, 24, 25,
         28, 29, 30, 31, 32, 33, 34
     };
+    
+    // Define button slots (protected from player interaction)
+    private final Set<Integer> BUTTON_SLOTS = Set.of(4, 47, 48, 49, 50, 51, 45, 53);
     
     public SellGui(EasyShopGUI plugin, Player player) {
         this.plugin = plugin;
@@ -137,7 +140,7 @@ public class SellGui {
                 ))
                 .setAmount(Math.min(sellableItem.amount, 64))
                 .addGlow()
-                .build();
+                .build());
     }
     
     /**
@@ -241,6 +244,74 @@ public class SellGui {
     }
     
     /**
+     * Handle button clicks
+     */
+    public boolean handleClick(int slot, ItemStack clickedItem) {
+        Logger.debug("SellGui click - Slot: " + slot + ", Item: " + (clickedItem != null ? clickedItem.getType() : "null"));
+        
+        // Check if it's a button slot
+        if (BUTTON_SLOTS.contains(slot)) {
+            String itemName = clickedItem != null && clickedItem.getItemMeta() != null ? 
+                             MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName()) : "";
+            
+            Logger.debug("Button clicked: " + itemName);
+            
+            switch (slot) {
+                case 49: // Sell All
+                    if (itemName.contains("SELL ALL ITEMS")) {
+                        sellAll();
+                        return true;
+                    }
+                    break;
+                case 47: // Clear All
+                    if (itemName.contains("CLEAR ALL")) {
+                        clearAll();
+                        return true;
+                    }
+                    break;
+                case 51: // Recalculate
+                    if (itemName.contains("RECALCULATE")) {
+                        recalculateValue();
+                        open(); // Refresh GUI
+                        playSound(Sound.UI_BUTTON_CLICK);
+                        return true;
+                    }
+                    break;
+                case 48: // Quick Fill
+                    if (itemName.contains("QUICK FILL")) {
+                        quickFill();
+                        return true;
+                    }
+                    break;
+                case 50: // Sell Valuable
+                    if (itemName.contains("SELL VALUABLE")) {
+                        sellValuableOnly();
+                        return true;
+                    }
+                    break;
+                case 45: // Back
+                    if (itemName.contains("BACK")) {
+                        clearAll(); // Return items before closing
+                        plugin.getGuiManager().openShop(player, "main");
+                        playSound(Sound.UI_BUTTON_CLICK);
+                        return true;
+                    }
+                    break;
+                case 53: // Help
+                    if (itemName.contains("HELP")) {
+                        player.sendMessage("§b💡 SellGui Help: Drag items from your inventory into the empty slots to sell them!");
+                        playSound(Sound.UI_BUTTON_CLICK);
+                        return true;
+                    }
+                    break;
+            }
+            return true; // Always cancel button clicks
+        }
+        
+        return false; // Allow other clicks
+    }
+    
+    /**
      * Check if slot is a sell slot
      */
     public boolean isSellSlot(int slot) {
@@ -250,6 +321,13 @@ public class SellGui {
             }
         }
         return false;
+    }
+    
+    /**
+     * Check if slot is a button slot
+     */
+    public boolean isButtonSlot(int slot) {
+        return BUTTON_SLOTS.contains(slot);
     }
     
     /**
@@ -298,47 +376,6 @@ public class SellGui {
         
         // Refresh GUI after a short delay
         Bukkit.getScheduler().runTaskLater(plugin, this::open, 2L);
-    }
-    
-    /**
-     * Handle item removal from sell slots
-     */
-    public void handleItemRemoval(int slot, boolean removeAll) {
-        if (!sellSlots.containsKey(slot)) return;
-        
-        SellableItem sellableItem = sellSlots.get(slot);
-        
-        if (removeAll) {
-            // Remove all items
-            ItemStack returnItem = new ItemStack(sellableItem.shopItem.getMaterial(), sellableItem.amount);
-            player.getInventory().addItem(returnItem);
-            sellSlots.remove(slot);
-            
-            player.sendMessage("§e📦 Returned " + sellableItem.amount + "x " + 
-                             MessageUtils.stripColor(sellableItem.shopItem.getDisplayName()) + " to inventory");
-        } else {
-            // Remove one item
-            if (sellableItem.amount > 1) {
-                sellableItem.amount--;
-                ItemStack returnItem = new ItemStack(sellableItem.shopItem.getMaterial(), 1);
-                player.getInventory().addItem(returnItem);
-                
-                player.sendMessage("§e📦 Returned 1x " + 
-                                 MessageUtils.stripColor(sellableItem.shopItem.getDisplayName()) + " to inventory");
-            } else {
-                // Remove last item
-                ItemStack returnItem = new ItemStack(sellableItem.shopItem.getMaterial(), 1);
-                player.getInventory().addItem(returnItem);
-                sellSlots.remove(slot);
-                
-                player.sendMessage("§e📦 Returned last " + 
-                                 MessageUtils.stripColor(sellableItem.shopItem.getDisplayName()) + " to inventory");
-            }
-        }
-        
-        playSound(Sound.UI_BUTTON_CLICK);
-        recalculateValue();
-        open(); // Refresh GUI
     }
     
     /**

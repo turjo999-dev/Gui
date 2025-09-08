@@ -1,13 +1,13 @@
 package dev.turjo.easyshopgui.listeners;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
+import dev.turjo.easyshopgui.EasyShopGUI;
 import dev.turjo.easyshopgui.gui.SellGui;
 import dev.turjo.easyshopgui.gui.SearchGui;
 import dev.turjo.easyshopgui.gui.QuickSellGui;
 import dev.turjo.easyshopgui.gui.TransactionHistoryGui;
 import dev.turjo.easyshopgui.gui.SectionGui;
 import dev.turjo.easyshopgui.models.ShopItem;
-import dev.turjo.easyshopgui.models.ShopSection;
 import dev.turjo.easyshopgui.utils.MessageUtils;
 import dev.turjo.easyshopgui.utils.Logger;
 import org.bukkit.Bukkit;
@@ -64,6 +64,7 @@ public class GuiListener implements Listener {
         
         // Check if it's a shop GUI
         if (isShopGUI(title)) {
+            Logger.debug("Shop GUI detected: " + title);
             // Handle SellGui differently - allow item placement in sell slots
             if (title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS")) {
                 handleSellGuiClick(event, player);
@@ -140,6 +141,7 @@ public class GuiListener implements Listener {
      * Handle SellGui clicks with special item placement logic
      */
     private void handleSellGuiClick(InventoryClickEvent event, Player player) {
+        Logger.debug("Handling SellGui click for player: " + player.getName());
         SellGui sellGui = activeSellGuis.get(player);
         if (sellGui == null) {
             Logger.debug("No active SellGui found for player: " + player.getName());
@@ -147,32 +149,26 @@ public class GuiListener implements Listener {
         }
         
         int slot = event.getSlot();
-        ItemStack clickedItem = event.getCurrentItem();
-        String itemName = clickedItem != null && clickedItem.getItemMeta() != null ? 
-                         MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName()) : "";
+        ItemStack clickedItem = event.getCurrentItem();        
         
-        Logger.debug("SellGui click - Slot: " + slot + ", Item: " + itemName + ", Click: " + event.getClick());
+        Logger.debug("SellGui click - Slot: " + slot + ", Click: " + event.getClick());
         
-        // Handle action buttons
-        if (itemName.contains("SELL ALL ITEMS") && slot == 49) {
+        // Check if it's a button click first
+        if (sellGui.isButtonSlot(slot)) {
             event.setCancelled(true);
-            sellGui.sellAll();
-            playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
+            boolean handled = sellGui.handleClick(slot, clickedItem);
+            Logger.debug("Button click handled: " + handled);
             return;
         }
         
-        if (itemName.contains("SELL VALUABLE ONLY") && slot == 50) {
+        // Handle sell slot interactions
+        if (sellGui.isSellSlot(slot)) {
+            Logger.debug("Sell slot interaction - allowing item placement/removal");
+            // Allow the event to proceed for item placement/removal
+        } else {
+            // Cancel all other clicks (background, borders, etc.)
             event.setCancelled(true);
-            sellGui.sellValuableOnly();
-            playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
-            return;
-        }
-        
-        if (itemName.contains("CLEAR ALL") && slot == 47) {
-            event.setCancelled(true);
-            sellGui.clearAll();
-            playSound(player, Sound.UI_BUTTON_CLICK);
-            return;
+            Logger.debug("Non-interactive slot clicked, cancelled");
         }
         
         if (itemName.contains("RECALCULATE VALUE") && slot == 51) {
