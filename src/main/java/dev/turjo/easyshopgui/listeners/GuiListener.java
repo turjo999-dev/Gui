@@ -7,6 +7,7 @@ import dev.turjo.easyshopgui.gui.SearchGui;
 import dev.turjo.easyshopgui.gui.QuickSellGui;
 import dev.turjo.easyshopgui.gui.TransactionHistoryGui;
 import dev.turjo.easyshopgui.gui.SectionGui;
+import dev.turjo.easyshopgui.models.ShopSection;
 import dev.turjo.easyshopgui.models.ShopItem;
 import dev.turjo.easyshopgui.utils.MessageUtils;
 import dev.turjo.easyshopgui.utils.Logger;
@@ -153,6 +154,9 @@ public class GuiListener implements Listener {
         
         Logger.debug("SellGui click - Slot: " + slot + ", Click: " + event.getClick());
         
+        String itemName = clickedItem != null && clickedItem.getItemMeta() != null ? 
+                         MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName()) : "";
+        
         // Check if it's a button click first
         if (sellGui.isButtonSlot(slot)) {
             event.setCancelled(true);
@@ -198,8 +202,11 @@ public class GuiListener implements Listener {
             if (event.getClick() == ClickType.RIGHT || event.getClick() == ClickType.SHIFT_RIGHT) {
                 // Handle item removal
                 event.setCancelled(true);
-                boolean removeAll = event.getClick() == ClickType.SHIFT_RIGHT;
-                sellGui.handleItemRemoval(slot, removeAll);
+                // Remove item from sell slot by setting it to null
+                event.getView().getTopInventory().setItem(slot, null);
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    sellGui.handleItemPlacement(slot, null);
+                }, 1L);
             } else if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.SHIFT_LEFT) {
                 // Let the event proceed for item placement
                 Logger.debug("Allowing item placement in sell slot: " + slot);
