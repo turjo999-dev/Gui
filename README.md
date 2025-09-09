@@ -1,11 +1,11 @@
 # EasyShopGUI - Premium Minecraft Shop Plugin
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![Minecraft](https://img.shields.io/badge/minecraft-1.8.x--1.21.x-green.svg)
+![Version](https://img.shields.io/badge/version-1.4.5-blue.svg)
+![Minecraft](https://img.shields.io/badge/minecraft-1.16.x--1.21.x-green.svg)
 ![Java](https://img.shields.io/badge/java-17+-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-red.svg)
 
-**EasyShopGUI** is a premium, feature-rich Minecraft shop plugin designed to provide the ultimate shopping experience for your server. With advanced features, stunning GUIs, and extensive customization options, it's the perfect solution for any server looking to implement a professional shop system.
+**EasyShopGUI** is a premium, feature-rich Minecraft shop plugin designed to provide the ultimate shopping experience for your server. With advanced features, stunning GUIs, Bedrock compatibility, and extensive customization options, it's the perfect solution for any server looking to implement a professional shop system.
 
 ## 🌟 Features
 
@@ -44,6 +44,12 @@
 - **Discounts & Multipliers** - Permission-based pricing
 - **Multiple Currencies** - Different currencies per shop
 - **Seasonal Pricing** - Price modifiers for different seasons
+
+### 🎮 Bedrock Compatibility
+- **Full Bedrock Support** - Works perfectly with Bedrock/MCPE players
+- **No Inventory Glitches** - Doesn't interfere with vanilla inventories
+- **Optimized Performance** - Reduced lag and improved responsiveness
+- **Cross-Platform** - Seamless experience for Java and Bedrock players
 
 ### 🔌 Integrations
 - **Vault Economy** - Support for all major economy plugins

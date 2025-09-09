@@ -1,8 +1,6 @@
 package dev.turjo.easyshopgui.listeners;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
-import dev.turjo.easyshopgui.EasyShopGUI;
-import dev.turjo.easyshopgui.gui.SellGui;
 import dev.turjo.easyshopgui.gui.SearchGui;
 import dev.turjo.easyshopgui.gui.QuickSellGui;
 import dev.turjo.easyshopgui.gui.TransactionHistoryGui;
@@ -20,7 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Enhanced GUI listener with proper buying/selling system and GUI protection
+ * Enhanced GUI listener with Bedrock compatibility fixes
  */
 public class GuiListener implements Listener {
     
@@ -40,7 +38,6 @@ public class GuiListener implements Listener {
     private final Map<Player, Boolean> waitingForSearch = new HashMap<>();
     private final Map<Player, SearchGui> activeSearchGuis = new HashMap<>();
     private final Map<Player, QuickSellGui> activeQuickSellGuis = new HashMap<>();
-    private final Map<Player, SellGui> activeSellGuis = new HashMap<>();
     private final Map<Player, TransactionHistoryGui> activeTransactionGuis = new HashMap<>();
     private final Map<Player, SectionGui> activeSectionGuis = new HashMap<>();
     
@@ -55,9 +52,14 @@ public class GuiListener implements Listener {
         Player player = (Player) event.getWhoClicked();
         String title = MessageUtils.stripColor(event.getView().getTitle());
         
+        // Bedrock compatibility: Don't interfere with vanilla inventories
+        if (isVanillaInventory(event)) {
+            return; // Let vanilla inventories work normally
+        }
+        
         // Anti-spam protection
         long currentTime = System.currentTimeMillis();
-        if (lastClickTime.containsKey(player) && currentTime - lastClickTime.get(player) < 100) {
+        if (lastClickTime.containsKey(player) && currentTime - lastClickTime.get(player) < 150) {
             event.setCancelled(true);
             return;
         }
@@ -66,13 +68,8 @@ public class GuiListener implements Listener {
         // Check if it's a shop GUI
         if (isShopGUI(title)) {
             Logger.debug("Shop GUI detected: " + title);
-            // Handle SellGui differently - allow item placement in sell slots
-            if (title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS")) {
-                handleSellGuiClick(event, player);
-                return;
-            }
             
-            // Cancel all other shop GUI clicks to prevent item theft
+            // Cancel all shop GUI clicks to prevent item theft
             event.setCancelled(true);
             
             ItemStack clickedItem = event.getCurrentItem();
@@ -103,126 +100,38 @@ public class GuiListener implements Listener {
     }
     
     /**
-     * Handle inventory drag events to prevent item theft
+     * Check if this is a vanilla inventory that should not be interfered with
      */
-    @EventHandler
-    public void onInventoryDrag(InventoryDragEvent event) {
-        if (!(event.getWhoClicked() instanceof Player)) return;
-        
-        Player player = (Player) event.getWhoClicked();
+    private boolean isVanillaInventory(InventoryClickEvent event) {
+        InventoryType type = event.getInventory().getType();
         String title = MessageUtils.stripColor(event.getView().getTitle());
         
-        if (isShopGUI(title)) {
-            // Only allow dragging in SellGui sell slots
-            if (title.contains("SELL ITEMS")) {
-                SellGui sellGui = activeSellGuis.get(player);
-                if (sellGui != null) {
-                    // Check if drag involves only sell slots
-                    boolean validDrag = true;
-                    for (int slot : event.getRawSlots()) {
-                        if (slot < event.getView().getTopInventory().getSize()) {
-                            if (!sellGui.isSellSlot(slot)) {
-                                validDrag = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (!validDrag) {
-                        event.setCancelled(true);
-                    }
-                }
-            } else {
-                // Cancel all other GUI drags
-                event.setCancelled(true);
-            }
-        }
-    }
-    
-    /**
-     * Handle SellGui clicks with special item placement logic
-     */
-    private void handleSellGuiClick(InventoryClickEvent event, Player player) {
-        Logger.debug("Handling SellGui click for player: " + player.getName());
-        SellGui sellGui = activeSellGuis.get(player);
-        if (sellGui == null) {
-            Logger.debug("No active SellGui found for player: " + player.getName());
-            return;
-        }
-        
-        int slot = event.getSlot();
-        ItemStack clickedItem = event.getCurrentItem();        
-        
-        Logger.debug("SellGui click - Slot: " + slot + ", Click: " + event.getClick());
-        
-        String itemName = clickedItem != null && clickedItem.getItemMeta() != null ? 
-                         MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName()) : "";
-        
-        // Check if it's a button click first
-        if (sellGui.isButtonSlot(slot)) {
-            event.setCancelled(true);
-            boolean handled = sellGui.handleClick(slot, clickedItem);
-            Logger.debug("Button click handled: " + handled);
-            return;
-        }
-        
-        // Handle sell slot interactions
-        if (sellGui.isSellSlot(slot)) {
-            Logger.debug("Sell slot interaction - allowing item placement/removal");
-            // Allow the event to proceed for item placement/removal
-        } else {
-            // Cancel all other clicks (background, borders, etc.)
-            event.setCancelled(true);
-            Logger.debug("Non-interactive slot clicked, cancelled");
-        }
-        
-        if (itemName.contains("RECALCULATE VALUE") && slot == 51) {
-            event.setCancelled(true);
-            sellGui.open(); // Refresh GUI
-            playSound(player, Sound.UI_BUTTON_CLICK);
-            return;
-        }
-        
-        if (itemName.contains("QUICK FILL") && slot == 48) {
-            event.setCancelled(true);
-            sellGui.quickFill();
-            playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
-            return;
-        }
-        
-        if (itemName.contains("BACK TO SHOP") && slot == 45) {
-            event.setCancelled(true);
-            activeSellGuis.remove(player);
-            plugin.getGuiManager().openShop(player, "main");
-            playSound(player, Sound.UI_BUTTON_CLICK);
-            return;
-        }
-        
-        // Handle sell slot interactions
-        if (sellGui.isSellSlot(slot)) {
-            if (event.getClick() == ClickType.RIGHT || event.getClick() == ClickType.SHIFT_RIGHT) {
-                // Handle item removal
-                event.setCancelled(true);
-                // Remove item from sell slot by setting it to null
-                event.getView().getTopInventory().setItem(slot, null);
-                Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    sellGui.handleItemPlacement(slot, null);
-                }, 1L);
-            } else if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.SHIFT_LEFT) {
-                // Let the event proceed for item placement
-                Logger.debug("Allowing item placement in sell slot: " + slot);
-                Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    ItemStack newItem = event.getView().getTopInventory().getItem(slot);
-                    Logger.debug("Processing placed item: " + (newItem != null ? newItem.getType() : "null"));
-                    sellGui.handleItemPlacement(slot, newItem);
-                }, 1L);
-            }
-        } else {
-            // Cancel clicks on non-sell slots (GUI elements)
-            if (clickedItem != null && clickedItem.getType() != Material.AIR) {
-                Logger.debug("Cancelled click on GUI element: " + itemName);
-            }
-            event.setCancelled(true);
-        }
+        // Don't interfere with these inventory types
+        return type == InventoryType.PLAYER ||
+               type == InventoryType.CHEST ||
+               type == InventoryType.CRAFTING ||
+               type == InventoryType.WORKBENCH ||
+               type == InventoryType.FURNACE ||
+               type == InventoryType.ANVIL ||
+               type == InventoryType.ENCHANTING ||
+               type == InventoryType.BREWING ||
+               type == InventoryType.MERCHANT ||
+               type == InventoryType.ENDER_CHEST ||
+               type == InventoryType.HOPPER ||
+               type == InventoryType.DISPENSER ||
+               type == InventoryType.DROPPER ||
+               type == InventoryType.BEACON ||
+               type == InventoryType.SHULKER_BOX ||
+               type == InventoryType.BARREL ||
+               type == InventoryType.BLAST_FURNACE ||
+               type == InventoryType.SMOKER ||
+               type == InventoryType.STONECUTTER ||
+               type == InventoryType.CARTOGRAPHY ||
+               type == InventoryType.GRINDSTONE ||
+               type == InventoryType.LECTERN ||
+               type == InventoryType.LOOM ||
+               type == InventoryType.SMITHING ||
+               (!isShopGUI(title) && type == InventoryType.GENERIC);
     }
     
     /**
@@ -233,8 +142,7 @@ public class GuiListener implements Listener {
                title.contains("SEARCH ITEMS") || title.contains("QUICK SELL") ||
                title.contains("BLOCKS") || title.contains("ORES") || title.contains("FOOD") ||
                title.contains("REDSTONE") || title.contains("FARMING") || title.contains("DECORATION") ||
-               title.contains("TRANSACTION HISTORY") || title.contains("SHOP SETTINGS") ||
-               title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS");
+               title.contains("TRANSACTION HISTORY") || title.contains("SHOP SETTINGS");
     }
     
     /**
@@ -280,11 +188,6 @@ public class GuiListener implements Listener {
                 break;
             default:
                 // Check by material for fallback
-                if (itemName.contains("QUICK SELL") || material == Material.HOPPER) {
-                    openSellGUI(player);
-                    break;
-                }
-                
                 if (material == Material.STONE) {
                     openSection(player, "blocks");
                 } else if (material == Material.DIAMOND_ORE) {
@@ -327,21 +230,6 @@ public class GuiListener implements Listener {
             return;
         }
         
-        // Additional navigation slots for different GUI layouts
-        if (slot == 49 && (itemName.contains("PAGE INFO") || itemName.contains("INFO"))) {
-            return;
-        }
-        
-        if (slot == 4 && (itemName.contains("PLAYER") || clickedItem.getType() == Material.PLAYER_HEAD)) {
-            return;
-        }
-        
-        if (slot == 8 && itemName.contains("QUICK ACTIONS")) {
-            player.sendMessage("§e⚡ Quick actions coming soon!");
-            playSound(player, Sound.UI_BUTTON_CLICK);
-            return;
-        }
-        
         // Skip navigation and decoration items
         if (isNavigationItem(itemName, clickedItem, slot)) {
             return;
@@ -363,6 +251,118 @@ public class GuiListener implements Listener {
                     handleItemTransaction(player, shopItem, clickType);
                 } else {
                     Logger.debug("No shop item found for material: " + clickedItem.getType());
+                }
+            }
+        }
+    }
+    
+    /**
+     * Handle search GUI clicks
+     */
+    private void handleSearchClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
+        SearchGui searchGui = activeSearchGuis.get(player);
+        
+        if (itemName.contains("BACK TO SHOP")) {
+            activeSearchGuis.remove(player);
+            waitingForSearch.remove(player);
+            plugin.getGuiManager().openShop(player, "main");
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (itemName.contains("CLEAR SEARCH")) {
+            if (searchGui != null) {
+                searchGui.clearSearch();
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("PREVIOUS PAGE")) {
+            if (searchGui != null) {
+                searchGui.previousPage();
+                playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
+            }
+        } else if (itemName.contains("NEXT PAGE")) {
+            if (searchGui != null) {
+                searchGui.nextPage();
+                playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
+            }
+        } else if (itemName.contains("SMART SEARCH")) {
+            waitingForSearch.put(player, true);
+            player.closeInventory();
+            player.sendMessage("§b🔍 Type your search query in chat! (Type 'cancel' to cancel)");
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (itemName.contains("POPULAR: DIAMONDS")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("diamond");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: IRON")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("iron");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: FOOD")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("food");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (itemName.contains("POPULAR: REDSTONE")) {
+            if (searchGui != null) {
+                searchGui.quickSearch("redstone");
+                playSound(player, Sound.UI_BUTTON_CLICK);
+            }
+        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
+            // Handle search result item clicks
+            if (searchGui != null && !searchGui.getSearchResults().isEmpty()) {
+                // Find the clicked item in search results
+                ShopItem foundItem = searchGui.getSearchResults().stream()
+                        .filter(item -> item.getMaterial() == clickedItem.getType())
+                        .findFirst()
+                        .orElse(null);
+                
+                if (foundItem != null) {
+                    handleItemTransaction(player, foundItem, clickType);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Handle quick sell GUI clicks
+     */
+    private void handleQuickSellClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
+        if (itemName.contains("BACK TO SHOP")) {
+            activeQuickSellGuis.remove(player);
+            plugin.getGuiManager().openShop(player, "main");
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (itemName.contains("SELL EVERYTHING")) {
+            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
+            if (quickSellGui != null) {
+                quickSellGui.sellAll();
+                playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
+            }
+        } else if (itemName.contains("REFRESH INVENTORY")) {
+            openQuickSell(player);
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
+            // Handle sellable item clicks
+            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
+            if (quickSellGui != null) {
+                Material material = clickedItem.getType();
+                QuickSellGui.SellableItem sellableItem = quickSellGui.sellableItems.get(material);
+                
+                if (sellableItem != null) {
+                    switch (clickType) {
+                        case LEFT:
+                            quickSellGui.sellItem(material, 1);
+                            break;
+                        case RIGHT:
+                            quickSellGui.sellItem(material, 10);
+                            break;
+                        case SHIFT_LEFT:
+                            quickSellGui.sellItem(material, sellableItem.count / 2);
+                            break;
+                        case SHIFT_RIGHT:
+                            quickSellGui.sellItem(material, sellableItem.count);
+                            break;
+                    }
+                    playSound(player, Sound.ENTITY_VILLAGER_YES);
                 }
             }
         }
@@ -575,118 +575,6 @@ public class GuiListener implements Listener {
     }
     
     /**
-     * Handle search GUI clicks
-     */
-    private void handleSearchClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
-        SearchGui searchGui = activeSearchGuis.get(player);
-        
-        if (itemName.contains("BACK TO SHOP")) {
-            activeSearchGuis.remove(player);
-            waitingForSearch.remove(player);
-            plugin.getGuiManager().openShop(player, "main");
-            playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("CLEAR SEARCH")) {
-            if (searchGui != null) {
-                searchGui.clearSearch();
-                playSound(player, Sound.UI_BUTTON_CLICK);
-            }
-        } else if (itemName.contains("PREVIOUS PAGE")) {
-            if (searchGui != null) {
-                searchGui.previousPage();
-                playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
-            }
-        } else if (itemName.contains("NEXT PAGE")) {
-            if (searchGui != null) {
-                searchGui.nextPage();
-                playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
-            }
-        } else if (itemName.contains("SMART SEARCH")) {
-            waitingForSearch.put(player, true);
-            player.closeInventory();
-            player.sendMessage("§b🔍 Type your search query in chat! (Type 'cancel' to cancel)");
-            playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("POPULAR: DIAMONDS")) {
-            if (searchGui != null) {
-                searchGui.quickSearch("diamond");
-                playSound(player, Sound.UI_BUTTON_CLICK);
-            }
-        } else if (itemName.contains("POPULAR: IRON")) {
-            if (searchGui != null) {
-                searchGui.quickSearch("iron");
-                playSound(player, Sound.UI_BUTTON_CLICK);
-            }
-        } else if (itemName.contains("POPULAR: FOOD")) {
-            if (searchGui != null) {
-                searchGui.quickSearch("food");
-                playSound(player, Sound.UI_BUTTON_CLICK);
-            }
-        } else if (itemName.contains("POPULAR: REDSTONE")) {
-            if (searchGui != null) {
-                searchGui.quickSearch("redstone");
-                playSound(player, Sound.UI_BUTTON_CLICK);
-            }
-        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
-            // Handle search result item clicks
-            if (searchGui != null && !searchGui.getSearchResults().isEmpty()) {
-                // Find the clicked item in search results
-                ShopItem foundItem = searchGui.getSearchResults().stream()
-                        .filter(item -> item.getMaterial() == clickedItem.getType())
-                        .findFirst()
-                        .orElse(null);
-                
-                if (foundItem != null) {
-                    handleItemTransaction(player, foundItem, clickType);
-                }
-            }
-        }
-    }
-    
-    /**
-     * Handle quick sell GUI clicks
-     */
-    private void handleQuickSellClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
-        if (itemName.contains("BACK TO SHOP")) {
-            activeQuickSellGuis.remove(player);
-            plugin.getGuiManager().openShop(player, "main");
-            playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (itemName.contains("SELL EVERYTHING")) {
-            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
-            if (quickSellGui != null) {
-                quickSellGui.sellAll();
-                playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
-            }
-        } else if (itemName.contains("REFRESH INVENTORY")) {
-            openQuickSell(player);
-            playSound(player, Sound.UI_BUTTON_CLICK);
-        } else if (!isNavigationItem(itemName, clickedItem, -1)) {
-            // Handle sellable item clicks
-            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
-            if (quickSellGui != null) {
-                Material material = clickedItem.getType();
-                QuickSellGui.SellableItem sellableItem = quickSellGui.sellableItems.get(material);
-                
-                if (sellableItem != null) {
-                    switch (clickType) {
-                        case LEFT:
-                            quickSellGui.sellItem(material, 1);
-                            break;
-                        case RIGHT:
-                            quickSellGui.sellItem(material, 10);
-                            break;
-                        case SHIFT_LEFT:
-                            quickSellGui.sellItem(material, sellableItem.count / 2);
-                            break;
-                        case SHIFT_RIGHT:
-                            quickSellGui.sellItem(material, sellableItem.count);
-                            break;
-                    }
-                    playSound(player, Sound.ENTITY_VILLAGER_YES);
-                }
-            }
-        }
-    }
-    
-    /**
      * Open section with proper tracking
      */
     private void openSection(Player player, String sectionId) {
@@ -723,23 +611,6 @@ public class GuiListener implements Listener {
         activeQuickSellGuis.put(player, quickSellGui);
         quickSellGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
-    }
-    
-    /**
-     * Open sell GUI
-     */
-    public void openSellGUI(Player player) {
-        SellGui sellGui = new SellGui(plugin, player);
-        activeSellGuis.put(player, sellGui);
-        sellGui.open();
-        playSound(player, Sound.UI_BUTTON_CLICK);
-    }
-    
-    /**
-     * Get active sell GUI for player
-     */
-    public SellGui getActiveSellGui(Player player) {
-        return activeSellGuis.get(player);
     }
     
     /**
@@ -926,8 +797,6 @@ public class GuiListener implements Listener {
             }
         } else if (title.contains("QUICK SELL")) {
             activeQuickSellGuis.remove(player);
-        } else if (title.contains("SELL ITEMS") || title.contains("SELL YOUR ITEMS")) {
-            activeSellGuis.remove(player);
         } else if (title.contains("TRANSACTION HISTORY")) {
             activeTransactionGuis.remove(player);
         } else if (title.contains("SECTION") || title.contains("BLOCKS") || title.contains("ORES") || 

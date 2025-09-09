@@ -160,12 +160,6 @@ public final class EasyShopGUI extends JavaPlugin {
                 Logger.warn("Command 'eshop' not found in plugin.yml");
             }
             
-            if (getCommand("sellgui") != null) {
-                getCommand("sellgui").setExecutor(new SellGuiCommand(this));
-            } else {
-                Logger.warn("Command 'sellgui' not found in plugin.yml");
-            }
-            
             Logger.info("Commands registered successfully!");
         } catch (Exception e) {
             Logger.error("Error registering commands: " + e.getMessage());

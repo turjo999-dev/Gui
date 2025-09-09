@@ -187,10 +187,10 @@ public class ShopGui {
                 .build());
         
         // Quick sell (bottom center-right)
-        gui.setItem(41, new ItemBuilder(Material.HOPPER)
-                .setName("&c&l💸 &e&lSELL ITEMS")
+        gui.setItem(41, new ItemBuilder(Material.GOLD_INGOT)
+                .setName("&c&l💸 &e&lQUICK SELL")
                 .setLore(Arrays.asList(
-                        "&7▸ &fInteractive sell interface",
+                        "&7▸ &fSell items from inventory",
                         "&7▸ &fBulk selling options",
                         "&7▸ &fInstant transactions",
                         "",

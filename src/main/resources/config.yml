@@ -11,9 +11,16 @@ plugin:
   # Send usage statistics (anonymous)
   metrics: true
   # Debug mode for troubleshooting
-  debug: false
+  debug: true
   # Language file to use
   language: "en_US"
+  # Bedrock compatibility mode
+  bedrock-compatibility: true
+  # Anti-lag settings
+  anti-lag:
+    enabled: true
+    click-delay: 150
+    max-transactions-per-second: 5
 
 # Database Configuration
 database:
