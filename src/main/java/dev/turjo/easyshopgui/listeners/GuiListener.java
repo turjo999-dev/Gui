@@ -14,10 +14,12 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Enhanced GUI listener with Bedrock compatibility fixes
+ * Fixed GUI listener with proper click handling
  */
 public class GuiListener implements Listener {
     
@@ -45,42 +47,42 @@ public class GuiListener implements Listener {
         this.plugin = plugin;
     }
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player)) return;
         
         Player player = (Player) event.getWhoClicked();
         String title = MessageUtils.stripColor(event.getView().getTitle());
         
-        // Bedrock compatibility: Don't interfere with vanilla inventories
-        if (isVanillaInventory(event)) {
-            return; // Let vanilla inventories work normally
-        }
+        Logger.debug("GUI Click Event - Title: " + title + ", Slot: " + event.getSlot() + ", Click: " + event.getClick());
         
-        // Anti-spam protection
-        long currentTime = System.currentTimeMillis();
-        if (lastClickTime.containsKey(player) && currentTime - lastClickTime.get(player) < 150) {
-            event.setCancelled(true);
-            return;
-        }
-        lastClickTime.put(player, currentTime);
-        
-        // Check if it's a shop GUI
+        // Check if it's a shop GUI - if so, ALWAYS cancel the event
         if (isShopGUI(title)) {
-            Logger.debug("Shop GUI detected: " + title);
+            event.setCancelled(true); // CRITICAL: Cancel ALL shop GUI clicks
+            Logger.debug("Shop GUI detected, cancelling event: " + title);
             
-            // Cancel all shop GUI clicks to prevent item theft
-            event.setCancelled(true);
+            // Anti-spam protection
+            long currentTime = System.currentTimeMillis();
+            if (lastClickTime.containsKey(player) && currentTime - lastClickTime.get(player) < 200) {
+                Logger.debug("Click spam detected, ignoring");
+                return;
+            }
+            lastClickTime.put(player, currentTime);
             
             ItemStack clickedItem = event.getCurrentItem();
-            if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
+            if (clickedItem == null || clickedItem.getType() == Material.AIR) {
+                Logger.debug("Clicked item is null or air, ignoring");
+                return;
+            }
             
             ItemMeta meta = clickedItem.getItemMeta();
-            if (meta == null) return;
+            if (meta == null) {
+                Logger.debug("Item meta is null, ignoring");
+                return;
+            }
             
             String itemName = meta.getDisplayName() != null ? MessageUtils.stripColor(meta.getDisplayName()) : "";
-            
-            Logger.debug("GUI Click - Title: " + title + ", Item: " + itemName + ", Slot: " + event.getSlot() + ", Click: " + event.getClick());
+            Logger.debug("Processing click on item: " + itemName + " in GUI: " + title);
             
             // Route to appropriate handler
             if (title.contains("EASY SHOP GUI")) {
@@ -99,39 +101,18 @@ public class GuiListener implements Listener {
         }
     }
     
-    /**
-     * Check if this is a vanilla inventory that should not be interfered with
-     */
-    private boolean isVanillaInventory(InventoryClickEvent event) {
-        InventoryType type = event.getInventory().getType();
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        
+        Player player = (Player) event.getWhoClicked();
         String title = MessageUtils.stripColor(event.getView().getTitle());
         
-        // Don't interfere with these inventory types
-        return type == InventoryType.PLAYER ||
-               type == InventoryType.CHEST ||
-               type == InventoryType.CRAFTING ||
-               type == InventoryType.WORKBENCH ||
-               type == InventoryType.FURNACE ||
-               type == InventoryType.ANVIL ||
-               type == InventoryType.ENCHANTING ||
-               type == InventoryType.BREWING ||
-               type == InventoryType.MERCHANT ||
-               type == InventoryType.ENDER_CHEST ||
-               type == InventoryType.HOPPER ||
-               type == InventoryType.DISPENSER ||
-               type == InventoryType.DROPPER ||
-               type == InventoryType.BEACON ||
-               type == InventoryType.SHULKER_BOX ||
-               type == InventoryType.BARREL ||
-               type == InventoryType.BLAST_FURNACE ||
-               type == InventoryType.SMOKER ||
-               type == InventoryType.STONECUTTER ||
-               type == InventoryType.CARTOGRAPHY ||
-               type == InventoryType.GRINDSTONE ||
-               type == InventoryType.LECTERN ||
-               type == InventoryType.LOOM ||
-               type == InventoryType.SMITHING ||
-               (!isShopGUI(title) && type == InventoryType.CHEST);
+        // CRITICAL: Cancel ALL drag events in shop GUIs
+        if (isShopGUI(title)) {
+            event.setCancelled(true);
+            Logger.debug("Drag event cancelled in shop GUI: " + title);
+        }
     }
     
     /**
@@ -182,25 +163,12 @@ public class GuiListener implements Listener {
             case 41: // Quick Sell
                 openQuickSell(player);
                 break;
-            case 43: // Close or other actions
+            case 43: // Close
                 player.closeInventory();
                 playSound(player, Sound.UI_BUTTON_CLICK);
                 break;
             default:
-                // Check by material for fallback
-                if (material == Material.STONE) {
-                    openSection(player, "blocks");
-                } else if (material == Material.DIAMOND_ORE) {
-                    openSection(player, "ores");
-                } else if (material == Material.GOLDEN_APPLE) {
-                    openSection(player, "food");
-                } else if (material == Material.REDSTONE) {
-                    openSection(player, "redstone");
-                } else if (material == Material.WHEAT) {
-                    openSection(player, "farming");
-                } else if (material == Material.FLOWER_POT) {
-                    openSection(player, "decoration");
-                }
+                Logger.debug("Unhandled slot click: " + slot);
                 break;
         }
     }
@@ -213,6 +181,7 @@ public class GuiListener implements Listener {
         
         // Navigation items
         if (slot == 0 || itemName.contains("BACK")) {
+            Logger.debug("Back button clicked, opening main shop");
             plugin.getGuiManager().openShop(player, "main");
             playSound(player, Sound.UI_BUTTON_CLICK);
             return;
@@ -232,6 +201,7 @@ public class GuiListener implements Listener {
         
         // Skip navigation and decoration items
         if (isNavigationItem(itemName, clickedItem, slot)) {
+            Logger.debug("Navigation item clicked, ignoring: " + itemName);
             return;
         }
         
