@@ -11,7 +11,7 @@ plugin:
   # Send usage statistics (anonymous)
   metrics: true
   # Debug mode for troubleshooting
-  debug: true
+  debug: false
   # Language file to use
   language: "en_US"
   # Bedrock compatibility mode

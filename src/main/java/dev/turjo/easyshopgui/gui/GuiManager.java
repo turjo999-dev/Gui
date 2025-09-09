@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Manager for handling GUI operations
@@ -16,6 +17,11 @@ public class GuiManager {
     
     private final EasyShopGUI plugin;
     private Map<String, ShopSection> sections;
+    
+    // GUI tracking maps
+    private final Map<Player, QuickSellGui> activeQuickSellGuis = new ConcurrentHashMap<>();
+    private final Map<Player, SearchGui> activeSearchGuis = new ConcurrentHashMap<>();
+    private final Map<Player, TransactionHistoryGui> activeTransactionGuis = new ConcurrentHashMap<>();
     
     public GuiManager(EasyShopGUI plugin) {
         this.plugin = plugin;
@@ -90,5 +96,20 @@ public class GuiManager {
      */
     public Map<String, ShopSection> getSections() {
         return sections;
+    }
+    
+    /**
+     * Get active GUI tracking maps
+     */
+    public Map<Player, QuickSellGui> getActiveQuickSellGuis() {
+        return activeQuickSellGuis;
+    }
+    
+    public Map<Player, SearchGui> getActiveSearchGuis() {
+        return activeSearchGuis;
+    }
+    
+    public Map<Player, TransactionHistoryGui> getActiveTransactionGuis() {
+        return activeTransactionGuis;
     }
 }

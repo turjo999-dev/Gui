@@ -230,10 +230,10 @@ public class GuiListener implements Listener {
      * Handle search GUI clicks
      */
     private void handleSearchClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
-        SearchGui searchGui = activeSearchGuis.get(player);
+        SearchGui searchGui = plugin.getGuiManager().getActiveSearchGuis().get(player);
         
         if (itemName.contains("BACK TO SHOP")) {
-            activeSearchGuis.remove(player);
+            plugin.getGuiManager().getActiveSearchGuis().remove(player);
             waitingForSearch.remove(player);
             plugin.getGuiManager().openShop(player, "main");
             playSound(player, Sound.UI_BUTTON_CLICK);
@@ -298,11 +298,11 @@ public class GuiListener implements Listener {
      */
     private void handleQuickSellClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
         if (itemName.contains("BACK TO SHOP")) {
-            activeQuickSellGuis.remove(player);
+            plugin.getGuiManager().getActiveQuickSellGuis().remove(player);
             plugin.getGuiManager().openShop(player, "main");
             playSound(player, Sound.UI_BUTTON_CLICK);
         } else if (itemName.contains("SELL EVERYTHING")) {
-            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
+            QuickSellGui quickSellGui = plugin.getGuiManager().getActiveQuickSellGuis().get(player);
             if (quickSellGui != null) {
                 quickSellGui.sellAll();
                 playSound(player, Sound.ENTITY_PLAYER_LEVELUP);
@@ -312,7 +312,7 @@ public class GuiListener implements Listener {
             playSound(player, Sound.UI_BUTTON_CLICK);
         } else if (!isNavigationItem(itemName, clickedItem, -1)) {
             // Handle sellable item clicks
-            QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
+            QuickSellGui quickSellGui = plugin.getGuiManager().getActiveQuickSellGuis().get(player);
             if (quickSellGui != null) {
                 Material material = clickedItem.getType();
                 QuickSellGui.SellableItem sellableItem = quickSellGui.sellableItems.get(material);
@@ -342,10 +342,10 @@ public class GuiListener implements Listener {
      * Handle transaction history clicks
      */
     private void handleTransactionHistoryClick(Player player, String itemName, int slot) {
-        TransactionHistoryGui historyGui = activeTransactionGuis.get(player);
+        TransactionHistoryGui historyGui = plugin.getGuiManager().getActiveTransactionGuis().get(player);
         
         if (itemName.contains("BACK TO SHOP") && slot == 45) {
-            activeTransactionGuis.remove(player);
+            plugin.getGuiManager().getActiveTransactionGuis().remove(player);
             plugin.getGuiManager().openShop(player, "main");
             playSound(player, Sound.UI_BUTTON_CLICK);
         } else if (itemName.contains("PREVIOUS PAGE") && slot == 48) {
@@ -574,7 +574,7 @@ public class GuiListener implements Listener {
      */
     private void openSearchGUI(Player player) {
         SearchGui searchGui = new SearchGui(plugin, player);
-        activeSearchGuis.put(player, searchGui);
+        plugin.getGuiManager().getActiveSearchGuis().put(player, searchGui);
         searchGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
     }
@@ -584,7 +584,7 @@ public class GuiListener implements Listener {
      */
     private void openQuickSell(Player player) {
         QuickSellGui quickSellGui = new QuickSellGui(plugin, player);
-        activeQuickSellGuis.put(player, quickSellGui);
+        plugin.getGuiManager().getActiveQuickSellGuis().put(player, quickSellGui);
         quickSellGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
     }
@@ -594,7 +594,7 @@ public class GuiListener implements Listener {
      */
     private void openTransactionHistory(Player player) {
         TransactionHistoryGui historyGui = new TransactionHistoryGui(plugin, player);
-        activeTransactionGuis.put(player, historyGui);
+        plugin.getGuiManager().getActiveTransactionGuis().put(player, historyGui);
         historyGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
     }
@@ -705,7 +705,7 @@ public class GuiListener implements Listener {
             Bukkit.getScheduler().runTask(plugin, () -> {
                 player.sendMessage("§b🔍 Searching for: §e'" + message + "'");
                 SearchGui searchGui = new SearchGui(plugin, player, message);
-                activeSearchGuis.put(player, searchGui);
+                plugin.getGuiManager().getActiveSearchGuis().put(player, searchGui);
                 searchGui.open();
             });
         }
@@ -769,12 +769,12 @@ public class GuiListener implements Listener {
         // Clean up tracking for different GUIs
         if (title.contains("SEARCH ITEMS")) {
             if (!waitingForSearch.getOrDefault(player, false)) {
-                activeSearchGuis.remove(player);
+                plugin.getGuiManager().getActiveSearchGuis().remove(player);
             }
         } else if (title.contains("QUICK SELL")) {
-            activeQuickSellGuis.remove(player);
+            plugin.getGuiManager().getActiveQuickSellGuis().remove(player);
         } else if (title.contains("TRANSACTION HISTORY")) {
-            activeTransactionGuis.remove(player);
+            plugin.getGuiManager().getActiveTransactionGuis().remove(player);
         } else if (title.contains("SECTION") || title.contains("BLOCKS") || title.contains("ORES") || 
                   title.contains("FOOD") || title.contains("REDSTONE") || title.contains("FARMING") || 
                   title.contains("DECORATION")) {

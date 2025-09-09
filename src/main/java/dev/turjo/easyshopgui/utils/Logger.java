@@ -54,8 +54,9 @@ public class Logger {
      */
     public static void debug(String message) {
         if (debugMode) {
+            // Only log debug messages to console, not to server log to reduce spam
             String timestamp = LocalDateTime.now().format(TIME_FORMAT);
-            Bukkit.getLogger().info(PREFIX + "[DEBUG " + timestamp + "] " + message);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_GRAY + PREFIX + "[DEBUG " + timestamp + "] " + ChatColor.GRAY + message);
         }
     }
     
@@ -65,7 +66,7 @@ public class Logger {
     public static void debugColor(String message) {
         if (debugMode) {
             String timestamp = LocalDateTime.now().format(TIME_FORMAT);
-            Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + PREFIX + "[DEBUG " + timestamp + "] " + ChatColor.WHITE + message);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_GRAY + PREFIX + "[DEBUG " + timestamp + "] " + ChatColor.GRAY + message);
         }
     }
     

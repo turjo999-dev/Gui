@@ -1,6 +1,7 @@
 package dev.turjo.easyshopgui.commands;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
+import dev.turjo.easyshopgui.gui.QuickSellGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -84,7 +85,9 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
         }
         
         // Open quick sell GUI
-        new dev.turjo.easyshopgui.gui.QuickSellGui(plugin, player).open();
+        QuickSellGui quickSellGui = new QuickSellGui(plugin, player);
+        plugin.getGuiManager().getActiveQuickSellGuis().put(player, quickSellGui);
+        quickSellGui.open();
         
         return true;
     }
