@@ -97,46 +97,6 @@ items:
     description: "Green fruit block"
     
   # Farming Tools
-  wooden_hoe:
-    material: "WOODEN_HOE"
-    name: "&6Wooden Hoe"
-    buy-price: 5.0
-    sell-price: 2.5
-    stock: -1
-    description: "Basic farming tool"
-    
-  stone_hoe:
-    material: "STONE_HOE"
-    name: "&7Stone Hoe"
-    buy-price: 12.0
-    sell-price: 6.0
-    stock: -1
-    description: "Improved farming tool"
-    
-  iron_hoe:
-    material: "IRON_HOE"
-    name: "&7Iron Hoe"
-    buy-price: 35.0
-    sell-price: 17.5
-    stock: -1
-    description: "Efficient farming tool"
-    
-  diamond_hoe:
-    material: "DIAMOND_HOE"
-    name: "&bDiamond Hoe"
-    buy-price: 150.0
-    sell-price: 75.0
-    stock: -1
-    description: "Premium farming tool"
-    
-  netherite_hoe:
-    material: "NETHERITE_HOE"
-    name: "&8Netherite Hoe"
-    buy-price: 400.0
-    sell-price: 200.0
-    stock: -1
-    description: "Ultimate farming tool"
-    
   # Animal Products
   leather:
     material: "LEATHER"

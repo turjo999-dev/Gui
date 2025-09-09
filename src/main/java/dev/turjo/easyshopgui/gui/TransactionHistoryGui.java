@@ -71,16 +71,8 @@ public class TransactionHistoryGui {
      * Load player transactions
      */
     private void loadTransactions() {
-        // TODO: Load from database
-        // For now, create some sample transactions
-        transactions.clear();
-        
-        // Sample transactions for demonstration
-        transactions.add(new Transaction("BUY", "Diamond", 5, 400.0, new Date(System.currentTimeMillis() - 3600000)));
-        transactions.add(new Transaction("SELL", "Iron Ingot", 32, 384.0, new Date(System.currentTimeMillis() - 7200000)));
-        transactions.add(new Transaction("BUY", "Golden Apple", 2, 200.0, new Date(System.currentTimeMillis() - 10800000)));
-        transactions.add(new Transaction("SELL", "Wheat", 64, 128.0, new Date(System.currentTimeMillis() - 14400000)));
-        transactions.add(new Transaction("BUY", "Stone", 128, 128.0, new Date(System.currentTimeMillis() - 18000000)));
+        // Load real transactions from TransactionManager
+        transactions = plugin.getTransactionManager().getPlayerTransactions(player);
     }
     
     /**

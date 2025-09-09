@@ -323,41 +323,6 @@ items:
     description: "Explosive transportation"
     
   # Command Block (if enabled)
-  command_block:
-    material: "COMMAND_BLOCK"
-    name: "&5Command Block"
-    buy-price: 1000.0
-    sell-price: 500.0
-    stock: -1
-    description: "Execute commands"
-    
-  # Structure Block
-  structure_block:
-    material: "STRUCTURE_BLOCK"
-    name: "&5Structure Block"
-    buy-price: 800.0
-    sell-price: 400.0
-    stock: -1
-    description: "Save and load structures"
-    
-  # Barrier Block
-  barrier:
-    material: "BARRIER"
-    name: "&cBarrier"
-    buy-price: 500.0
-    sell-price: 250.0
-    stock: -1
-    description: "Invisible barrier block"
-    
-  # Light Block
-  light:
-    material: "LIGHT"
-    name: "&eLight Block"
-    buy-price: 300.0
-    sell-price: 150.0
-    stock: -1
-    description: "Invisible light source"
-    
   # Slime Block
   slime_block:
     material: "SLIME_BLOCK"

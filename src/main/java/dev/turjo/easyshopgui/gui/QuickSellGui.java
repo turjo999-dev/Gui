@@ -259,6 +259,9 @@ public class QuickSellGui {
         double totalPrice = sellable.shopItem.getSellPrice() * actualAmount;
         plugin.getEconomyManager().getEconomy().depositPlayer(player, totalPrice);
         
+        // Record transaction
+        plugin.getTransactionManager().recordTransaction(player, "SELL", sellable.shopItem.getDisplayName(), actualAmount, totalPrice);
+        
         // Success message
         player.sendMessage("§a💸 Sold " + actualAmount + "x " + sellable.shopItem.getDisplayName() + 
                           " §afor §6$" + String.format("%.2f", totalPrice) + "!");
@@ -284,6 +287,10 @@ public class QuickSellGui {
             removeItemsFromInventory(sellable.shopItem.getMaterial(), sellable.count);
             double earned = sellable.getTotalValue();
             plugin.getEconomyManager().getEconomy().depositPlayer(player, earned);
+            
+            // Record transaction
+            plugin.getTransactionManager().recordTransaction(player, "SELL", sellable.shopItem.getDisplayName(), sellable.count, earned);
+            
             totalEarned += earned;
             itemsSold += sellable.count;
         }

@@ -478,6 +478,9 @@ public class GuiListener implements Listener {
             ItemStack itemToGive = new ItemStack(item.getMaterial(), amount);
             player.getInventory().addItem(itemToGive);
             
+            // Record transaction
+            plugin.getTransactionManager().recordTransaction(player, "BUY", item.getDisplayName(), amount, totalPrice);
+            
             player.sendMessage("§a💰 Successfully purchased " + amount + "x " + MessageUtils.stripColor(item.getDisplayName()) + 
                               " §afor §6$" + String.format("%.2f", totalPrice) + "!");
             playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
@@ -514,6 +517,9 @@ public class GuiListener implements Listener {
         try {
             removeItemsFromInventory(player, item.getMaterial(), amount);
             plugin.getEconomyManager().getEconomy().depositPlayer(player, totalPrice);
+            
+            // Record transaction
+            plugin.getTransactionManager().recordTransaction(player, "SELL", item.getDisplayName(), amount, totalPrice);
             
             player.sendMessage("§6💸 Successfully sold " + amount + "x " + MessageUtils.stripColor(item.getDisplayName()) + 
                               " §6for §a$" + String.format("%.2f", totalPrice) + "!");

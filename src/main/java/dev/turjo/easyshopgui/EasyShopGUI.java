@@ -26,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class EasyShopGUI extends JavaPlugin {
 
     private static EasyShopGUI instance;
+    private long startTime;
     
     // Core Managers
     private ConfigManager configManager;
@@ -41,6 +42,7 @@ public final class EasyShopGUI extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        startTime = System.currentTimeMillis();
         
         Logger.info("Starting EasyShopGUI v" + getDescription().getVersion());
         Logger.info("Developed by Turjo - Premium Minecraft Shop Plugin");
@@ -152,6 +154,13 @@ public final class EasyShopGUI extends JavaPlugin {
                 Logger.warn("Command 'shop' not found in plugin.yml");
             }
             
+            if (getCommand("sell") != null) {
+                getCommand("sell").setExecutor(shopCommand);
+                getCommand("sell").setTabCompleter(shopCommand);
+            } else {
+                Logger.warn("Command 'sell' not found in plugin.yml");
+            }
+            
             if (getCommand("eshop") != null) {
                 getCommand("eshop").setExecutor(shopCommand);
                 getCommand("eshop").setTabCompleter(shopCommand);
@@ -213,5 +222,9 @@ public final class EasyShopGUI extends JavaPlugin {
 
     public UpdateChecker getUpdateChecker() {
         return updateChecker;
+    }
+    
+    public long getStartTime() {
+        return startTime;
     }
 }

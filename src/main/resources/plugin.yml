@@ -27,6 +27,13 @@ commands:
     permission: easyshopgui.use
     permission-message: §cYou don't have permission to use this command!
   
+  sell:
+    description: Open the quick sell GUI
+    usage: /<command>
+    aliases: [sellgui, quicksell]
+    permission: easyshopgui.sell
+    permission-message: §cYou don't have permission to use this command!
+  
   eshop:
     description: EasyShopGUI admin commands
     usage: /<command> <subcommand>
@@ -47,6 +54,10 @@ permissions:
   
   easyshopgui.use:
     description: Allows players to use shops
+    default: true
+  
+  easyshopgui.sell:
+    description: Allows players to use the sell GUI
     default: true
   
   easyshopgui.admin:
