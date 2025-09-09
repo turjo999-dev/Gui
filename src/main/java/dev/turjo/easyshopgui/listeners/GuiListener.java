@@ -131,7 +131,7 @@ public class GuiListener implements Listener {
                type == InventoryType.LECTERN ||
                type == InventoryType.LOOM ||
                type == InventoryType.SMITHING ||
-               (!isShopGUI(title) && type == InventoryType.GENERIC);
+               (!isShopGUI(title) && type == InventoryType.CHEST);
     }
     
     /**
