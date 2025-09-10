@@ -22,6 +22,19 @@ plugin:
     click-delay: 150
     max-transactions-per-second: 5
 
+# Paper Currency System
+paper-currency:
+  enabled: true
+  max-cheque-amount: 1000000
+  withdrawal-cooldown: 2000
+  anti-dupe-protection: true
+  
+# AI Marketplace
+ai-marketplace:
+  enabled: true
+  price-volatility: 0.15
+  update-interval: 300
+
 # Database Configuration
 database:
   # Database type: SQLITE, MYSQL

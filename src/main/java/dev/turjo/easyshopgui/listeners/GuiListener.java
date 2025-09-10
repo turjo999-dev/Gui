@@ -487,6 +487,9 @@ public class GuiListener implements Listener {
             
             Logger.debug("Purchase successful: " + amount + "x " + item.getId());
             
+            // Record transaction for AI marketplace
+            plugin.getAiMarketplace().recordTransaction(item.getId(), "BUY", amount, totalPrice);
+            
             // Refresh GUI to update balance display
             refreshCurrentGUI(player);
             
@@ -526,6 +529,9 @@ public class GuiListener implements Listener {
             playSound(player, Sound.ENTITY_VILLAGER_YES);
             
             Logger.debug("Sale successful: " + amount + "x " + item.getId());
+            
+            // Record transaction for AI marketplace
+            plugin.getAiMarketplace().recordTransaction(item.getId(), "SELL", amount, totalPrice);
             
             // Refresh GUI to update balance display
             refreshCurrentGUI(player);

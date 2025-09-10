@@ -8,8 +8,12 @@ import dev.turjo.easyshopgui.gui.GuiManager;
 import dev.turjo.easyshopgui.hooks.HookManager;
 import dev.turjo.easyshopgui.listeners.PlayerListener;
 import dev.turjo.easyshopgui.listeners.GuiListener;
+import dev.turjo.easyshopgui.listeners.CurrencyListener;
 import dev.turjo.easyshopgui.managers.ShopManager;
 import dev.turjo.easyshopgui.managers.TransactionManager;
+import dev.turjo.easyshopgui.currency.PaperCurrency;
+import dev.turjo.easyshopgui.marketplace.AIMarketplace;
+import dev.turjo.easyshopgui.commands.WithdrawCommand;
 import dev.turjo.easyshopgui.placeholders.EasyShopPlaceholderExpansion;
 import dev.turjo.easyshopgui.schedulers.CronScheduler;
 import dev.turjo.easyshopgui.utils.Logger;
@@ -38,6 +42,8 @@ public final class EasyShopGUI extends JavaPlugin {
     private HookManager hookManager;
     private CronScheduler cronScheduler;
     private UpdateChecker updateChecker;
+    private PaperCurrency paperCurrency;
+    private AIMarketplace aiMarketplace;
 
     @Override
     public void onEnable() {
@@ -106,6 +112,8 @@ public final class EasyShopGUI extends JavaPlugin {
             hookManager = new HookManager(this);
             cronScheduler = new CronScheduler(this);
             updateChecker = new UpdateChecker(this);
+            paperCurrency = new PaperCurrency(this);
+            aiMarketplace = new AIMarketplace(this);
             
             // Register commands
             registerCommands();
@@ -168,6 +176,13 @@ public final class EasyShopGUI extends JavaPlugin {
                 Logger.warn("Command 'eshop' not found in plugin.yml");
             }
             
+            if (getCommand("withdraw") != null) {
+                getCommand("withdraw").setExecutor(new WithdrawCommand(this));
+                getCommand("withdraw").setTabCompleter(new WithdrawCommand(this));
+            } else {
+                Logger.warn("Command 'withdraw' not found in plugin.yml");
+            }
+            
             Logger.info("Commands registered successfully!");
         } catch (Exception e) {
             Logger.error("Error registering commands: " + e.getMessage());
@@ -181,6 +196,7 @@ public final class EasyShopGUI extends JavaPlugin {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GuiListener(this), this);
+        getServer().getPluginManager().registerEvents(new CurrencyListener(this), this);
     }
 
     // Getters for managers
@@ -222,6 +238,14 @@ public final class EasyShopGUI extends JavaPlugin {
 
     public UpdateChecker getUpdateChecker() {
         return updateChecker;
+    }
+    
+    public PaperCurrency getPaperCurrency() {
+        return paperCurrency;
+    }
+    
+    public AIMarketplace getAiMarketplace() {
+        return aiMarketplace;
     }
     
     public long getStartTime() {

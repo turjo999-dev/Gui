@@ -213,6 +213,17 @@ public class ShopGui {
                 .build());
         
         // Close button (bottom right)
+        gui.setItem(42, new ItemBuilder(Material.NETHER_STAR)
+                .setName("&d&l🤖 &e&lAI MARKETPLACE")
+                .setLore(Arrays.asList(
+                        "&7▸ &fAI-powered trading",
+                        "&7▸ &fDynamic pricing system",
+                        "&7▸ &fSmart recommendations",
+                        "",
+                        "&d&l➤ &dClick to explore!"
+                ))
+                .build());
+        
         gui.setItem(43, new ItemBuilder(Material.BARRIER)
                 .setName("&c&l✖ &e&lCLOSE SHOP")
                 .setLore(Arrays.asList(

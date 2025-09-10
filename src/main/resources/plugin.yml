@@ -41,6 +41,12 @@ commands:
     permission: easyshopgui.admin
     permission-message: §cYou don't have permission to use this command!
 
+  withdraw:
+    description: Withdraw money as paper cheque
+    usage: /<command> <amount>
+    permission: easyshopgui.withdraw
+    permission-message: §cYou don't have permission to withdraw money as cheques!
+
 permissions:
   easyshopgui.*:
     description: Gives access to all EasyShopGUI features
@@ -51,6 +57,7 @@ permissions:
       easyshopgui.bypass: true
       easyshopgui.discount.*: true
       easyshopgui.multiplier.*: true
+      easyshopgui.withdraw: true
   
   easyshopgui.use:
     description: Allows players to use shops
@@ -86,4 +93,8 @@ permissions:
   
   easyshopgui.item.*:
     description: Access to all shop items
+    default: true
+  
+  easyshopgui.withdraw:
+    description: Allows players to withdraw money as paper cheques
     default: true
