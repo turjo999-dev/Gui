@@ -190,7 +190,7 @@ public class PaperCurrency {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
         
-        return new ItemBuilder(Material.PAPER)
+        ItemStack cheque = new ItemBuilder(Material.PAPER)
                 .setName("§6§l💰 BANK CHEQUE §6§l💰")
                 .setLore(Arrays.asList(
                         "§7▸ §fAmount: §a$" + String.format("%.2f", amount),
@@ -217,16 +217,20 @@ public class PaperCurrency {
                         "§8§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
                 ))
                 .addGlow()
-                .build()
-                .also { item ->
-                    ItemMeta meta = item.itemMeta!!
-                    meta.persistentDataContainer.set(CHEQUE_ID_KEY, PersistentDataType.STRING, chequeId)
-                    meta.persistentDataContainer.set(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE, amount)
-                    meta.persistentDataContainer.set(CHEQUE_ISSUER_KEY, PersistentDataType.STRING, issuer.uniqueId.toString())
-                    meta.persistentDataContainer.set(CHEQUE_TIMESTAMP_KEY, PersistentDataType.LONG, System.currentTimeMillis())
-                    meta.persistentDataContainer.set(CHEQUE_SIGNATURE_KEY, PersistentDataType.STRING, signature)
-                    item.itemMeta = meta
-                };
+                .build();
+        
+        // Add NBT data for security
+        ItemMeta meta = cheque.getItemMeta();
+        if (meta != null) {
+            meta.getPersistentDataContainer().set(CHEQUE_ID_KEY, PersistentDataType.STRING, chequeId);
+            meta.getPersistentDataContainer().set(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE, amount);
+            meta.getPersistentDataContainer().set(CHEQUE_ISSUER_KEY, PersistentDataType.STRING, issuer.getUniqueId().toString());
+            meta.getPersistentDataContainer().set(CHEQUE_TIMESTAMP_KEY, PersistentDataType.LONG, System.currentTimeMillis());
+            meta.getPersistentDataContainer().set(CHEQUE_SIGNATURE_KEY, PersistentDataType.STRING, signature);
+            cheque.setItemMeta(meta);
+        }
+        
+        return cheque;
     }
     
     /**
