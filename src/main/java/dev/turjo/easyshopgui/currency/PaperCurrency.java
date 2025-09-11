@@ -154,10 +154,7 @@ public class PaperCurrency {
         }
         
         // Prevent self-redemption
-        if (player.getUniqueId().equals(data.getIssuer())) {
-            player.sendMessage("§c💰 You cannot redeem your own cheque!");
-            return false;
-        }
+        // REMOVED: Allow owner to redeem their own cheques
         
         // Redeem cheque
         plugin.getEconomyManager().getEconomy().depositPlayer(player, amount);
@@ -172,11 +169,15 @@ public class PaperCurrency {
         player.sendMessage("§a💰 Successfully redeemed cheque for $" + String.format("%.2f", amount) + "!");
         player.sendMessage("§e📄 Cheque ID: §f" + chequeId.substring(0, 8) + "...");
         
-        // Notify issuer if online
-        Player issuerPlayer = plugin.getServer().getPlayer(data.getIssuer());
-        if (issuerPlayer != null && issuerPlayer.isOnline()) {
-            issuerPlayer.sendMessage("§b💰 Your cheque for $" + String.format("%.2f", amount) + 
-                                   " was redeemed by " + player.getName() + "!");
+        // Notify issuer if online (only if different player)
+        if (!player.getUniqueId().equals(data.getIssuer())) {
+            Player issuerPlayer = plugin.getServer().getPlayer(data.getIssuer());
+            if (issuerPlayer != null && issuerPlayer.isOnline()) {
+                issuerPlayer.sendMessage("§b💰 Your cheque for $" + String.format("%.2f", amount) + 
+                                       " was redeemed by " + player.getName() + "!");
+            }
+        } else {
+            player.sendMessage("§e💰 You redeemed your own cheque!");
         }
         
         Logger.info("Player " + player.getName() + " redeemed cheque " + chequeId + " for $" + amount);
@@ -205,7 +206,7 @@ public class PaperCurrency {
                         "",
                         "§e§l💡 HOW TO USE:",
                         "§7▸ §fRight-click to redeem this cheque",
-                        "§7▸ §fCannot redeem your own cheques",
+                        "§7▸ §fAnyone can redeem this cheque",
                         "§7▸ §fOne-time use only",
                         "",
                         "§c§l⚠ WARNING:",
@@ -231,6 +232,32 @@ public class PaperCurrency {
         }
         
         return cheque;
+    }
+    
+    /**
+     * Check if item is a valid cheque with specific amount (for Shopkeeper compatibility)
+     */
+    public boolean isChequeWithAmount(ItemStack item, double requiredAmount) {
+        if (!isCheque(item)) return false;
+        
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return false;
+        
+        Double chequeAmount = meta.getPersistentDataContainer().get(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE);
+        return chequeAmount != null && Math.abs(chequeAmount - requiredAmount) < 0.01; // Allow small floating point differences
+    }
+    
+    /**
+     * Get cheque amount from item
+     */
+    public double getChequeAmount(ItemStack item) {
+        if (!isCheque(item)) return 0.0;
+        
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return 0.0;
+        
+        Double amount = meta.getPersistentDataContainer().get(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE);
+        return amount != null ? amount : 0.0;
     }
     
     /**

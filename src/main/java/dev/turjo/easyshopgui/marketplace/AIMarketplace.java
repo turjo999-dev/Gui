@@ -98,41 +98,51 @@ public class AIMarketplace {
      * AI-powered price adjustment
      */
     private void adjustPricesWithAI() {
+        try {
         for (Map.Entry<String, MarketData> entry : marketData.entrySet()) {
             String itemId = entry.getKey();
             MarketData data = entry.getValue();
             
-            // Calculate AI factors
-            double demandFactor = calculateDemandFactor(data);
-            double supplyFactor = calculateSupplyFactor(data);
-            double trendFactor = calculateTrendFactor(itemId);
-            double volatilityFactor = calculateVolatilityFactor();
-            
-            // AI decision making
-            double priceMultiplier = 1.0 + 
-                (demandFactor * DEMAND_INFLUENCE) +
-                (supplyFactor * SUPPLY_INFLUENCE) +
-                (trendFactor * TREND_INFLUENCE) +
-                (volatilityFactor * 0.1);
-            
-            // Apply constraints
-            priceMultiplier = Math.max(0.5, Math.min(2.0, priceMultiplier));
-            
-            // Update prices
-            double newBuyPrice = data.getBaseBuyPrice() * priceMultiplier;
-            double newSellPrice = data.getBaseSellPrice() * priceMultiplier;
-            
-            data.setCurrentBuyPrice(newBuyPrice);
-            data.setCurrentSellPrice(newSellPrice);
-            
-            // Record price history
-            PriceHistory history = priceHistory.get(itemId);
-            history.addPrice(newBuyPrice);
-            
-            // Update shop item
-            updateShopItemPrice(itemId, newBuyPrice, newSellPrice);
-            
-            Logger.debug("AI adjusted price for " + itemId + ": $" + String.format("%.2f", newBuyPrice));
+            try {
+                // Calculate AI factors
+                double demandFactor = calculateDemandFactor(data);
+                double supplyFactor = calculateSupplyFactor(data);
+                double trendFactor = calculateTrendFactor(itemId);
+                double volatilityFactor = calculateVolatilityFactor();
+                
+                // AI decision making
+                double priceMultiplier = 1.0 + 
+                    (demandFactor * DEMAND_INFLUENCE) +
+                    (supplyFactor * SUPPLY_INFLUENCE) +
+                    (trendFactor * TREND_INFLUENCE) +
+                    (volatilityFactor * 0.1);
+                
+                // Apply constraints
+                priceMultiplier = Math.max(0.5, Math.min(2.0, priceMultiplier));
+                
+                // Update prices
+                double newBuyPrice = data.getBaseBuyPrice() * priceMultiplier;
+                double newSellPrice = data.getBaseSellPrice() * priceMultiplier;
+                
+                data.setCurrentBuyPrice(newBuyPrice);
+                data.setCurrentSellPrice(newSellPrice);
+                
+                // Record price history
+                PriceHistory history = priceHistory.get(itemId);
+                if (history != null) {
+                    history.addPrice(newBuyPrice);
+                }
+                
+                // Update shop item
+                updateShopItemPrice(itemId, newBuyPrice, newSellPrice);
+                
+                Logger.debug("AI adjusted price for " + itemId + ": $" + String.format("%.2f", newBuyPrice));
+            } catch (Exception e) {
+                Logger.debug("Error adjusting price for " + itemId + ": " + e.getMessage());
+            }
+        }
+        } catch (Exception e) {
+            Logger.error("Error in AI price adjustment: " + e.getMessage());
         }
     }
     
@@ -140,31 +150,39 @@ public class AIMarketplace {
      * AI-powered stock management
      */
     private void manageStockWithAI() {
+        try {
         for (Map.Entry<String, MarketData> entry : marketData.entrySet()) {
             String itemId = entry.getKey();
             MarketData data = entry.getValue();
             
-            // Calculate restock needs
-            double demandRate = calculateDemandRate(data);
-            double stockLevel = (double) data.getCurrentStock() / data.getMaxStock();
-            
-            // AI restocking decision
-            if (stockLevel < 0.3 && demandRate > 0.5) {
-                // High demand, low stock - restock aggressively
-                int restockAmount = (int) (data.getMaxStock() * 0.8);
-                data.setCurrentStock(Math.min(data.getCurrentStock() + restockAmount, data.getMaxStock()));
+            try {
+                // Calculate restock needs
+                double demandRate = calculateDemandRate(data);
+                double stockLevel = (double) data.getCurrentStock() / Math.max(1, data.getMaxStock());
                 
-                Logger.debug("AI restocked " + itemId + " with " + restockAmount + " units (high demand)");
-            } else if (stockLevel < 0.1) {
-                // Critical stock level - emergency restock
-                int restockAmount = (int) (data.getMaxStock() * 0.5);
-                data.setCurrentStock(Math.min(data.getCurrentStock() + restockAmount, data.getMaxStock()));
+                // AI restocking decision
+                if (stockLevel < 0.3 && demandRate > 0.5) {
+                    // High demand, low stock - restock aggressively
+                    int restockAmount = (int) (data.getMaxStock() * 0.8);
+                    data.setCurrentStock(Math.min(data.getCurrentStock() + restockAmount, data.getMaxStock()));
+                    
+                    Logger.debug("AI restocked " + itemId + " with " + restockAmount + " units (high demand)");
+                } else if (stockLevel < 0.1) {
+                    // Critical stock level - emergency restock
+                    int restockAmount = (int) (data.getMaxStock() * 0.5);
+                    data.setCurrentStock(Math.min(data.getCurrentStock() + restockAmount, data.getMaxStock()));
+                    
+                    Logger.debug("AI emergency restocked " + itemId + " with " + restockAmount + " units");
+                }
                 
-                Logger.debug("AI emergency restocked " + itemId + " with " + restockAmount + " units");
+                // Update shop item stock
+                updateShopItemStock(itemId, data.getCurrentStock());
+            } catch (Exception e) {
+                Logger.debug("Error managing stock for " + itemId + ": " + e.getMessage());
             }
-            
-            // Update shop item stock
-            updateShopItemStock(itemId, data.getCurrentStock());
+        }
+        } catch (Exception e) {
+            Logger.error("Error in AI stock management: " + e.getMessage());
         }
     }
     
@@ -255,12 +273,25 @@ public class AIMarketplace {
     
     private double calculateTrendFactor(String itemId) {
         PriceHistory history = priceHistory.get(itemId);
-        if (history.getPrices().size() < 5) return 0.0;
+        if (history == null || history.getPrices().size() < 6) return 0.0;
         
         List<Double> prices = history.getPrices();
         int size = prices.size();
-        double recentAvg = prices.subList(size - 3, size).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-        double olderAvg = prices.subList(size - 6, size - 3).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        
+        // Ensure we have enough data points
+        if (size < 6) return 0.0;
+        
+        try {
+            double recentAvg = prices.subList(Math.max(0, size - 3), size).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            double olderAvg = prices.subList(Math.max(0, size - 6), Math.max(0, size - 3)).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            
+            if (olderAvg == 0) return 0.0;
+            return ((recentAvg - olderAvg) / olderAvg) * 0.5;
+        } catch (Exception e) {
+            Logger.debug("Error calculating trend factor for " + itemId + ": " + e.getMessage());
+            return 0.0;
+        }
+    }
         
         if (olderAvg == 0) return 0.0;
         return ((recentAvg - olderAvg) / olderAvg) * 0.5;

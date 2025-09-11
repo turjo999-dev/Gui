@@ -8,6 +8,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.ClickType;
 
 /**
  * Listener for paper currency interactions
@@ -44,6 +46,34 @@ public class CurrencyListener implements Listener {
             } else {
                 // Play error sound
                 player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            }
+        }
+    }
+    
+    /**
+     * Handle cheque interactions in other plugin GUIs (like Shopkeeper)
+     */
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        
+        Player player = (Player) event.getWhoClicked();
+        ItemStack clickedItem = event.getCurrentItem();
+        
+        // Check if it's a cheque being used in a trade
+        if (clickedItem != null && plugin.getPaperCurrency().isCheque(clickedItem)) {
+            String inventoryTitle = event.getView().getTitle();
+            
+            // Check if it's a Shopkeeper GUI or similar trading interface
+            if (inventoryTitle.contains("Shopkeeper") || inventoryTitle.contains("Trading") || 
+                inventoryTitle.contains("Shop") || inventoryTitle.contains("Trade")) {
+                
+                // Allow the cheque to be used as currency
+                // The cheque value will be checked by the trading plugin
+                Logger.debug("Cheque being used in trading interface: " + inventoryTitle);
+                
+                // Don't cancel the event - let the trading plugin handle it
+                // The cheque acts as a currency item with its value
             }
         }
     }
