@@ -1,6 +1,7 @@
 package dev.turjo.easyshopgui.listeners;
 
 import dev.turjo.easyshopgui.EasyShopGUI;
+import dev.turjo.easyshopgui.utils.Logger;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
