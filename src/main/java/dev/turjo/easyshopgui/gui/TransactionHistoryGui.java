@@ -124,7 +124,7 @@ public class TransactionHistoryGui {
                         "&7▸ &fTransaction ID: &8#" + transaction.hashCode()
                 ))
                 .addGlow(transaction.getType().equals("BUY"))
-                .build());
+                .build();
     }
     
     /**

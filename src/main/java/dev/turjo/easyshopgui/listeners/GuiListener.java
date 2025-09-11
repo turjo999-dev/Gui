@@ -163,6 +163,9 @@ public class GuiListener implements Listener {
             case 41: // Quick Sell
                 openQuickSell(player);
                 break;
+            case 42: // Shop Info (no action needed)
+                playSound(player, Sound.UI_BUTTON_CLICK);
+                break;
             case 43: // Close
                 player.closeInventory();
                 playSound(player, Sound.UI_BUTTON_CLICK);
