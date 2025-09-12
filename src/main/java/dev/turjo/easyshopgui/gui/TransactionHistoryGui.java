@@ -231,6 +231,17 @@ public class TransactionHistoryGui {
                         "&b&l➤ &bClick to filter!"
                 ))
                 .build());
+        
+        // Page info
+        gui.setItem(49, new ItemBuilder(Material.BOOK)
+                .setName("&6&l📖 &e&lPAGE INFO")
+                .setLore(Arrays.asList(
+                        "&7▸ &fCurrent Page: &a" + (currentPage + 1),
+                        "&7▸ &fTotal Pages: &a" + getTotalPages(),
+                        "&7▸ &fTransactions: &a" + transactions.size(),
+                        "&7▸ &fShowing: &e" + Math.min(TRANSACTIONS_PER_PAGE, transactions.size() - (currentPage * TRANSACTIONS_PER_PAGE))
+                ))
+                .build());
     }
     
     /**

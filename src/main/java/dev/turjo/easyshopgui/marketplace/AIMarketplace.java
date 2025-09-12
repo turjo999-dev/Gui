@@ -275,13 +275,15 @@ public class AIMarketplace {
         PriceHistory history = priceHistory.get(itemId);
         if (history == null || history.getPrices().size() < 6) return 0.0;
         
-        List<Double> prices = history.getPrices();
-        int size = prices.size();
-        
-        // Ensure we have enough data points
-        if (size < 6) return 0.0;
-        
         try {
+            List<Double> prices = history.getPrices();
+            if (prices == null || prices.size() < 6) return 0.0;
+            
+            int size = prices.size();
+            
+            // Ensure we have enough data points
+            if (size < 6) return 0.0;
+            
             double recentAvg = prices.subList(Math.max(0, size - 3), size).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
             double olderAvg = prices.subList(Math.max(0, size - 6), Math.max(0, size - 3)).stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
             
@@ -319,18 +321,27 @@ public class AIMarketplace {
     }
     
     private String analyzePriceTrend(PriceHistory history) {
-        List<Double> prices = history.getPrices();
-        if (prices.size() < 3) return "STABLE";
-        
-        int size = prices.size();
-        double recent = prices.get(size - 1);
-        double older = prices.get(size - 3);
-        
-        double change = (recent - older) / older;
-        
-        if (change > 0.1) return "RISING";
-        else if (change < -0.1) return "FALLING";
-        else return "STABLE";
+        try {
+            List<Double> prices = history.getPrices();
+            if (prices == null || prices.size() < 3) return "STABLE";
+            
+            int size = prices.size();
+            if (size < 3) return "STABLE";
+            
+            double recent = prices.get(size - 1);
+            double older = prices.get(Math.max(0, size - 3));
+            
+            if (older == 0) return "STABLE";
+            
+            double change = (recent - older) / older;
+            
+            if (change > 0.1) return "RISING";
+            else if (change < -0.1) return "FALLING";
+            else return "STABLE";
+        } catch (Exception e) {
+            Logger.debug("Error analyzing price trend: " + e.getMessage());
+            return "STABLE";
+        }
     }
     
     private String calculateMarketSentiment(MarketData data) {
@@ -432,7 +443,9 @@ public class AIMarketplace {
         }
         
         public List<Double> getPrices() {
-            return new ArrayList<>(prices);
+            synchronized (prices) {
+                return new ArrayList<>(prices);
+            }
         }
     }
 }

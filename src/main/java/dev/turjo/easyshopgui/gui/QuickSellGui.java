@@ -24,6 +24,14 @@ public class QuickSellGui {
     public Map<Material, SellableItem> sellableItems = new HashMap<>();
     private double totalValue = 0.0;
     
+    // Sell slots (where players can place items)
+    public static final int[] SELL_SLOTS = {
+        10, 11, 12, 13, 14, 15, 16,
+        19, 20, 21, 22, 23, 24, 25,
+        28, 29, 30, 31, 32, 33, 34,
+        37, 38, 39, 40, 41, 42, 43
+    };
+    
     public QuickSellGui(EasyShopGUI plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
@@ -34,11 +42,8 @@ public class QuickSellGui {
         Inventory gui = Bukkit.createInventory(null, 54, 
                 MessageUtils.colorize("&c&l💸 &e&lQUICK SELL"));
         
-        // Fill background
+        // Fill background (but leave sell slots empty)
         fillBackground(gui);
-        
-        // Add sellable items
-        addSellableItems(gui);
         
         // Add sell actions
         addSellActions(gui);
@@ -46,25 +51,188 @@ public class QuickSellGui {
         // Add navigation
         addNavigation(gui);
         
+        // Add instructions
+        addInstructions(gui);
+        
         player.openInventory(gui);
     }
     
     /**
-     * Fill background
+     * Fill background but leave sell slots empty for item placement
      */
     private void fillBackground(Inventory gui) {
         ItemStack background = new ItemBuilder(Material.RED_STAINED_GLASS_PANE)
                 .setName(" ")
                 .build();
         
-        // Fill all slots
+        // Fill all slots first
         for (int i = 0; i < gui.getSize(); i++) {
             gui.setItem(i, background);
+        }
+        
+        // Clear sell slots so players can place items
+        for (int slot : SELL_SLOTS) {
+            gui.setItem(slot, null);
         }
     }
     
     /**
-     * Analyze player inventory for sellable items
+     * Check if slot is a sell slot
+     */
+    public boolean isSellSlot(int slot) {
+        for (int sellSlot : SELL_SLOTS) {
+            if (sellSlot == slot) return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Calculate total value of items in sell slots
+     */
+    public double calculateTotalValue(Inventory gui) {
+        double total = 0.0;
+        Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        Map<Material, ShopItem> shopItemMap = new HashMap<>();
+        
+        // Create lookup map
+        for (ShopSection section : sections.values()) {
+            for (ShopItem item : section.getItems()) {
+                shopItemMap.put(item.getMaterial(), item);
+            }
+        }
+        
+        // Calculate value of items in sell slots
+        for (int slot : SELL_SLOTS) {
+            ItemStack item = gui.getItem(slot);
+            if (item != null && item.getType() != Material.AIR) {
+                ShopItem shopItem = shopItemMap.get(item.getType());
+                if (shopItem != null && shopItem.getSellPrice() > 0) {
+                    total += shopItem.getSellPrice() * item.getAmount();
+                }
+            }
+        }
+        
+        return total;
+    }
+    
+    /**
+     * Sell all items in the GUI
+     */
+    public void sellAllItems(Inventory gui) {
+        double totalEarned = 0.0;
+        int itemsSold = 0;
+        Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        Map<Material, ShopItem> shopItemMap = new HashMap<>();
+        
+        // Create lookup map
+        for (ShopSection section : sections.values()) {
+            for (ShopItem item : section.getItems()) {
+                shopItemMap.put(item.getMaterial(), item);
+            }
+        }
+        
+        // Process all items in sell slots
+        for (int slot : SELL_SLOTS) {
+            ItemStack item = gui.getItem(slot);
+            if (item != null && item.getType() != Material.AIR) {
+                ShopItem shopItem = shopItemMap.get(item.getType());
+                if (shopItem != null && shopItem.getSellPrice() > 0) {
+                    double earned = shopItem.getSellPrice() * item.getAmount();
+                    plugin.getEconomyManager().getEconomy().depositPlayer(player, earned);
+                    
+                    // Record transaction
+                    plugin.getTransactionManager().recordTransaction(player, "SELL", shopItem.getDisplayName(), item.getAmount(), earned);
+                    
+                    totalEarned += earned;
+                    itemsSold += item.getAmount();
+                    
+                    // Clear the slot
+                    gui.setItem(slot, null);
+                }
+            }
+        }
+        
+        if (totalEarned > 0) {
+            player.sendMessage("§a💎 Sold " + itemsSold + " items for §6$" + String.format("%.2f", totalEarned) + "!");
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+        } else {
+            player.sendMessage("§c❌ No sellable items found!");
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+        }
+        
+        // Refresh GUI
+        updateValueDisplay(gui);
+    }
+    
+    /**
+     * Clear all items from sell slots and return to player
+     */
+    public void clearAllItems(Inventory gui) {
+        int itemsReturned = 0;
+        
+        for (int slot : SELL_SLOTS) {
+            ItemStack item = gui.getItem(slot);
+            if (item != null && item.getType() != Material.AIR) {
+                // Try to add to player inventory
+                HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(item);
+                if (!leftover.isEmpty()) {
+                    // Drop items if inventory is full
+                    for (ItemStack leftoverItem : leftover.values()) {
+                        player.getWorld().dropItemNaturally(player.getLocation(), leftoverItem);
+                    }
+                }
+                itemsReturned += item.getAmount();
+                gui.setItem(slot, null);
+            }
+        }
+        
+        if (itemsReturned > 0) {
+            player.sendMessage("§e📦 Returned " + itemsReturned + " items to your inventory!");
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_ITEM_PICKUP, 1.0f, 1.0f);
+        } else {
+            player.sendMessage("§c❌ No items to return!");
+        }
+        
+        // Refresh GUI
+        updateValueDisplay(gui);
+    }
+    
+    /**
+     * Update the value display in the GUI
+     */
+    public void updateValueDisplay(Inventory gui) {
+        double currentValue = calculateTotalValue(gui);
+        
+        gui.setItem(4, new ItemBuilder(Material.EMERALD)
+                .setName("&a&l💰 &e&lTOTAL VALUE")
+                .setLore(Arrays.asList(
+                        "&7▸ &fItems in Sell Slots: &e" + countItemsInSlots(gui),
+                        "&7▸ &fTotal Value: &a$" + String.format("%.2f", currentValue),
+                        "&7▸ &fCurrent Balance: &e$" + String.format("%.2f", plugin.getEconomyManager().getEconomy().getBalance(player)),
+                        "&7▸ &fAfter Selling: &a$" + String.format("%.2f", plugin.getEconomyManager().getEconomy().getBalance(player) + currentValue),
+                        "",
+                        "&a&l💡 &aDrag items into empty slots to sell!"
+                ))
+                .addGlow(currentValue > 0)
+                .build());
+    }
+    
+    /**
+     * Count items in sell slots
+     */
+    private int countItemsInSlots(Inventory gui) {
+        int count = 0;
+        for (int slot : SELL_SLOTS) {
+            ItemStack item = gui.getItem(slot);
+            if (item != null && item.getType() != Material.AIR) {
+                count += item.getAmount();
+            }
+        }
+        return count;
+    }
+    
+    /**
+     * Analyze player inventory for sellable items (for auto-fill feature)
      */
     private void analyzeSellableItems() {
         sellableItems.clear();
@@ -98,125 +266,102 @@ public class QuickSellGui {
     }
     
     /**
-     * Add sellable items to GUI
-     */
-    private void addSellableItems(Inventory gui) {
-        // Total value display
-        gui.setItem(4, new ItemBuilder(Material.EMERALD)
-                .setName("&a&l💰 &e&lTOTAL INVENTORY VALUE")
-                .setLore(Arrays.asList(
-                        "&7▸ &fSellable Items: &a" + sellableItems.size() + " types",
-                        "&7▸ &fTotal Value: &a$" + String.format("%.2f", totalValue),
-                        "&7▸ &fCurrent Balance: &e$" + String.format("%.2f", plugin.getEconomyManager().getEconomy().getBalance(player)),
-                        "&7▸ &fAfter Selling: &a$" + String.format("%.2f", plugin.getEconomyManager().getEconomy().getBalance(player) + totalValue),
-                        "",
-                        "&a&l💡 &aClick items below to sell!"
-                ))
-                .addGlow()
-                .build());
-        
-        // Display top sellable items
-        List<SellableItem> sortedItems = sellableItems.values().stream()
-                .sorted((a, b) -> Double.compare(b.getTotalValue(), a.getTotalValue()))
-                .limit(21)
-                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-        
-        int[] itemSlots = {
-            19, 20, 21, 22, 23, 24, 25,
-            28, 29, 30, 31, 32, 33, 34,
-            37, 38, 39, 40, 41, 42, 43
-        };
-        
-        for (int i = 0; i < Math.min(sortedItems.size(), itemSlots.length); i++) {
-            SellableItem sellable = sortedItems.get(i);
-            gui.setItem(itemSlots[i], createSellableItemStack(sellable));
-        }
-        
-        // No sellable items message
-        if (sellableItems.isEmpty()) {
-            gui.setItem(22, new ItemBuilder(Material.BARRIER)
-                    .setName("&c&l❌ &e&lNO SELLABLE ITEMS")
-                    .setLore(Arrays.asList(
-                            "&7▸ &fYour inventory is empty",
-                            "&7▸ &fOr contains no sellable items",
-                            "",
-                            "&b&l💡 &bTip:",
-                            "&7  Get items from the shop first!"
-                    ))
-                    .build());
-        }
-    }
-    
-    /**
-     * Create sellable item stack
-     */
-    private ItemStack createSellableItemStack(SellableItem sellable) {
-        ShopItem item = sellable.shopItem;
-        double itemValue = sellable.getTotalValue();
-        double percentage = (itemValue / totalValue) * 100;
-        
-        return new ItemBuilder(item.getMaterial())
-                .setName("&6&l💸 " + item.getDisplayName())
-                .setLore(Arrays.asList(
-                        "&7▸ &fYou Have: &e" + sellable.count + "x",
-                        "&7▸ &fPrice Each: &a$" + String.format("%.2f", item.getSellPrice()),
-                        "&7▸ &fTotal Value: &a$" + String.format("%.2f", itemValue),
-                        "&7▸ &fOf Total: &e" + String.format("%.1f", percentage) + "%",
-                        "",
-                        "&e&l⚡ SELL OPTIONS:",
-                        "&a▸ Left Click: &fSell 1",
-                        "&a▸ Right Click: &fSell 10",
-                        "&a▸ Shift + Left: &fSell Half",
-                        "&a▸ Shift + Right: &fSell All"
-                ))
-                .setAmount(Math.min(sellable.count, 64))
-                .addGlow()
-                .build();
-    }
-    
-    /**
      * Add sell action buttons
      */
     private void addSellActions(Inventory gui) {
         // Sell all button
-        gui.setItem(49, new ItemBuilder(totalValue > 0 ? Material.DIAMOND : Material.COAL)
-                .setName(totalValue > 0 ? "&a&l💎 &e&lSELL EVERYTHING" : "&c&l❌ &e&lNOTHING TO SELL")
+        gui.setItem(49, new ItemBuilder(Material.DIAMOND)
+                .setName("&a&l💎 &e&lSELL ALL ITEMS")
                 .setLore(Arrays.asList(
-                        "&7▸ &fSell all sellable items",
-                        "&7▸ &fTotal Value: &a$" + String.format("%.2f", totalValue),
-                        "&7▸ &fItems: &e" + sellableItems.size() + " types",
+                        "&7▸ &fSell all items in sell slots",
+                        "&7▸ &fInstant transaction",
+                        "&7▸ &fGet money immediately",
                         "",
-                        totalValue > 0 ? "&a&l➤ &aClick to sell everything!" : "&c&l➤ &cNo items to sell!"
+                        "&a&l➤ &aClick to sell everything!"
                 ))
-                .addGlow(totalValue > 0)
+                .addGlow()
                 .build());
         
-        // Sell valuable items only
-        double valuableThreshold = 10.0;
-        double valuableTotal = sellableItems.values().stream()
-                .filter(item -> item.shopItem.getSellPrice() >= valuableThreshold)
-                .mapToDouble(SellableItem::getTotalValue)
-                .sum();
-        
-        gui.setItem(47, new ItemBuilder(Material.GOLD_INGOT)
-                .setName("&6&l⭐ &e&lSELL VALUABLE ONLY")
+        // Clear all button
+        gui.setItem(47, new ItemBuilder(Material.HOPPER)
+                .setName("&c&l📦 &e&lCLEAR ALL ITEMS")
                 .setLore(Arrays.asList(
-                        "&7▸ &fSell items worth $" + String.format("%.2f", valuableThreshold) + "+ each",
-                        "&7▸ &fTotal Value: &6$" + String.format("%.2f", valuableTotal),
-                        "&7▸ &fKeep cheap items",
+                        "&7▸ &fReturn all items to inventory",
+                        "&7▸ &fNo selling, just return",
+                        "&7▸ &fSafe item retrieval",
                         "",
-                        "&6&l➤ &6Click to sell valuable!"
+                        "&c&l➤ &cClick to clear!"
                 ))
                 .build());
         
-        // Refresh inventory
-        gui.setItem(51, new ItemBuilder(Material.HOPPER)
-                .setName("&b&l🔄 &e&lREFRESH INVENTORY")
+        // Auto-fill from inventory
+        gui.setItem(51, new ItemBuilder(Material.CHEST)
+                .setName("&b&l🔄 &e&lAUTO-FILL FROM INVENTORY")
                 .setLore(Arrays.asList(
-                        "&7▸ &fScan inventory again",
-                        "&7▸ &fUpdate sellable items",
+                        "&7▸ &fAutomatically fill with sellable items",
+                        "&7▸ &fFrom your inventory",
+                        "&7▸ &fOnly sellable items",
                         "",
-                        "&b&l➤ &bClick to refresh!"
+                        "&b&l➤ &bClick to auto-fill!"
+                ))
+                .build());
+    }
+    
+    /**
+     * Auto-fill sell slots with sellable items from inventory
+     */
+    public void autoFillFromInventory(Inventory gui) {
+        Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+        Map<Material, ShopItem> shopItemMap = new HashMap<>();
+        
+        // Create lookup map
+        for (ShopSection section : sections.values()) {
+            for (ShopItem item : section.getItems()) {
+                shopItemMap.put(item.getMaterial(), item);
+            }
+        }
+        
+        int slotIndex = 0;
+        int itemsMoved = 0;
+        
+        // Move sellable items from inventory to sell slots
+        for (int i = 0; i < player.getInventory().getSize() && slotIndex < SELL_SLOTS.length; i++) {
+            ItemStack item = player.getInventory().getItem(i);
+            if (item != null && item.getType() != Material.AIR) {
+                ShopItem shopItem = shopItemMap.get(item.getType());
+                if (shopItem != null && shopItem.getSellPrice() > 0) {
+                    // Move item to sell slot
+                    gui.setItem(SELL_SLOTS[slotIndex], item.clone());
+                    player.getInventory().setItem(i, null);
+                    itemsMoved += item.getAmount();
+                    slotIndex++;
+                }
+            }
+        }
+        
+        if (itemsMoved > 0) {
+            player.sendMessage("§b🔄 Auto-filled " + itemsMoved + " sellable items!");
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_ITEM_PICKUP, 1.0f, 1.0f);
+        } else {
+            player.sendMessage("§c❌ No sellable items found in inventory!");
+        }
+        
+        updateValueDisplay(gui);
+    }
+    
+    /**
+     * Add instructions
+     */
+    private void addInstructions(Inventory gui) {
+        gui.setItem(0, new ItemBuilder(Material.BOOK)
+                .setName("&b&l📖 &e&lHOW TO USE")
+                .setLore(Arrays.asList(
+                        "&7▸ &fDrag items into empty slots",
+                        "&7▸ &fOnly sellable items work",
+                        "&7▸ &fClick 'Sell All' when ready",
+                        "&7▸ &fClick 'Clear All' to get items back",
+                        "",
+                        "&b&l💡 &bTip: Use Auto-Fill for convenience!"
                 ))
                 .build());
     }
@@ -234,93 +379,6 @@ public class QuickSellGui {
                         "&a&l➤ &aClick to go back!"
                 ))
                 .build());
-    }
-    
-    /**
-     * Sell specific item
-     */
-    public void sellItem(Material material, int amount) {
-        SellableItem sellable = sellableItems.get(material);
-        if (sellable == null) {
-            player.sendMessage("§c❌ You don't have any " + material.name() + " to sell!");
-            return;
-        }
-        
-        int actualAmount = Math.min(amount, sellable.count);
-        if (actualAmount <= 0) {
-            player.sendMessage("§c❌ You don't have enough items to sell!");
-            return;
-        }
-        
-        // Remove items from inventory
-        removeItemsFromInventory(material, actualAmount);
-        
-        // Give money
-        double totalPrice = sellable.shopItem.getSellPrice() * actualAmount;
-        plugin.getEconomyManager().getEconomy().depositPlayer(player, totalPrice);
-        
-        // Record transaction
-        plugin.getTransactionManager().recordTransaction(player, "SELL", sellable.shopItem.getDisplayName(), actualAmount, totalPrice);
-        
-        // Success message
-        player.sendMessage("§a💸 Sold " + actualAmount + "x " + sellable.shopItem.getDisplayName() + 
-                          " §afor §6$" + String.format("%.2f", totalPrice) + "!");
-        
-        // Refresh and reopen
-        analyzeSellableItems();
-        open();
-    }
-    
-    /**
-     * Sell all items
-     */
-    public void sellAll() {
-        if (sellableItems.isEmpty()) {
-            player.sendMessage("§c❌ No sellable items found!");
-            return;
-        }
-        
-        double totalEarned = 0.0;
-        int itemsSold = 0;
-        
-        for (SellableItem sellable : sellableItems.values()) {
-            removeItemsFromInventory(sellable.shopItem.getMaterial(), sellable.count);
-            double earned = sellable.getTotalValue();
-            plugin.getEconomyManager().getEconomy().depositPlayer(player, earned);
-            
-            // Record transaction
-            plugin.getTransactionManager().recordTransaction(player, "SELL", sellable.shopItem.getDisplayName(), sellable.count, earned);
-            
-            totalEarned += earned;
-            itemsSold += sellable.count;
-        }
-        
-        player.sendMessage("§a💎 Sold everything! Earned §6$" + String.format("%.2f", totalEarned) + 
-                          " §afrom §e" + itemsSold + " §aitems!");
-        
-        // Close GUI and return to shop
-        player.closeInventory();
-        plugin.getGuiManager().openShop(player, "main");
-    }
-    
-    /**
-     * Remove items from inventory
-     */
-    private void removeItemsFromInventory(Material material, int amount) {
-        int remaining = amount;
-        for (int i = 0; i < player.getInventory().getSize() && remaining > 0; i++) {
-            ItemStack item = player.getInventory().getItem(i);
-            if (item != null && item.getType() == material) {
-                int itemAmount = item.getAmount();
-                if (itemAmount <= remaining) {
-                    player.getInventory().setItem(i, null);
-                    remaining -= itemAmount;
-                } else {
-                    item.setAmount(itemAmount - remaining);
-                    remaining = 0;
-                }
-            }
-        }
     }
     
     /**
