@@ -492,8 +492,17 @@ public class GuiListener implements Listener {
     private void buyItem(Player player, ShopItem item, int amount) {
         Logger.debug("Attempting to buy " + amount + "x " + item.getId());
         
+        // Check stock availability
+        if (item.getStock() != -1 && item.getStock() < amount) {
+            player.sendMessage("§c📦 Not enough stock! Available: " + item.getStock() + ", Requested: " + amount);
+            playSound(player, Sound.ENTITY_VILLAGER_NO);
+            return;
+        }
+        
         // Calculate total price
-        double totalPrice = item.getBuyPrice() * amount;
+        double currentPrice = plugin.getAiMarketplace().getCurrentBuyPrice(item.getId());
+        if (currentPrice <= 0) currentPrice = item.getBuyPrice(); // Fallback to base price
+        double totalPrice = currentPrice * amount;
         double balance = plugin.getEconomyManager().getEconomy().getBalance(player);
         
         Logger.debug("Price: $" + totalPrice + ", Balance: $" + balance);
@@ -518,6 +527,12 @@ public class GuiListener implements Listener {
             plugin.getEconomyManager().getEconomy().withdrawPlayer(player, totalPrice);
             ItemStack itemToGive = new ItemStack(item.getMaterial(), amount);
             player.getInventory().addItem(itemToGive);
+            
+            // Update stock and AI marketplace
+            if (item.getStock() != -1) {
+                item.setStock(Math.max(0, item.getStock() - amount));
+            }
+            plugin.getAiMarketplace().recordTransaction(item.getId(), "BUY", amount, totalPrice);
             
             // Record transaction
             plugin.getTransactionManager().recordTransaction(player, "BUY", item.getDisplayName(), amount, totalPrice);
@@ -553,11 +568,16 @@ public class GuiListener implements Listener {
             return;
         }
         
-        double totalPrice = item.getSellPrice() * amount;
+        double currentPrice = plugin.getAiMarketplace().getCurrentSellPrice(item.getId());
+        if (currentPrice <= 0) currentPrice = item.getSellPrice(); // Fallback to base price
+        double totalPrice = currentPrice * amount;
         
         try {
             removeItemsFromInventory(player, item.getMaterial(), amount);
             plugin.getEconomyManager().getEconomy().depositPlayer(player, totalPrice);
+            
+            // Update AI marketplace
+            plugin.getAiMarketplace().recordTransaction(item.getId(), "SELL", amount, totalPrice);
             
             // Record transaction
             plugin.getTransactionManager().recordTransaction(player, "SELL", item.getDisplayName(), amount, totalPrice);

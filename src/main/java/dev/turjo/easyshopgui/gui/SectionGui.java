@@ -108,7 +108,19 @@ public class SectionGui {
      */
     private ItemStack createShopItemStack(ShopItem item) {
         double balance = plugin.getEconomyManager().getEconomy().getBalance(player);
-        boolean canAfford = balance >= item.getBuyPrice();
+        
+        // Get real-time prices from AI marketplace
+        double currentBuyPrice = plugin.getAiMarketplace().getCurrentBuyPrice(item.getId());
+        double currentSellPrice = plugin.getAiMarketplace().getCurrentSellPrice(item.getId());
+        int currentStock = plugin.getAiMarketplace().getCurrentStock(item.getId());
+        
+        // Fallback to base prices if AI marketplace not available
+        if (currentBuyPrice <= 0) currentBuyPrice = item.getBuyPrice();
+        if (currentSellPrice <= 0) currentSellPrice = item.getSellPrice();
+        if (currentStock == 0) currentStock = item.getStock();
+        
+        boolean canAfford = balance >= currentBuyPrice;
+        boolean inStock = currentStock == -1 || currentStock > 0;
         
         Logger.debug("Creating item stack for: " + item.getDisplayName() + " (Material: " + item.getMaterial() + ")");
         
@@ -119,10 +131,10 @@ public class SectionGui {
                         "&7  " + item.getDescription(),
                         "",
                         "&7▸ &fPricing:",
-                        "&a  Buy: &f$" + String.format("%.2f", item.getBuyPrice()) + (canAfford ? " &a✓" : " &c✗"),
-                        "&c  Sell: &f$" + String.format("%.2f", item.getSellPrice()),
+                        "&a  Buy: &f$" + String.format("%.2f", currentBuyPrice) + (canAfford && inStock ? " &a✓" : " &c✗"),
+                        "&c  Sell: &f$" + String.format("%.2f", currentSellPrice),
                         "",
-                        "&7▸ &fStock: " + (item.getStock() == -1 ? "&aUnlimited" : "&e" + item.getStock()),
+                        "&7▸ &fStock: " + (currentStock == -1 ? "&aUnlimited" : (inStock ? "&e" + currentStock : "&c0 - OUT OF STOCK")),
                         "&7▸ &fDemand: " + getDemandColor(item.getDemand()) + item.getDemand().toUpperCase(),
                         "",
                         "&e&l⚡ QUICK ACTIONS:",
@@ -132,7 +144,7 @@ public class SectionGui {
                         "&a▸ Shift + Right: &fSell All",
                         "&a▸ Middle Click: &fView Details"
                 ))
-                .addGlow(canAfford)
+                .addGlow(canAfford && inStock)
                 .build();
     }
     
