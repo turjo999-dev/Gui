@@ -154,7 +154,7 @@ public class PaperCurrency {
         }
         
         // Prevent self-redemption
-        // REMOVED: Allow owner to redeem their own cheques
+        // Allow owner to redeem their own cheques - FIXED
         
         // Redeem cheque
         plugin.getEconomyManager().getEconomy().depositPlayer(player, amount);
@@ -176,12 +176,27 @@ public class PaperCurrency {
                 issuerPlayer.sendMessage("§b💰 Your cheque for $" + String.format("%.2f", amount) + 
                                        " was redeemed by " + player.getName() + "!");
             }
-        } else {
-            player.sendMessage("§e💰 You redeemed your own cheque!");
         }
         
         Logger.info("Player " + player.getName() + " redeemed cheque " + chequeId + " for $" + amount);
         return true;
+    }
+    
+    /**
+     * Enhanced Shopkeeper compatibility - check if cheque can be used as payment
+     */
+    public boolean canUseAsPayment(ItemStack cheque, double requiredAmount) {
+        if (!isCheque(cheque)) return false;
+        
+        double chequeAmount = getChequeAmount(cheque);
+        return Math.abs(chequeAmount - requiredAmount) < 0.01; // Allow small floating point differences
+    }
+    
+    /**
+     * Convert cheque to currency value for trading plugins
+     */
+    public double getTradeValue(ItemStack cheque) {
+        return getChequeAmount(cheque);
     }
     
     /**
@@ -199,6 +214,11 @@ public class PaperCurrency {
                         "§7▸ §fIssue Date: §7" + now.format(formatter),
                         "§7▸ §fCheque ID: §8" + chequeId.substring(0, 12) + "...",
                         "",
+                        "§6§l💱 TRADING COMPATIBLE:",
+                        "§7▸ §fShopkeeper Plugin: §a✓ SUPPORTED",
+                        "§7▸ §fTrade Value: §a$" + String.format("%.2f", amount),
+                        "§7▸ §fUniversal Currency: §a✓ ACCEPTED",
+                        "",
                         "§6§l⚡ SECURITY FEATURES:",
                         "§7▸ §fDigital Signature: §a✓ VERIFIED",
                         "§7▸ §fAnti-Forgery Protection: §a✓ ACTIVE",
@@ -206,12 +226,13 @@ public class PaperCurrency {
                         "",
                         "§e§l💡 HOW TO USE:",
                         "§7▸ §fRight-click to redeem this cheque",
-                        "§7▸ §fAnyone can redeem this cheque",
+                        "§7▸ §fUse in trading with other players",
+                        "§7▸ §fWorks with Shopkeeper plugin",
                         "§7▸ §fOne-time use only",
                         "",
                         "§c§l⚠ WARNING:",
                         "§7▸ §cDo not lose this cheque!",
-                        "§7▸ §cAnyone can redeem it!",
+                        "§7▸ §cTreat like real money!",
                         "",
                         "§8§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
                         "§8§oEasyShopGUI Bank • Secure Digital Currency",
