@@ -110,8 +110,14 @@ public class GuiListener implements Listener {
      * Special handling for Quick Sell GUI
      */
     private void handleQuickSellGUIClick(InventoryClickEvent event, Player player, String title) {
+        // Cancel ALL clicks in Quick Sell GUI first
+        event.setCancelled(true);
+        
         QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
-        if (quickSellGui == null) return;
+        if (quickSellGui == null) {
+            Logger.debug("No active QuickSell GUI found for player: " + player.getName());
+            return;
+        }
         
         int slot = event.getSlot();
         ItemStack clickedItem = event.getCurrentItem();
@@ -121,10 +127,13 @@ public class GuiListener implements Listener {
             itemName = MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName());
         }
         
+        Logger.debug("QuickSell GUI click - Slot: " + slot + ", Item: " + itemName);
+        
         // Allow item placement/removal in sell slots only
         if (quickSellGui.isSellSlot(slot)) {
-            // Allow normal inventory operations in sell slots
+            // Allow normal inventory operations in sell slots ONLY
             Logger.debug("Sell slot clicked, allowing interaction: " + slot);
+            event.setCancelled(false); // Allow interaction in sell slots
             
             // Update value display after a short delay
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
@@ -135,20 +144,26 @@ public class GuiListener implements Listener {
             return;
         }
         
-        // Cancel clicks on non-sell slots
-        event.setCancelled(true);
-        
         // Handle button clicks
         if (itemName.contains("SELL ALL ITEMS") && slot == 49) {
+            Logger.debug("Sell All button clicked");
             quickSellGui.sellAllItems(player.getOpenInventory().getTopInventory());
+            playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
         } else if (itemName.contains("CLEAR ALL ITEMS") && slot == 47) {
+            Logger.debug("Clear All button clicked");
             quickSellGui.clearAllItems(player.getOpenInventory().getTopInventory());
+            playSound(player, Sound.ENTITY_ITEM_PICKUP);
         } else if (itemName.contains("AUTO-FILL FROM INVENTORY") && slot == 51) {
+            Logger.debug("Auto-Fill button clicked");
             quickSellGui.autoFillFromInventory(player.getOpenInventory().getTopInventory());
+            playSound(player, Sound.ENTITY_ITEM_PICKUP);
         } else if (itemName.contains("BACK TO SHOP") && slot == 45) {
+            Logger.debug("Back button clicked in QuickSell");
             activeQuickSellGuis.remove(player);
             plugin.getGuiManager().openShop(player, "main");
             playSound(player, Sound.UI_BUTTON_CLICK);
+        } else {
+            Logger.debug("Unhandled QuickSell click - Slot: " + slot + ", Item: " + itemName);
         }
     }
     
@@ -645,7 +660,11 @@ public class GuiListener implements Listener {
      */
     private void openQuickSell(Player player) {
         QuickSellGui quickSellGui = new QuickSellGui(plugin, player);
+        
+        // Store in the same tracking system
         activeQuickSellGuis.put(player, quickSellGui);
+        plugin.getGuiManager().getActiveQuickSellGuis().put(player, quickSellGui);
+        
         quickSellGui.open();
         playSound(player, Sound.UI_BUTTON_CLICK);
     }

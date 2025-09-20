@@ -54,6 +54,9 @@ public class QuickSellGui {
         // Add instructions
         addInstructions(gui);
         
+        // Initialize value display
+        updateValueDisplay(gui);
+        
         player.openInventory(gui);
     }
     
@@ -305,6 +308,9 @@ public class QuickSellGui {
                         "&b&l➤ &bClick to auto-fill!"
                 ))
                 .build());
+        
+        // Update value display
+        updateValueDisplay(gui);
     }
     
     /**

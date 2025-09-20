@@ -84,10 +84,17 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         
-        // Open quick sell GUI
+        // Use the SAME QuickSell GUI as the main shop
         QuickSellGui quickSellGui = new QuickSellGui(plugin, player);
-        plugin.getGuiManager().getActiveQuickSellGuis().put(player, quickSellGui);
+        
+        // Store in the listener's tracking map for proper event handling
+        if (plugin.getServer().getPluginManager().isPluginEnabled(plugin)) {
+            // Get the GuiListener instance and store the GUI
+            plugin.getGuiManager().getActiveQuickSellGuis().put(player, quickSellGui);
+        }
+        
         quickSellGui.open();
+        player.sendMessage("§a💸 Quick Sell GUI opened! Drop items to sell them.");
         
         return true;
     }
