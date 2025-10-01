@@ -27,7 +27,7 @@ public class AIMarketplace {
     private final double DEMAND_INFLUENCE = 0.8;
     private final double SUPPLY_INFLUENCE = 0.6;
     private final double TREND_INFLUENCE = 0.4;
-    private final int HISTORY_SIZE = 100;
+    private static final int HISTORY_SIZE = 100;
     private final int UPDATE_INTERVAL;
     
     public AIMarketplace(EasyShopGUI plugin) {
