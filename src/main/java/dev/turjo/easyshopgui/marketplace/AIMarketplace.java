@@ -46,39 +46,50 @@ public class AIMarketplace {
      */
     private void initializeMarketData() {
         try {
-            Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
-            
-            for (ShopSection section : sections.values()) {
-                for (ShopItem item : section.getItems()) {
-                    String itemId = item.getId();
-                    
-                    MarketData data = new MarketData(
-                        item.getBuyPrice(),
-                        item.getSellPrice(),
-                        item.getStock() == -1 ? 1000 : item.getStock(),
-                        calculateInitialDemand(item),
-                        0, 0, // No transactions initially
-                        System.currentTimeMillis()
-                    );
-                    
-                    marketData.put(itemId, data);
-                    priceHistory.put(itemId, new PriceHistory());
-                    
-                    // Initialize stock data
-                    StockData stock = new StockData(
-                        item.getStock() == -1 ? 1000 : item.getStock(),
-                        item.getStock() == -1 ? 1000 : item.getStock(),
-                        System.currentTimeMillis()
-                    );
-                    stockData.put(itemId, stock);
-                    
-                    Logger.debug("Initialized market data for: " + itemId);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                try {
+                    Map<String, ShopSection> sections = plugin.getGuiManager().getSections();
+
+                    if (sections == null || sections.isEmpty()) {
+                        Logger.warn("No sections available for AI Marketplace initialization");
+                        return;
+                    }
+
+                    for (ShopSection section : sections.values()) {
+                        for (ShopItem item : section.getItems()) {
+                            String itemId = item.getId();
+
+                            MarketData data = new MarketData(
+                                item.getBuyPrice(),
+                                item.getSellPrice(),
+                                item.getStock() == -1 ? 1000 : item.getStock(),
+                                calculateInitialDemand(item),
+                                0, 0,
+                                System.currentTimeMillis()
+                            );
+
+                            marketData.put(itemId, data);
+                            priceHistory.put(itemId, new PriceHistory());
+
+                            StockData stock = new StockData(
+                                item.getStock() == -1 ? 1000 : item.getStock(),
+                                item.getStock() == -1 ? 1000 : item.getStock(),
+                                System.currentTimeMillis()
+                            );
+                            stockData.put(itemId, stock);
+
+                            Logger.debug("Initialized market data for: " + itemId);
+                        }
+                    }
+
+                    Logger.info("AI Marketplace initialized with " + marketData.size() + " items");
+                } catch (Exception e) {
+                    Logger.error("Error initializing AI Marketplace: " + e.getMessage());
+                    e.printStackTrace();
                 }
-            }
-            
-            Logger.info("AI Marketplace initialized with " + marketData.size() + " items");
+            }, 20L);
         } catch (Exception e) {
-            Logger.error("Error initializing AI Marketplace: " + e.getMessage());
+            Logger.error("Error scheduling AI Marketplace initialization: " + e.getMessage());
             e.printStackTrace();
         }
     }

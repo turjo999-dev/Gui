@@ -271,7 +271,7 @@ public class GuiListener implements Listener {
      */
     private void handleSectionClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem, int slot) {
         Logger.debug("Section click - Item: " + itemName + ", Click: " + clickType + ", Slot: " + slot);
-        
+
         // Navigation items
         if (slot == 0 || itemName.contains("BACK")) {
             Logger.debug("Back button clicked, opening main shop");
@@ -279,43 +279,48 @@ public class GuiListener implements Listener {
             playSound(player, Sound.UI_BUTTON_CLICK);
             return;
         }
-        
+
         if (slot == 45 || itemName.contains("PREVIOUS PAGE")) {
             handlePreviousPage(player);
             playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
             return;
         }
-        
+
         if (slot == 53 || itemName.contains("NEXT PAGE")) {
             handleNextPage(player);
             playSound(player, Sound.ITEM_BOOK_PAGE_TURN);
             return;
         }
-        
+
         // Skip navigation and decoration items
         if (isNavigationItem(itemName, clickedItem, slot)) {
             Logger.debug("Navigation item clicked, ignoring: " + itemName);
             return;
         }
-        
+
         // Handle item transactions
         String sectionId = playerCurrentSection.get(player);
         if (sectionId != null) {
             ShopSection section = plugin.getGuiManager().getSections().get(sectionId);
             if (section != null) {
-                // Find the item by material
+                // Find the item by material and display name
                 ShopItem shopItem = section.getItems().stream()
                         .filter(item -> item.getMaterial() == clickedItem.getType())
                         .findFirst()
                         .orElse(null);
-                
+
                 if (shopItem != null) {
                     Logger.debug("Found shop item: " + shopItem.getId() + " for transaction");
                     handleItemTransaction(player, shopItem, clickType);
                 } else {
                     Logger.debug("No shop item found for material: " + clickedItem.getType());
+                    player.sendMessage("§cThis item is not available for purchase!");
                 }
+            } else {
+                Logger.debug("Section not found: " + sectionId);
             }
+        } else {
+            Logger.debug("No section ID found for player: " + player.getName());
         }
     }
     
@@ -324,7 +329,7 @@ public class GuiListener implements Listener {
      */
     private void handleSearchClick(Player player, String itemName, ClickType clickType, ItemStack clickedItem) {
         SearchGui searchGui = activeSearchGuis.get(player);
-        
+
         if (itemName.contains("BACK TO SHOP")) {
             activeSearchGuis.remove(player);
             waitingForSearch.remove(player);
@@ -378,9 +383,12 @@ public class GuiListener implements Listener {
                         .filter(item -> item.getMaterial() == clickedItem.getType())
                         .findFirst()
                         .orElse(null);
-                
+
                 if (foundItem != null) {
-                    handleItemTransaction(player, foundItem, clickType);
+                    Logger.debug("Processing transaction from search for: " + foundItem.getId());
+                    handleItemTransactionFromSearch(player, foundItem, clickType, searchGui);
+                } else {
+                    Logger.debug("No matching item found in search results for: " + clickedItem.getType());
                 }
             }
         }
@@ -755,6 +763,55 @@ public class GuiListener implements Listener {
         if (sectionId != null) {
             int currentPage = playerCurrentPage.getOrDefault(player, 0);
             openSectionWithPage(player, sectionId, currentPage);
+        }
+    }
+
+    /**
+     * Handle item transaction from search GUI (keeps search open)
+     */
+    private void handleItemTransactionFromSearch(Player player, ShopItem shopItem, ClickType clickType, SearchGui searchGui) {
+        Logger.debug("Handling search transaction - Item: " + shopItem.getId() + ", Click: " + clickType);
+
+        switch (clickType) {
+            case LEFT:
+                buyItem(player, shopItem, 1);
+                // Refresh search GUI to show updated balance
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    if (searchGui != null && player.getOpenInventory() != null) {
+                        searchGui.open();
+                    }
+                }, 2L);
+                break;
+            case RIGHT:
+                sellItem(player, shopItem, 1);
+                // Refresh search GUI to show updated balance
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    if (searchGui != null && player.getOpenInventory() != null) {
+                        searchGui.open();
+                    }
+                }, 2L);
+                break;
+            case SHIFT_LEFT:
+                buyItem(player, shopItem, 64);
+                // Refresh search GUI to show updated balance
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    if (searchGui != null && player.getOpenInventory() != null) {
+                        searchGui.open();
+                    }
+                }, 2L);
+                break;
+            case SHIFT_RIGHT:
+                sellAllItems(player, shopItem);
+                // Refresh search GUI to show updated balance
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    if (searchGui != null && player.getOpenInventory() != null) {
+                        searchGui.open();
+                    }
+                }, 2L);
+                break;
+            default:
+                Logger.debug("Unhandled click type from search: " + clickType);
+                break;
         }
     }
     
