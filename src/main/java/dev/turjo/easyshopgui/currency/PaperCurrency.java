@@ -111,74 +111,35 @@ public class PaperCurrency {
     }
     
     /**
-     * Redeem paper cheque
+     * Redeem paper cheque - SIMPLIFIED for trading compatibility
      */
     public boolean redeemCheque(Player player, ItemStack chequeItem) {
         if (!isCheque(chequeItem)) {
             player.sendMessage("§c💰 This is not a valid cheque!");
             return false;
         }
-        
+
         ItemMeta meta = chequeItem.getItemMeta();
         if (meta == null) return false;
-        
+
         // Extract cheque data
-        String chequeId = meta.getPersistentDataContainer().get(CHEQUE_ID_KEY, PersistentDataType.STRING);
         Double amount = meta.getPersistentDataContainer().get(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE);
-        String issuer = meta.getPersistentDataContainer().get(CHEQUE_ISSUER_KEY, PersistentDataType.STRING);
-        String signature = meta.getPersistentDataContainer().get(CHEQUE_SIGNATURE_KEY, PersistentDataType.STRING);
-        
-        if (chequeId == null || amount == null || signature == null) {
-            player.sendMessage("§c💰 Invalid cheque data!");
+
+        if (amount == null || amount <= 0) {
+            player.sendMessage("§c💰 Invalid cheque amount!");
             return false;
         }
-        
-        // Check if cheque exists and is valid
-        CurrencyData data = issuedCheques.get(chequeId);
-        if (data == null) {
-            player.sendMessage("§c💰 Cheque not found or already redeemed!");
-            return false;
-        }
-        
-        if (data.isRedeemed()) {
-            player.sendMessage("§c💰 This cheque has already been redeemed!");
-            return false;
-        }
-        
-        // Verify signature (anti-dupe protection)
-        String expectedSignature = generateSignature(chequeId, amount, data.getIssuer().toString());
-        if (!signature.equals(expectedSignature)) {
-            player.sendMessage("§c💰 Invalid cheque signature! Possible forgery detected!");
-            Logger.warn("Possible cheque forgery attempt by " + player.getName() + " with cheque " + chequeId);
-            return false;
-        }
-        
-        // Prevent self-redemption
-        // Allow owner to redeem their own cheques - FIXED
-        
-        // Redeem cheque
+
+        // Simple redemption - no tracking needed for Shopkeeper compatibility
         plugin.getEconomyManager().getEconomy().depositPlayer(player, amount);
-        data.setRedeemed(true);
-        data.setRedeemedBy(player.getUniqueId());
-        data.setRedeemedAt(LocalDateTime.now());
-        
+
         // Remove cheque from inventory
         chequeItem.setAmount(0);
-        
+
         // Success messages
         player.sendMessage("§a💰 Successfully redeemed cheque for $" + String.format("%.2f", amount) + "!");
-        player.sendMessage("§e📄 Cheque ID: §f" + chequeId.substring(0, 8) + "...");
-        
-        // Notify issuer if online (only if different player)
-        if (!player.getUniqueId().equals(data.getIssuer())) {
-            Player issuerPlayer = plugin.getServer().getPlayer(data.getIssuer());
-            if (issuerPlayer != null && issuerPlayer.isOnline()) {
-                issuerPlayer.sendMessage("§b💰 Your cheque for $" + String.format("%.2f", amount) + 
-                                       " was redeemed by " + player.getName() + "!");
-            }
-        }
-        
-        Logger.info("Player " + player.getName() + " redeemed cheque " + chequeId + " for $" + amount);
+
+        Logger.info("Player " + player.getName() + " redeemed cheque for $" + amount);
         return true;
     }
     
@@ -200,58 +161,38 @@ public class PaperCurrency {
     }
     
     /**
-     * Create secure cheque item
+     * Create SIMPLE cheque item for Shopkeeper compatibility
      */
     private ItemStack createChequeItem(String chequeId, double amount, Player issuer, String signature) {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
-        
+        // Create a standardized cheque that can be stacked and traded
         ItemStack cheque = new ItemBuilder(Material.PAPER)
-                .setName("§6§l💰 BANK CHEQUE §6§l💰")
+                .setName("§6§l💰 $" + String.format("%.0f", amount) + " CHEQUE")
                 .setLore(Arrays.asList(
-                        "§7▸ §fAmount: §a$" + String.format("%.2f", amount),
-                        "§7▸ §fIssued by: §e" + issuer.getName(),
-                        "§7▸ §fIssue Date: §7" + now.format(formatter),
-                        "§7▸ §fCheque ID: §8" + chequeId.substring(0, 12) + "...",
+                        "§7▸ §fValue: §a$" + String.format("%.2f", amount),
                         "",
-                        "§6§l💱 TRADING COMPATIBLE:",
-                        "§7▸ §fShopkeeper Plugin: §a✓ SUPPORTED",
-                        "§7▸ §fTrade Value: §a$" + String.format("%.2f", amount),
-                        "§7▸ §fUniversal Currency: §a✓ ACCEPTED",
-                        "",
-                        "§6§l⚡ SECURITY FEATURES:",
-                        "§7▸ §fDigital Signature: §a✓ VERIFIED",
-                        "§7▸ §fAnti-Forgery Protection: §a✓ ACTIVE",
-                        "§7▸ §fBlockchain Secured: §a✓ PROTECTED",
+                        "§6§l💱 SHOPKEEPER COMPATIBLE:",
+                        "§7▸ §fWorks with Shopkeeper trades",
+                        "§7▸ §fTrade as currency with players",
+                        "§7▸ §fStackable and tradeable",
                         "",
                         "§e§l💡 HOW TO USE:",
-                        "§7▸ §fRight-click to redeem this cheque",
-                        "§7▸ §fUse in trading with other players",
-                        "§7▸ §fWorks with Shopkeeper plugin",
-                        "§7▸ §fOne-time use only",
+                        "§7▸ §fRight-click to redeem for money",
+                        "§7▸ §fUse in Shopkeeper trades",
+                        "§7▸ §fTrade with other players",
                         "",
-                        "§c§l⚠ WARNING:",
-                        "§7▸ §cDo not lose this cheque!",
-                        "§7▸ §cTreat like real money!",
-                        "",
-                        "§8§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                        "§8§oEasyShopGUI Bank • Secure Digital Currency",
-                        "§8§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                        "§8§l━━━━━━━━━━━━━━━━━━━━━━━",
+                        "§8§oEasyShopGUI Bank • Universal Currency"
                 ))
                 .addGlow()
                 .build();
         
-        // Add NBT data for security
+        // Only store amount - no unique IDs for Shopkeeper compatibility
         ItemMeta meta = cheque.getItemMeta();
         if (meta != null) {
-            meta.getPersistentDataContainer().set(CHEQUE_ID_KEY, PersistentDataType.STRING, chequeId);
             meta.getPersistentDataContainer().set(CHEQUE_AMOUNT_KEY, PersistentDataType.DOUBLE, amount);
-            meta.getPersistentDataContainer().set(CHEQUE_ISSUER_KEY, PersistentDataType.STRING, issuer.getUniqueId().toString());
-            meta.getPersistentDataContainer().set(CHEQUE_TIMESTAMP_KEY, PersistentDataType.LONG, System.currentTimeMillis());
-            meta.getPersistentDataContainer().set(CHEQUE_SIGNATURE_KEY, PersistentDataType.STRING, signature);
             cheque.setItemMeta(meta);
         }
-        
+
         return cheque;
     }
     

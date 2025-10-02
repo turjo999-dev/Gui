@@ -110,57 +110,71 @@ public class GuiListener implements Listener {
      * Special handling for Quick Sell GUI
      */
     private void handleQuickSellGUIClick(InventoryClickEvent event, Player player, String title) {
-        // Cancel ALL clicks in Quick Sell GUI first
-        event.setCancelled(true);
-        
         QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
         if (quickSellGui == null) {
             Logger.debug("No active QuickSell GUI found for player: " + player.getName());
+            event.setCancelled(true);
             return;
         }
-        
-        int slot = event.getSlot();
+
+        int slot = event.getRawSlot();
+        int topInventorySize = event.getView().getTopInventory().getSize();
         ItemStack clickedItem = event.getCurrentItem();
         String itemName = "";
-        
+
         if (clickedItem != null && clickedItem.getItemMeta() != null) {
             itemName = MessageUtils.stripColor(clickedItem.getItemMeta().getDisplayName());
         }
-        
-        Logger.debug("QuickSell GUI click - Slot: " + slot + ", Item: " + itemName);
-        
-        // Allow item placement/removal in sell slots only
-        if (quickSellGui.isSellSlot(slot)) {
-            // Allow normal inventory operations in sell slots ONLY
-            Logger.debug("Sell slot clicked, allowing interaction: " + slot);
-            event.setCancelled(false); // Allow interaction in sell slots
-            
-            // Update value display after a short delay
+
+        Logger.debug("QuickSell GUI click - Raw Slot: " + slot + ", Top Size: " + topInventorySize + ", Item: " + itemName);
+
+        // Allow player inventory interactions (bottom inventory)
+        if (slot >= topInventorySize) {
+            Logger.debug("Player inventory clicked, allowing interaction");
+            // Update value display after interaction
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 if (player.getOpenInventory() != null) {
                     quickSellGui.updateValueDisplay(player.getOpenInventory().getTopInventory());
                 }
             }, 1L);
-            return;
+            return; // Don't cancel - allow normal inventory operations
         }
-        
+
+        // Check if it's a sell slot in the TOP inventory
+        if (quickSellGui.isSellSlot(slot)) {
+            Logger.debug("Sell slot clicked, allowing interaction: " + slot);
+            // Don't cancel the event - allow item placement/removal
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                if (player.getOpenInventory() != null) {
+                    quickSellGui.updateValueDisplay(player.getOpenInventory().getTopInventory());
+                }
+            }, 1L);
+            return; // Allow interaction in sell slots
+        }
+
+        // Cancel event for all other slots (buttons, decorations, etc.)
+        event.setCancelled(true);
+
         // Handle button clicks
-        if (itemName.contains("SELL ALL ITEMS") && slot == 49) {
+        if (slot == 49 && itemName.contains("SELL ALL")) {
             Logger.debug("Sell All button clicked");
             quickSellGui.sellAllItems(player.getOpenInventory().getTopInventory());
             playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
-        } else if (itemName.contains("CLEAR ALL ITEMS") && slot == 47) {
+        } else if (slot == 47 && itemName.contains("CLEAR ALL")) {
             Logger.debug("Clear All button clicked");
             quickSellGui.clearAllItems(player.getOpenInventory().getTopInventory());
             playSound(player, Sound.ENTITY_ITEM_PICKUP);
-        } else if (itemName.contains("AUTO-FILL FROM INVENTORY") && slot == 51) {
+        } else if (slot == 51 && itemName.contains("AUTO-FILL")) {
             Logger.debug("Auto-Fill button clicked");
             quickSellGui.autoFillFromInventory(player.getOpenInventory().getTopInventory());
             playSound(player, Sound.ENTITY_ITEM_PICKUP);
-        } else if (itemName.contains("BACK TO SHOP") && slot == 45) {
+        } else if (slot == 45 && itemName.contains("BACK")) {
             Logger.debug("Back button clicked in QuickSell");
             activeQuickSellGuis.remove(player);
             plugin.getGuiManager().openShop(player, "main");
+            playSound(player, Sound.UI_BUTTON_CLICK);
+        } else if (slot == 4) {
+            // Value display - just play a sound
             playSound(player, Sound.UI_BUTTON_CLICK);
         } else {
             Logger.debug("Unhandled QuickSell click - Slot: " + slot + ", Item: " + itemName);
@@ -178,15 +192,21 @@ public class GuiListener implements Listener {
         if (title.contains("QUICK SELL")) {
             QuickSellGui quickSellGui = activeQuickSellGuis.get(player);
             if (quickSellGui != null) {
-                // Check if drag involves only sell slots
-                boolean onlySellSlots = event.getRawSlots().stream()
-                        .allMatch(slot -> slot >= event.getView().getTopInventory().getSize() || quickSellGui.isSellSlot(slot));
-                
-                if (!onlySellSlots) {
+                int topInventorySize = event.getView().getTopInventory().getSize();
+
+                // Check if all dragged slots are either sell slots OR player inventory
+                boolean validDrag = event.getRawSlots().stream().allMatch(slot -> {
+                    // Allow drag in player inventory (bottom)
+                    if (slot >= topInventorySize) return true;
+                    // Allow drag in sell slots only
+                    return quickSellGui.isSellSlot(slot);
+                });
+
+                if (!validDrag) {
                     event.setCancelled(true);
-                    Logger.debug("Drag event cancelled - involves non-sell slots");
+                    Logger.debug("Drag event cancelled - involves button/decoration slots");
                 } else {
-                    Logger.debug("Drag event allowed in sell slots");
+                    Logger.debug("Drag event allowed - valid slots only");
                     // Update value display after drag
                     Bukkit.getScheduler().runTaskLater(plugin, () -> {
                         if (player.getOpenInventory() != null) {
