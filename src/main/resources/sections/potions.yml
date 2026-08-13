@@ -1,0 +1,233 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                           Potions Section Configuration                     ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+#
+# potion-type accepts standard Bukkit PotionType names (e.g. SWIFTNESS, HEALING).
+# It only affects items whose material is POTION, SPLASH_POTION, or LINGERING_POTION -
+# it's ignored for anything else. Leaving it unset on a potion material gives the
+# player a base/awkward-style potion with no effect, so every entry below sets one.
+
+section:
+  id: "potions"
+  name: "Potions"
+  display-name: "&5&l⚗ &d&lPOTIONS SECTION"
+  icon: "POTION"
+  description: "Brewed potions, splash potions and lingering clouds"
+  permission: "easyshopgui.section.potions"
+  enabled: true
+
+items:
+  # Drinkable Potions
+  potion_swiftness:
+    material: "POTION"
+    potion-type: "SWIFTNESS"
+    name: "&bPotion of Swiftness"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Increases movement speed"
+
+  potion_healing:
+    material: "POTION"
+    potion-type: "HEALING"
+    name: "&dPotion of Healing"
+    buy-price: 55.0
+    sell-price: 27.5
+    stock: -1
+    description: "Instantly restores health"
+
+  potion_strength:
+    material: "POTION"
+    potion-type: "STRENGTH"
+    name: "&cPotion of Strength"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Increases melee damage"
+
+  potion_regeneration:
+    material: "POTION"
+    potion-type: "REGENERATION"
+    name: "&dPotion of Regeneration"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Gradually restores health over time"
+
+  potion_fire_resistance:
+    material: "POTION"
+    potion-type: "FIRE_RESISTANCE"
+    name: "&6Potion of Fire Resistance"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Immunity to fire and lava damage"
+
+  potion_water_breathing:
+    material: "POTION"
+    potion-type: "WATER_BREATHING"
+    name: "&bPotion of Water Breathing"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Breathe freely underwater"
+
+  potion_night_vision:
+    material: "POTION"
+    potion-type: "NIGHT_VISION"
+    name: "&9Potion of Night Vision"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "See clearly in the dark"
+
+  potion_invisibility:
+    material: "POTION"
+    potion-type: "INVISIBILITY"
+    name: "&7Potion of Invisibility"
+    buy-price: 70.0
+    sell-price: 35.0
+    stock: -1
+    description: "Become invisible to others"
+
+  potion_slow_falling:
+    material: "POTION"
+    potion-type: "SLOW_FALLING"
+    name: "&fPotion of Slow Falling"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Fall slowly and take no fall damage"
+
+  potion_leaping:
+    material: "POTION"
+    potion-type: "LEAPING"
+    name: "&aPotion of Leaping"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Jump higher than usual"
+
+  potion_turtle_master:
+    material: "POTION"
+    potion-type: "TURTLE_MASTER"
+    name: "&2Potion of the Turtle Master"
+    buy-price: 65.0
+    sell-price: 32.5
+    stock: -1
+    description: "Grants resistance, but slows you down"
+
+  # Splash Potions (offensive/support - thrown, affects an area on impact)
+  splash_potion_harming:
+    material: "SPLASH_POTION"
+    potion-type: "HARMING"
+    name: "&4Splash Potion of Harming"
+    buy-price: 65.0
+    sell-price: 32.5
+    stock: -1
+    description: "Instantly deals damage on impact"
+
+  splash_potion_poison:
+    material: "SPLASH_POTION"
+    potion-type: "POISON"
+    name: "&2Splash Potion of Poison"
+    buy-price: 55.0
+    sell-price: 27.5
+    stock: -1
+    description: "Poisons anything caught in the splash"
+
+  splash_potion_slowness:
+    material: "SPLASH_POTION"
+    potion-type: "SLOWNESS"
+    name: "&8Splash Potion of Slowness"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Slows anything caught in the splash"
+
+  splash_potion_weakness:
+    material: "SPLASH_POTION"
+    potion-type: "WEAKNESS"
+    name: "&8Splash Potion of Weakness"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Weakens melee damage on impact"
+
+  # Lingering Potions (leave a persistent cloud - premium tier, priced above splash)
+  lingering_potion_harming:
+    material: "LINGERING_POTION"
+    potion-type: "HARMING"
+    name: "&4Lingering Potion of Harming"
+    buy-price: 95.0
+    sell-price: 47.5
+    stock: -1
+    description: "Leaves a damaging cloud on impact"
+
+  lingering_potion_healing:
+    material: "LINGERING_POTION"
+    potion-type: "HEALING"
+    name: "&dLingering Potion of Healing"
+    buy-price: 90.0
+    sell-price: 45.0
+    stock: -1
+    description: "Leaves a healing cloud on impact"
+
+  # Utility Items
+  glass_bottle:
+    material: "GLASS_BOTTLE"
+    name: "&fGlass Bottle"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Empty bottle for brewing potions"
+
+  brewing_stand:
+    material: "BREWING_STAND"
+    name: "&eBrewing Stand"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Brew your own potions"
+
+  blaze_powder:
+    material: "BLAZE_POWDER"
+    name: "&6Blaze Powder"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Fuel for the brewing stand"
+
+  nether_wart:
+    material: "NETHER_WART"
+    name: "&4Nether Wart"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Base ingredient for awkward potions"
+
+  fermented_spider_eye:
+    material: "FERMENTED_SPIDER_EYE"
+    name: "&2Fermented Spider Eye"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Corrupts potion effects"
+
+  ghast_tear:
+    material: "GHAST_TEAR"
+    name: "&fGhast Tear"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Rare regeneration brewing ingredient"
+
+  dragon_breath:
+    material: "DRAGON_BREATH"
+    name: "&5Dragon's Breath"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: 16
+    description: "Turns splash potions into lingering potions"

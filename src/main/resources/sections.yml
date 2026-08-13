@@ -1,0 +1,29 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            EasyShopGUI Sections Configuration               ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# NOTE: Individual sections are now stored in separate files in the sections/ directory
+# This file is kept for backward compatibility and global section settings
+
+# Global Section Settings
+global:
+  # Default items per page in section GUIs
+  items-per-page: 28
+  # Show page information
+  show-page-info: true
+  # GUI slot positions
+  page-info-slot: 49
+  previous-page-slot: 45
+  next-page-slot: 53
+  
+# Section Order (determines display order in main shop)
+section-order:
+  - "blocks"
+  - "ores"
+  - "food"
+  - "redstone"
+  - "farming"
+  - "decoration"
+  - "potions"

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.turjo</groupId>
+    <artifactId>EasyShopGUI</artifactId>
+    <version>2.1.1</version>
+    <packaging>jar</packaging>
+
+    <name>EasyShopGUI - Supreme Edition</name>
+    <description>Supreme Minecraft Shop Plugin - The Ultimate Trading Solution</description>
+    <url>https://github.com/turjo/EasyShopGUI</url>
+
+    <!--
+      Compiled against paper-api 1.21.1 rather than the newest available (26.2) on
+      purpose: Bukkit/Paper plugins are backward-compatible by nature (a plugin built
+      against an older API still runs fine on a newer server, since newer servers keep
+      implementing the older interfaces) but NOT forward-compatible (a plugin using an
+      API method that didn't exist yet on an older server throws NoSuchMethodError at
+      runtime, or - if a whole method the server never heard of gets called reflectively
+      by some other library - UnsupportedLinkError). Building against the OLDEST version
+      you want to support, not the newest, is the standard approach for a plugin meant to
+      run across a version range (confirmed against PaperMC's own forum guidance: "you
+      should depend on the lowest paper API you wanna support").
+
+      1.21.1 was chosen as the floor because every Bukkit API this plugin uses (notably
+      PotionMeta.setBasePotionType(PotionType), added in 1.20.6) is already present
+      there, so no version-detection/reflection fallback is needed for anything this
+      project currently does. A 1.21.1 server itself requires JDK 21 to run (Paper only
+      started requiring JDK 25 at Paper 26.1, several versions later) - so this project
+      compiles to Java 21 bytecode, which every server from 1.21.1 through current 26.2
+      can load, since newer JVMs always run older bytecode targets correctly.
+    -->
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <paper.version>1.21.1-R0.1-SNAPSHOT</paper.version>
+        <vault.version>1.7</vault.version>
+        <placeholderapi.version>2.11.5</placeholderapi.version>
+    </properties>
+
+    <repositories>
+        <!-- PaperMC Repository (paper-api) -->
+        <repository>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <!-- Sonatype Repository -->
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <!-- PlaceholderAPI Repository -->
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <!-- JitPack Repository (VaultAPI is published here - net.milkbowl.vault:VaultAPI
+             on Maven Central is a relocated/legacy coordinate; com.github.MilkBowl:VaultAPI
+             via JitPack is Vault's own current, actively-published coordinate) -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <!-- CodeMC Repository -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- Paper API (implements the Bukkit/Spigot API). Pinned to 1.21.1, the oldest
+             version this plugin supports - see the block comment above for why the
+             floor, not the ceiling, is what a Maven <version> here should reference. -->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>${paper.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Vault API -->
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>${vault.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PlaceholderAPI -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>${placeholderapi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- SQLite JDBC Driver - used as the default database backend (see
+             config.yml's database.type: SQLITE). File-based and needs no external
+             database server, which is why it's the default for admins who don't
+             already run MySQL.
+
+             IMPORTANT: this dependency's package (org.sqlite.*) must NOT be relocated
+             by the shade plugin below. Unlike MySQL/HikariCP, sqlite-jdbc bundles a
+             native (JNI) binary, and its internal lookup path for that binary is tied
+             to the original org.sqlite package structure. Relocating the Java package
+             without also patching the native-library loader breaks it at runtime with
+             UnsupportedLinkError - which is exactly what happened when this was
+             previously (incorrectly) relocated. -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.44.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- HikariCP for Database Connection Pooling -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- JUnit for Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito for Testing -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Shade Plugin, pinned to a recent release (3.6.2) rather than left
+                 on an old default. Do NOT add org.sqlite to the relocations below - see
+                 the sqlite-jdbc dependency comment above for why. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.zaxxer.hikari</pattern>
+                                    <shadedPattern>dev.turjo.easyshopgui.libs.hikari</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.mysql</pattern>
+                                    <shadedPattern>dev.turjo.easyshopgui.libs.mysql</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Surefire Plugin for Testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

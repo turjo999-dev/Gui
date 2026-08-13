@@ -1,0 +1,320 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            Ores Section Configuration                       ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+section:
+  id: "ores"
+  name: "Ores & Minerals"
+  display-name: "&7&l💎 &e&lORES & MINERALS"
+  icon: "DIAMOND_ORE"
+  description: "Raw ores and refined materials"
+  permission: "easyshopgui.section.ores"
+  enabled: true
+
+items:
+  # ===== BASIC ORES =====
+  # ===== PROCESSED MATERIALS =====
+  coal:
+    material: "COAL"
+    name: "&8Coal"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Fuel and crafting material"
+    
+  charcoal:
+    material: "CHARCOAL"
+    name: "&8Charcoal"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Wood-based fuel"
+    
+  iron_ingot:
+    material: "IRON_INGOT"
+    name: "&7Iron Ingot"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Refined iron"
+    
+  gold_ingot:
+    material: "GOLD_INGOT"
+    name: "&6Gold Ingot"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Refined gold"
+    
+  diamond:
+    material: "DIAMOND"
+    name: "&bDiamond"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Precious gemstone"
+    
+  emerald:
+    material: "EMERALD"
+    name: "&aEmerald"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: -1
+    description: "Rare green gem"
+    
+  lapis_lazuli:
+    material: "LAPIS_LAZULI"
+    name: "&9Lapis Lazuli"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Blue dye material"
+    
+  redstone:
+    material: "REDSTONE"
+    name: "&cRedstone"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Redstone dust"
+    
+  copper_ingot:
+    material: "COPPER_INGOT"
+    name: "&6Copper Ingot"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Refined copper"
+    
+  netherite_scrap:
+    material: "NETHERITE_SCRAP"
+    name: "&8Netherite Scrap"
+    buy-price: 400.0
+    sell-price: 200.0
+    stock: -1
+    description: "Ancient debris fragment"
+    
+  netherite_ingot:
+    material: "NETHERITE_INGOT"
+    name: "&8Netherite Ingot"
+    buy-price: 2000.0
+    sell-price: 1000.0
+    stock: -1
+    description: "Ultimate material"
+    
+  # ===== QUARTZ =====
+  quartz:
+    material: "QUARTZ"
+    name: "&fQuartz"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Nether quartz crystal"
+    
+  # ===== AMETHYST =====
+  amethyst_shard:
+    material: "AMETHYST_SHARD"
+    name: "&5Amethyst Shard"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Purple crystal shard"
+    
+  # ===== PRISMARINE MATERIALS =====
+  prismarine_shard:
+    material: "PRISMARINE_SHARD"
+    name: "&3Prismarine Shard"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Ocean crystal shard"
+    
+  prismarine_crystals:
+    material: "PRISMARINE_CRYSTALS"
+    name: "&3Prismarine Crystals"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Ocean crystal formation"
+    
+  # ===== GLOWSTONE =====
+  glowstone_dust:
+    material: "GLOWSTONE_DUST"
+    name: "&eGlowstone Dust"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Luminous nether dust"
+    
+  # ===== BLAZE MATERIALS =====
+  blaze_rod:
+    material: "BLAZE_ROD"
+    name: "&6Blaze Rod"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Fiery blaze rod"
+    
+  blaze_powder:
+    material: "BLAZE_POWDER"
+    name: "&6Blaze Powder"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Powdered blaze rod"
+    
+  # ===== ENDER MATERIALS =====
+  ender_pearl:
+    material: "ENDER_PEARL"
+    name: "&5Ender Pearl"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Teleportation pearl"
+    
+  ender_eye:
+    material: "ENDER_EYE"
+    name: "&5Eye of Ender"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Portal locating eye"
+    
+  # ===== NETHER STAR =====
+  nether_star:
+    material: "NETHER_STAR"
+    name: "&fNether Star"
+    buy-price: 5000.0
+    sell-price: 2500.0
+    stock: -1
+    description: "Wither boss drop"
+    
+  # ===== ECHO SHARD =====
+  echo_shard:
+    material: "ECHO_SHARD"
+    name: "&8Echo Shard"
+    buy-price: 300.0
+    sell-price: 150.0
+    stock: -1
+    description: "Deep dark echo shard"
+    
+  # ===== DISC FRAGMENTS =====
+  disc_fragment_5:
+    material: "DISC_FRAGMENT_5"
+    name: "&8Disc Fragment"
+    buy-price: 200.0
+    sell-price: 100.0
+    stock: -1
+    description: "Ancient music disc fragment"
+    
+  # ===== NAUTILUS SHELL =====
+  nautilus_shell:
+    material: "NAUTILUS_SHELL"
+    name: "&bNautilus Shell"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Ocean treasure"
+    
+  # ===== SCUTE =====
+    
+  # ===== PHANTOM MEMBRANE =====
+  phantom_membrane:
+    material: "PHANTOM_MEMBRANE"
+    name: "&7Phantom Membrane"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Phantom wing membrane"
+    
+  # ===== SHULKER SHELL =====
+  shulker_shell:
+    material: "SHULKER_SHELL"
+    name: "&5Shulker Shell"
+    buy-price: 500.0
+    sell-price: 250.0
+    stock: -1
+    description: "End dimension shell"
+    
+  # ===== GHAST TEAR =====
+  ghast_tear:
+    material: "GHAST_TEAR"
+    name: "&fGhast Tear"
+    buy-price: 200.0
+    sell-price: 100.0
+    stock: -1
+    description: "Regeneration ingredient"
+    
+  # ===== MAGMA CREAM =====
+  magma_cream:
+    material: "MAGMA_CREAM"
+    name: "&6Magma Cream"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Fire resistance ingredient"
+    
+  # ===== SLIMEBALL =====
+  slime_ball:
+    material: "SLIME_BALL"
+    name: "&aSlimeball"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Sticky slime material"
+    
+  # ===== GUNPOWDER =====
+  gunpowder:
+    material: "GUNPOWDER"
+    name: "&8Gunpowder"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Explosive powder"
+    
+  # ===== SPIDER EYE =====
+  spider_eye:
+    material: "SPIDER_EYE"
+    name: "&8Spider Eye"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Potion ingredient"
+    
+  # ===== FERMENTED SPIDER EYE =====
+  fermented_spider_eye:
+    material: "FERMENTED_SPIDER_EYE"
+    name: "&8Fermented Spider Eye"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Corruption ingredient"
+    
+  # ===== RABBIT'S FOOT =====
+  rabbit_foot:
+    material: "RABBIT_FOOT"
+    name: "&6Rabbit's Foot"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Jump boost ingredient"
+    
+  # ===== GLISTERING MELON SLICE =====
+  glistering_melon_slice:
+    material: "GLISTERING_MELON_SLICE"
+    name: "&6Glistering Melon Slice"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Healing ingredient"
+    
+  # ===== GOLDEN CARROT =====
+  golden_carrot:
+    material: "GOLDEN_CARROT"
+    name: "&6Golden Carrot"
+    buy-price: 45.0
+    sell-price: 22.5
+    stock: -1
+    description: "Night vision ingredient"

@@ -1,0 +1,1062 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                            EasyShopGUI Items Configuration                  ║
+# ║                        Premium Minecraft Shop Plugin                        ║
+# ║                              Developer: Turjo                               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# Items Configuration
+# All shop items are configurable here with pricing, stock, and properties
+
+# BLOCKS SECTION
+blocks:
+  # Basic Building Blocks
+  stone:
+    material: "STONE"
+    name: "&7Stone"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Basic building stone"
+    
+  cobblestone:
+    material: "COBBLESTONE"
+    name: "&7Cobblestone"
+    buy-price: 0.8
+    sell-price: 0.4
+    stock: -1
+    description: "Rough stone block"
+    
+  dirt:
+    material: "DIRT"
+    name: "&6Dirt"
+    buy-price: 0.5
+    sell-price: 0.2
+    stock: -1
+    description: "Basic earth block"
+    
+  grass_block:
+    material: "GRASS_BLOCK"
+    name: "&aGrass Block"
+    buy-price: 1.2
+    sell-price: 0.6
+    stock: -1
+    description: "Natural grass block"
+    
+  sand:
+    material: "SAND"
+    name: "&eSand"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Fine sand particles"
+    
+  gravel:
+    material: "GRAVEL"
+    name: "&7Gravel"
+    buy-price: 1.0
+    sell-price: 0.5
+    stock: -1
+    description: "Loose stone particles"
+    
+  # Wood Types
+  oak_log:
+    material: "OAK_LOG"
+    name: "&6Oak Log"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Sturdy oak wood"
+    
+  birch_log:
+    material: "BIRCH_LOG"
+    name: "&fBirch Log"
+    buy-price: 2.2
+    sell-price: 1.1
+    stock: -1
+    description: "Light birch wood"
+    
+  spruce_log:
+    material: "SPRUCE_LOG"
+    name: "&2Spruce Log"
+    buy-price: 2.1
+    sell-price: 1.05
+    stock: -1
+    description: "Dark spruce wood"
+    
+  jungle_log:
+    material: "JUNGLE_LOG"
+    name: "&aJungle Log"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Exotic jungle wood"
+    
+  acacia_log:
+    material: "ACACIA_LOG"
+    name: "&6Acacia Log"
+    buy-price: 2.3
+    sell-price: 1.15
+    stock: -1
+    description: "Orange acacia wood"
+    
+  dark_oak_log:
+    material: "DARK_OAK_LOG"
+    name: "&8Dark Oak Log"
+    buy-price: 2.4
+    sell-price: 1.2
+    stock: -1
+    description: "Dark oak wood"
+    
+  # Planks
+  oak_planks:
+    material: "OAK_PLANKS"
+    name: "&6Oak Planks"
+    buy-price: 1.5
+    sell-price: 0.75
+    stock: -1
+    description: "Processed oak planks"
+    
+  birch_planks:
+    material: "BIRCH_PLANKS"
+    name: "&fBirch Planks"
+    buy-price: 1.6
+    sell-price: 0.8
+    stock: -1
+    description: "Processed birch planks"
+    
+  spruce_planks:
+    material: "SPRUCE_PLANKS"
+    name: "&2Spruce Planks"
+    buy-price: 1.55
+    sell-price: 0.775
+    stock: -1
+    description: "Processed spruce planks"
+    
+  jungle_planks:
+    material: "JUNGLE_PLANKS"
+    name: "&aJungle Planks"
+    buy-price: 1.8
+    sell-price: 0.9
+    stock: -1
+    description: "Processed jungle planks"
+    
+  # Ores and Minerals
+  coal_ore:
+    material: "COAL_ORE"
+    name: "&8Coal Ore"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Coal-bearing stone"
+    
+  iron_ore:
+    material: "IRON_ORE"
+    name: "&7Iron Ore"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Iron-bearing stone"
+    
+  gold_ore:
+    material: "GOLD_ORE"
+    name: "&6Gold Ore"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Gold-bearing stone"
+    
+  diamond_ore:
+    material: "DIAMOND_ORE"
+    name: "&bDiamond Ore"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Precious diamond ore"
+    
+  emerald_ore:
+    material: "EMERALD_ORE"
+    name: "&aEmerald Ore"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Rare emerald ore"
+    
+  # Processed Materials
+  coal:
+    material: "COAL"
+    name: "&8Coal"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Fuel and crafting material"
+    
+  iron_ingot:
+    material: "IRON_INGOT"
+    name: "&7Iron Ingot"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Refined iron"
+    
+  gold_ingot:
+    material: "GOLD_INGOT"
+    name: "&6Gold Ingot"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Refined gold"
+    
+  diamond:
+    material: "DIAMOND"
+    name: "&bDiamond"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Precious gemstone"
+    
+  emerald:
+    material: "EMERALD"
+    name: "&aEmerald"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: -1
+    description: "Rare green gem"
+    
+  # Glass and Decorative
+  glass:
+    material: "GLASS"
+    name: "&fGlass"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Transparent glass block"
+    
+  sandstone:
+    material: "SANDSTONE"
+    name: "&eSandstone"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Compressed sand block"
+    
+  # Wool Colors
+  white_wool:
+    material: "WHITE_WOOL"
+    name: "&fWhite Wool"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Soft white wool"
+    
+  red_wool:
+    material: "RED_WOOL"
+    name: "&cRed Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant red wool"
+    
+  blue_wool:
+    material: "BLUE_WOOL"
+    name: "&9Blue Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Deep blue wool"
+    
+  green_wool:
+    material: "GREEN_WOOL"
+    name: "&2Green Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Natural green wool"
+    
+  yellow_wool:
+    material: "YELLOW_WOOL"
+    name: "&eYellow Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright yellow wool"
+    
+  orange_wool:
+    material: "ORANGE_WOOL"
+    name: "&6Orange Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant orange wool"
+    
+  purple_wool:
+    material: "PURPLE_WOOL"
+    name: "&5Purple Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Royal purple wool"
+    
+  pink_wool:
+    material: "PINK_WOOL"
+    name: "&dPink Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Soft pink wool"
+    
+  black_wool:
+    material: "BLACK_WOOL"
+    name: "&8Black Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Dark black wool"
+    
+  gray_wool:
+    material: "GRAY_WOOL"
+    name: "&7Gray Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Neutral gray wool"
+    
+  light_gray_wool:
+    material: "LIGHT_GRAY_WOOL"
+    name: "&7Light Gray Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Light gray wool"
+    
+  cyan_wool:
+    material: "CYAN_WOOL"
+    name: "&3Cyan Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright cyan wool"
+    
+  magenta_wool:
+    material: "MAGENTA_WOOL"
+    name: "&dMagenta Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Vibrant magenta wool"
+    
+  lime_wool:
+    material: "LIME_WOOL"
+    name: "&aLime Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Bright lime wool"
+    
+  brown_wool:
+    material: "BROWN_WOOL"
+    name: "&6Brown Wool"
+    buy-price: 4.5
+    sell-price: 2.25
+    stock: -1
+    description: "Natural brown wool"
+
+# TOOLS SECTION
+tools:
+  # Wooden Tools
+  wooden_sword:
+    material: "WOODEN_SWORD"
+    name: "&6Wooden Sword"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Basic wooden sword"
+    
+  wooden_pickaxe:
+    material: "WOODEN_PICKAXE"
+    name: "&6Wooden Pickaxe"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Basic mining tool"
+    
+  wooden_axe:
+    material: "WOODEN_AXE"
+    name: "&6Wooden Axe"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Basic wood cutting tool"
+    
+  wooden_shovel:
+    material: "WOODEN_SHOVEL"
+    name: "&6Wooden Shovel"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Basic digging tool"
+    
+  wooden_hoe:
+    material: "WOODEN_HOE"
+    name: "&6Wooden Hoe"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Basic farming tool"
+    
+  # Stone Tools
+  stone_sword:
+    material: "STONE_SWORD"
+    name: "&7Stone Sword"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Sturdy stone sword"
+    
+  stone_pickaxe:
+    material: "STONE_PICKAXE"
+    name: "&7Stone Pickaxe"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Reliable mining tool"
+    
+  stone_axe:
+    material: "STONE_AXE"
+    name: "&7Stone Axe"
+    buy-price: 18.0
+    sell-price: 9.0
+    stock: -1
+    description: "Efficient wood cutting"
+    
+  stone_shovel:
+    material: "STONE_SHOVEL"
+    name: "&7Stone Shovel"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Fast digging tool"
+    
+  stone_hoe:
+    material: "STONE_HOE"
+    name: "&7Stone Hoe"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Improved farming tool"
+    
+  # Iron Tools
+  iron_sword:
+    material: "IRON_SWORD"
+    name: "&7Iron Sword"
+    buy-price: 50.0
+    sell-price: 25.0
+    stock: -1
+    description: "Sharp iron blade"
+    
+  iron_pickaxe:
+    material: "IRON_PICKAXE"
+    name: "&7Iron Pickaxe"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Durable mining tool"
+    
+  iron_axe:
+    material: "IRON_AXE"
+    name: "&7Iron Axe"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Professional wood cutting"
+    
+  iron_shovel:
+    material: "IRON_SHOVEL"
+    name: "&7Iron Shovel"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Efficient digging"
+    
+  iron_hoe:
+    material: "IRON_HOE"
+    name: "&7Iron Hoe"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Efficient farming tool"
+    
+  # Diamond Tools
+  diamond_sword:
+    material: "DIAMOND_SWORD"
+    name: "&bDiamond Sword"
+    buy-price: 200.0
+    sell-price: 100.0
+    stock: -1
+    description: "Legendary diamond blade"
+    
+  diamond_pickaxe:
+    material: "DIAMOND_PICKAXE"
+    name: "&bDiamond Pickaxe"
+    buy-price: 250.0
+    sell-price: 125.0
+    stock: -1
+    description: "Ultimate mining tool"
+    
+  diamond_axe:
+    material: "DIAMOND_AXE"
+    name: "&bDiamond Axe"
+    buy-price: 250.0
+    sell-price: 125.0
+    stock: -1
+    description: "Master wood cutting"
+    
+  diamond_shovel:
+    material: "DIAMOND_SHOVEL"
+    name: "&bDiamond Shovel"
+    buy-price: 180.0
+    sell-price: 90.0
+    stock: -1
+    description: "Premium digging tool"
+    
+  diamond_hoe:
+    material: "DIAMOND_HOE"
+    name: "&bDiamond Hoe"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Premium farming tool"
+    
+  # Netherite Tools
+  netherite_sword:
+    material: "NETHERITE_SWORD"
+    name: "&8Netherite Sword"
+    buy-price: 500.0
+    sell-price: 250.0
+    stock: -1
+    description: "Ultimate combat weapon"
+    
+  netherite_pickaxe:
+    material: "NETHERITE_PICKAXE"
+    name: "&8Netherite Pickaxe"
+    buy-price: 600.0
+    sell-price: 300.0
+    stock: -1
+    description: "Godlike mining power"
+    
+  netherite_axe:
+    material: "NETHERITE_AXE"
+    name: "&8Netherite Axe"
+    buy-price: 600.0
+    sell-price: 300.0
+    stock: -1
+    description: "Supreme wood cutting"
+    
+  netherite_shovel:
+    material: "NETHERITE_SHOVEL"
+    name: "&8Netherite Shovel"
+    buy-price: 450.0
+    sell-price: 225.0
+    stock: -1
+    description: "Elite digging tool"
+    
+  netherite_hoe:
+    material: "NETHERITE_HOE"
+    name: "&8Netherite Hoe"
+    buy-price: 400.0
+    sell-price: 200.0
+    stock: -1
+    description: "Ultimate farming tool"
+    
+  # Ranged Weapons
+  bow:
+    material: "BOW"
+    name: "&6Bow"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Classic ranged weapon"
+    
+  crossbow:
+    material: "CROSSBOW"
+    name: "&7Crossbow"
+    buy-price: 120.0
+    sell-price: 60.0
+    stock: -1
+    description: "Powerful crossbow"
+    
+  arrow:
+    material: "ARROW"
+    name: "&fArrow"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Sharp projectile"
+    
+  spectral_arrow:
+    material: "SPECTRAL_ARROW"
+    name: "&eSpectral Arrow"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Glowing arrow"
+    
+  # Special Tools
+  fishing_rod:
+    material: "FISHING_ROD"
+    name: "&3Fishing Rod"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Catch fish and items"
+    
+  flint_and_steel:
+    material: "FLINT_AND_STEEL"
+    name: "&6Flint and Steel"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Create fire"
+    
+  shears:
+    material: "SHEARS"
+    name: "&7Shears"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Cut wool and leaves"
+    
+  compass:
+    material: "COMPASS"
+    name: "&cCompass"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Find your way home"
+    
+  clock:
+    material: "CLOCK"
+    name: "&6Clock"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Track time of day"
+    
+  spyglass:
+    material: "SPYGLASS"
+    name: "&6Spyglass"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "See distant objects"
+
+# ARMOR SECTION
+armor:
+  # Leather Armor
+  leather_helmet:
+    material: "LEATHER_HELMET"
+    name: "&6Leather Helmet"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Basic head protection"
+    
+  leather_chestplate:
+    material: "LEATHER_CHESTPLATE"
+    name: "&6Leather Chestplate"
+    buy-price: 35.0
+    sell-price: 17.5
+    stock: -1
+    description: "Basic chest protection"
+    
+  leather_leggings:
+    material: "LEATHER_LEGGINGS"
+    name: "&6Leather Leggings"
+    buy-price: 30.0
+    sell-price: 15.0
+    stock: -1
+    description: "Basic leg protection"
+    
+  leather_boots:
+    material: "LEATHER_BOOTS"
+    name: "&6Leather Boots"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Basic foot protection"
+    
+  # Chainmail Armor
+  chainmail_helmet:
+    material: "CHAINMAIL_HELMET"
+    name: "&7Chainmail Helmet"
+    buy-price: 60.0
+    sell-price: 30.0
+    stock: -1
+    description: "Flexible head armor"
+    
+  chainmail_chestplate:
+    material: "CHAINMAIL_CHESTPLATE"
+    name: "&7Chainmail Chestplate"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Flexible chest armor"
+    
+  chainmail_leggings:
+    material: "CHAINMAIL_LEGGINGS"
+    name: "&7Chainmail Leggings"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Flexible leg armor"
+    
+  chainmail_boots:
+    material: "CHAINMAIL_BOOTS"
+    name: "&7Chainmail Boots"
+    buy-price: 40.0
+    sell-price: 20.0
+    stock: -1
+    description: "Flexible foot armor"
+    
+  # Iron Armor
+  iron_helmet:
+    material: "IRON_HELMET"
+    name: "&7Iron Helmet"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Sturdy iron helmet"
+    
+  iron_chestplate:
+    material: "IRON_CHESTPLATE"
+    name: "&7Iron Chestplate"
+    buy-price: 180.0
+    sell-price: 90.0
+    stock: -1
+    description: "Strong iron chestplate"
+    
+  iron_leggings:
+    material: "IRON_LEGGINGS"
+    name: "&7Iron Leggings"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Durable iron leggings"
+    
+  iron_boots:
+    material: "IRON_BOOTS"
+    name: "&7Iron Boots"
+    buy-price: 80.0
+    sell-price: 40.0
+    stock: -1
+    description: "Protective iron boots"
+    
+  # Diamond Armor
+  diamond_helmet:
+    material: "DIAMOND_HELMET"
+    name: "&bDiamond Helmet"
+    buy-price: 400.0
+    sell-price: 200.0
+    stock: -1
+    description: "Sparkling diamond helmet"
+    
+  diamond_chestplate:
+    material: "DIAMOND_CHESTPLATE"
+    name: "&bDiamond Chestplate"
+    buy-price: 700.0
+    sell-price: 350.0
+    stock: -1
+    description: "Brilliant diamond chestplate"
+    
+  diamond_leggings:
+    material: "DIAMOND_LEGGINGS"
+    name: "&bDiamond Leggings"
+    buy-price: 600.0
+    sell-price: 300.0
+    stock: -1
+    description: "Lustrous diamond leggings"
+    
+  diamond_boots:
+    material: "DIAMOND_BOOTS"
+    name: "&bDiamond Boots"
+    buy-price: 300.0
+    sell-price: 150.0
+    stock: -1
+    description: "Gleaming diamond boots"
+    
+  # Netherite Armor
+  netherite_helmet:
+    material: "NETHERITE_HELMET"
+    name: "&8Netherite Helmet"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Ultimate head protection"
+    
+  netherite_chestplate:
+    material: "NETHERITE_CHESTPLATE"
+    name: "&8Netherite Chestplate"
+    buy-price: 1800.0
+    sell-price: 900.0
+    stock: -1
+    description: "Supreme chest armor"
+    
+  netherite_leggings:
+    material: "NETHERITE_LEGGINGS"
+    name: "&8Netherite Leggings"
+    buy-price: 1500.0
+    sell-price: 750.0
+    stock: -1
+    description: "Legendary leg armor"
+    
+  netherite_boots:
+    material: "NETHERITE_BOOTS"
+    name: "&8Netherite Boots"
+    buy-price: 800.0
+    sell-price: 400.0
+    stock: -1
+    description: "Elite foot protection"
+    
+  # Special Armor
+  shield:
+    material: "SHIELD"
+    name: "&7Shield"
+    buy-price: 150.0
+    sell-price: 75.0
+    stock: -1
+    description: "Defensive shield"
+    
+  turtle_helmet:
+    material: "TURTLE_HELMET"
+    name: "&2Turtle Helmet"
+    buy-price: 250.0
+    sell-price: 125.0
+    stock: -1
+    description: "Water breathing helmet"
+    
+  elytra:
+    material: "ELYTRA"
+    name: "&5Elytra"
+    buy-price: 2000.0
+    sell-price: 1000.0
+    stock: -1
+    description: "Wings of flight"
+
+# FOOD SECTION
+food:
+  # Basic Foods
+  apple:
+    material: "APPLE"
+    name: "&cApple"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Crisp red apple"
+    
+  bread:
+    material: "BREAD"
+    name: "&6Bread"
+    buy-price: 5.0
+    sell-price: 2.5
+    stock: -1
+    description: "Fresh baked bread"
+    
+  cooked_beef:
+    material: "COOKED_BEEF"
+    name: "&6Cooked Beef"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Juicy steak"
+    
+  cooked_porkchop:
+    material: "COOKED_PORKCHOP"
+    name: "&dCooked Porkchop"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Tender pork"
+    
+  cooked_chicken:
+    material: "COOKED_CHICKEN"
+    name: "&fCooked Chicken"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Roasted chicken"
+    
+  cooked_mutton:
+    material: "COOKED_MUTTON"
+    name: "&7Cooked Mutton"
+    buy-price: 7.0
+    sell-price: 3.5
+    stock: -1
+    description: "Cooked sheep meat"
+    
+  cooked_rabbit:
+    material: "COOKED_RABBIT"
+    name: "&6Cooked Rabbit"
+    buy-price: 6.5
+    sell-price: 3.25
+    stock: -1
+    description: "Cooked rabbit meat"
+    
+  # Premium Foods
+  golden_apple:
+    material: "GOLDEN_APPLE"
+    name: "&6Golden Apple"
+    buy-price: 100.0
+    sell-price: 50.0
+    stock: -1
+    description: "Magical golden apple"
+    
+  enchanted_golden_apple:
+    material: "ENCHANTED_GOLDEN_APPLE"
+    name: "&6&lEnchanted Golden Apple"
+    buy-price: 1000.0
+    sell-price: 500.0
+    stock: -1
+    description: "Legendary healing fruit"
+    
+  golden_carrot:
+    material: "GOLDEN_CARROT"
+    name: "&6Golden Carrot"
+    buy-price: 25.0
+    sell-price: 12.5
+    stock: -1
+    description: "Nutritious golden carrot"
+    
+  # Raw Materials
+  wheat:
+    material: "WHEAT"
+    name: "&eWheat"
+    buy-price: 2.0
+    sell-price: 1.0
+    stock: -1
+    description: "Basic grain"
+    
+  carrot:
+    material: "CARROT"
+    name: "&6Carrot"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Orange vegetable"
+    
+  potato:
+    material: "POTATO"
+    name: "&6Potato"
+    buy-price: 2.5
+    sell-price: 1.25
+    stock: -1
+    description: "Starchy tuber"
+    
+  beetroot:
+    material: "BEETROOT"
+    name: "&cBeetroot"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Red root vegetable"
+    
+  # Fish
+  cooked_cod:
+    material: "COOKED_COD"
+    name: "&fCooked Cod"
+    buy-price: 6.0
+    sell-price: 3.0
+    stock: -1
+    description: "Flaky white fish"
+    
+  cooked_salmon:
+    material: "COOKED_SALMON"
+    name: "&cCooked Salmon"
+    buy-price: 7.0
+    sell-price: 3.5
+    stock: -1
+    description: "Pink salmon fillet"
+    
+  tropical_fish:
+    material: "TROPICAL_FISH"
+    name: "&eTropical Fish"
+    buy-price: 10.0
+    sell-price: 5.0
+    stock: -1
+    description: "Exotic colorful fish"
+    
+  pufferfish:
+    material: "PUFFERFISH"
+    name: "&ePufferfish"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Dangerous spiky fish"
+    
+  # Sweet Treats
+  cake:
+    material: "CAKE"
+    name: "&fCake"
+    buy-price: 20.0
+    sell-price: 10.0
+    stock: -1
+    description: "Delicious birthday cake"
+    
+  cookie:
+    material: "COOKIE"
+    name: "&6Cookie"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet chocolate chip cookie"
+    
+  pumpkin_pie:
+    material: "PUMPKIN_PIE"
+    name: "&6Pumpkin Pie"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Seasonal pumpkin pie"
+    
+  # Beverages
+  milk_bucket:
+    material: "MILK_BUCKET"
+    name: "&fMilk Bucket"
+    buy-price: 15.0
+    sell-price: 7.5
+    stock: -1
+    description: "Fresh cow milk"
+    
+  honey_bottle:
+    material: "HONEY_BOTTLE"
+    name: "&6Honey Bottle"
+    buy-price: 12.0
+    sell-price: 6.0
+    stock: -1
+    description: "Sweet bee honey"
+    
+  # Fruits
+  melon_slice:
+    material: "MELON_SLICE"
+    name: "&aMemlon Slice"
+    buy-price: 3.0
+    sell-price: 1.5
+    stock: -1
+    description: "Refreshing melon"
+    
+  sweet_berries:
+    material: "SWEET_BERRIES"
+    buy-price: 4.0
+    sell-price: 2.0
+    stock: -1
+    description: "Sweet forest berries"
+    
+  glow_berries:
+    material: "GLOW_BERRIES"
+    name: "&eGlow Berries"
+    buy-price: 8.0
+    sell-price: 4.0
+    stock: -1
+    description: "Glowing cave berries"
+
+# Continue with other sections...
+# This is a comprehensive example showing the structure
+# You can add more items to each section following this pattern

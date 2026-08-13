@@ -1,0 +1,66 @@
+# Builds EasyShopGUI directly from source on every push/PR and publishes the compiled
+# plugin jar as a downloadable workflow artifact - no local Maven setup required.
+#
+# Compiled against paper-api 1.21.1 (see pom.xml for the full reasoning) so the plugin
+# supports every server from 1.21.1 through the current 26.2 release - a plugin built
+# against an older API keeps working on newer servers, but not the reverse, so this
+# project targets its oldest supported version, not its newest. A 1.21.1 server needs
+# JDK 21 to run, so that's what this workflow compiles with; the resulting bytecode
+# loads fine on every newer JDK newer servers use too.
+name: Build Plugin
+
+"on":
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # Lets you trigger a build manually from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# Cancel superseded runs on the same branch/PR so pushing twice in a row doesn't
+# burn double the runner time building a commit nobody will look at.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn -B clean package --file pom.xml
+
+      # mvn package exiting 0 doesn't by itself guarantee the shade step actually
+      # produced a plugin jar (e.g. a misconfigured <finalName> or an empty target/
+      # would still exit 0) - fail the build explicitly if the expected artifact is
+      # missing so a broken build never silently reports green.
+      - name: Verify shaded jar was produced
+        run: |
+          shopt -s nullglob
+          jars=(target/*.jar)
+          if [ ${#jars[@]} -eq 0 ]; then
+            echo "::error::No jar found in target/ after 'mvn package' - the build did not produce a plugin jar."
+            exit 1
+          fi
+          echo "Found $(basename "${jars[0]}") ($(du -h "${jars[0]}" | cut -f1))"
+
+      - name: Upload plugin jar
+        uses: actions/upload-artifact@v7
+        with:
+          name: EasyShopGUI-plugin
+          path: target/*.jar
+          if-no-files-found: error
+          retention-days: 30

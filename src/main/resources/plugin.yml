@@ -1,0 +1,112 @@
+name: EasyShopGUI
+version: '${project.version}'
+main: dev.turjo.easyshopgui.EasyShopGUI
+# api-version signals which Bukkit API level this plugin was coded against - Bukkit
+# uses it to decide whether to apply backwards-compatibility shims for plugins built
+# against something older, so this should match the FLOOR of what the plugin supports
+# (see pom.xml's paper.version, 1.21.1), not the newest server version it happens to
+# also run on. The field only carries minor-version granularity from 1.20.5 onward
+# (per Bukkit's own plugin.yml docs), so '1.21' is the correct value for a 1.21.1
+# floor - '1.21.1' itself is not how this field is meant to be expressed.
+api-version: '1.21'
+author: Turjo
+description: Premium Minecraft Shop Plugin with Advanced Features
+website: https://github.com/turjo/EasyShopGUI
+prefix: EasyShopGUI
+
+depend:
+  - Vault
+
+softdepend:
+  # Consolidated to match exactly what HookManager detects (previously this list and
+  # config.yml's separate `hooks` section named two different, non-overlapping sets of
+  # plugins, and neither was checked anywhere in code).
+  - PlaceholderAPI
+  - EcoEnchants
+  - AdvancedEnchantments
+  - ExcellentEnchants
+  - CrazyEnchantments
+  - EpicSpawners
+  - UpgradeableSpawners
+  - DiscordSRV
+  - Citizens
+
+commands:
+  shop:
+    description: Open the main shop GUI
+    usage: /<command> [shop] [player]
+    aliases: [shops, store]
+    permission: easyshopgui.use
+    permission-message: §cYou don't have permission to use this command!
+  
+  sell:
+    description: Open the quick sell GUI
+    usage: /<command>
+    aliases: [sellgui, quicksell]
+    permission: easyshopgui.sell
+    permission-message: §cYou don't have permission to use this command!
+  
+  eshop:
+    description: EasyShopGUI admin commands
+    usage: /<command> <subcommand>
+    aliases: [easyshop, shopgui]
+    permission: easyshopgui.admin
+    permission-message: §cYou don't have permission to use this command!
+
+  withdraw:
+    description: Withdraw money as paper cheque
+    usage: /<command> <amount>
+    permission: easyshopgui.withdraw
+    permission-message: §cYou don't have permission to withdraw money as cheques!
+
+permissions:
+  easyshopgui.*:
+    description: Gives access to all EasyShopGUI features
+    default: op
+    children:
+      easyshopgui.use: true
+      easyshopgui.admin: true
+      easyshopgui.bypass: true
+      easyshopgui.discount.*: true
+      easyshopgui.multiplier.*: true
+      easyshopgui.withdraw: true
+  
+  easyshopgui.use:
+    description: Allows players to use shops
+    default: true
+  
+  easyshopgui.sell:
+    description: Allows players to use the sell GUI
+    default: true
+  
+  easyshopgui.admin:
+    description: Allows access to admin commands
+    default: op
+  
+  easyshopgui.bypass:
+    description: Bypass all shop restrictions
+    default: op
+  
+  easyshopgui.sellgui:
+    description: Access to the sell GUI
+    default: true
+  
+  easyshopgui.discount.*:
+    description: All discount permissions
+    default: false
+  
+  easyshopgui.multiplier.*:
+    description: All sell multiplier permissions
+    default: false
+  
+  easyshopgui.shop.*:
+    description: Access to all shops
+    default: true
+  
+  easyshopgui.item.*:
+    description: Access to all shop items
+    default: true
+  
+  easyshopgui.withdraw:
+    description: Allows players to withdraw money as paper cheques
+    default: true
